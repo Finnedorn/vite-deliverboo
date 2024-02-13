@@ -3,8 +3,8 @@
     <div id="hero">
         <div class="container">
             <div class="m-auto d-flex pt-4">
-                <input type="text" class="form-control" placeholder="Poke, Indiana..." v-model="filterSearch">
-                <button class="btn btn-outline-success" type="button" @click="$emit('TypeSearcher', filterSearch)">Cerca</button>
+                <input type="text" class="form-control" placeholder="Poke, Indiana..." v-model="searchedTypes" @keyup="$emit('TypeSearcher', searchedTypes)">
+                <!-- <button class="btn btn-outline-success" type="button" @click="$emit('TypeSearcher', searchedTypes)">Cerca</button> -->
             </div>
         </div>
     </div>
@@ -13,6 +13,11 @@
 <script>
 export default {
     name: "SearchbarComponent",
+    data() {
+        return {
+            searchedTypes: "",
+        };
+    },
 };
 </script>
   

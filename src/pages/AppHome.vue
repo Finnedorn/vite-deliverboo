@@ -1,7 +1,7 @@
 <template>
     <NavbarComponent />
     <HeroComponent />
-    <SearchbarComponent @type-searcher="getSearchedTypes" />
+    <SearchbarComponent @type-searcher ="getSearchedTypes"/>
 </template>
   
 <script>
@@ -23,6 +23,11 @@ export default {
         };
     },
     methods: {
+        // cerco per tipo e sotto ho i ristoranti di quel tipo
+        getSearchedTypes(types) {
+            console.log(types);
+            // axios.get(store.ApiUrl + "type/" + types)
+        }
     },
     mounted() {
     }
