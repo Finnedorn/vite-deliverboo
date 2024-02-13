@@ -1,6 +1,6 @@
 <template>
     <h1>
-        Home page
+        Pagina del singolo ristorante
     </h1>
 </template>
   
@@ -8,7 +8,7 @@
 import axios from "axios";
 import { store } from "../data/store.js";
 export default {
-    name: 'AppHome',
+    name: 'RestaurantDetails',
     components: {
     },
     data() {
