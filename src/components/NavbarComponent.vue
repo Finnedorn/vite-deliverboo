@@ -30,7 +30,7 @@
                 </div>
                 <!-- admin -->
                 <div class="d-flex align-items-center">
-                    <div class="nav-link fs-5 me-3 fw-bold">
+                    <div class="rest-link fs-5 me-3 fw-bold">
                         Sei un ristoratore?
                     </div>
                     <button class="btn btn-admin">
@@ -39,28 +39,6 @@
                         </a>
                     </button>
                 </div>
-
-
-                <!-- admin
-                    <div class="d-flex align-items-center">
-                        <div class="nav-item d-flex flex-column dropdown">
-                            <div @click="toggleAdmin" class="d-flex justify-content-center align-items-center h-100 w-100">
-                                <i class="fa-solid fa-user"></i>
-                            </div>
-                            <div class="dropdown-content">
-                                <div class="dropdown-item">
-                                    <h6>
-                                        <a v-if="active" class="text-decoration-none" href="http://127.0.0.1:8000/">
-                                            Sei un ristoratore?
-                                        </a>
-                                    </h6>
-                                </div>
-                            </div>
-                        </div>
-                        <div id="buy-now" :class="{ 'd-none': show }">
-                            <img src="../images/Y_-so0KcYkEE0aHtBn1jRuOEik.png" alt="buy-now-cta-button" />
-                        </div>
-                    </div> -->
             </div>
         </nav>
     </header>
@@ -162,38 +140,17 @@ nav {
         }
     }
 
+    .rest-link {
+        color: $color-tertiary;
+    }
+
     .btn-admin {
         background-color: $color-primary;
         border-radius: 5px;
+        &:hover {
+            transform: scale(1.05);
+            transition: all 0.5s;
+        }
     }
-
-    // .dropdown {
-    //     position: relative;
-    //     color: $color-tertiary;
-    //     height: 40px;
-    //     width: 40px;
-    //     border-radius: 50%;
-    //     background-color: $color-white;
-
-    //     &:hover {
-    //         color: $color-white;
-    //         cursor: pointer;
-    //     }
-    // }
-
-    // .dropdown-content {
-    //     position: absolute;
-    //     right: 40px;
-    //     background-color: $color-white;
-    //     padding: 10px 20px;
-
-    //     a {
-    //         color: $color-tertiary;
-
-    //         &:hover {
-    //             color: $color-white;
-    //         }
-    //     }
-    // }
 }
 </style>
