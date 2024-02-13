@@ -2,19 +2,23 @@
     <header>
         <!-- navbar -->
         <nav class="navbar navbar-expand-lg p-0">
-            <div class="container-fluid overflow-hidden">
+            <div class="container-fluid overflow-hidden py-2 px-4">
+                <!-- toggler -->
                 <button id="navbar-toggler" @click="toggleButton()" :class="{ 'my-3': show }"
                     class="navbar-toggler ms-1 my-2" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
                     aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
+                <!-- elementi navbar -->
                 <div class="collapse navbar-collapse" :class="{ show: show }" id="navbarSupportedContent">
+                    <!-- logo -->
                     <div id="logo" class="py-2 mx-1 me-3" :class="{ 'd-none': show }">
                         <router-link :to="{ name: 'home' }">
                             <img src="../assets/img/logo_food_red.png" alt="deliverboo-logo" />
                         </router-link>
                     </div>
+                    <!-- voci navbar -->
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item" v-for="route in navroutes">
                             <router-link class="nav-link fs-5 me-3 fw-bold" :class="{ 'hover-none': show }"
@@ -24,28 +28,39 @@
                         </li>
                     </ul>
                 </div>
+                <!-- admin -->
+                <div class="d-flex align-items-center">
+                    <div class="nav-link fs-5 me-3 fw-bold">
+                        Sei un ristoratore?
+                    </div>
+                    <button class="btn btn-admin">
+                        <a class="text-decoration-none text-light fs-5 fw-bold" href="http://127.0.0.1:8000/">
+                            Vai all'area riservata
+                        </a>
+                    </button>
+                </div>
 
 
                 <!-- admin
-                <div class="d-flex align-items-center">
-                    <div class="nav-item d-flex flex-column dropdown">
-                        <div @click="toggleAdmin" class="d-flex justify-content-center align-items-center h-100 w-100">
-                            <i class="fa-solid fa-user"></i>
-                        </div>
-                        <div class="dropdown-content">
-                            <div class="dropdown-item">
-                                <h6>
-                                    <a v-if="active" class="text-decoration-none" href="http://127.0.0.1:8000/">
-                                        Sei un ristoratore?
-                                    </a>
-                                </h6>
+                    <div class="d-flex align-items-center">
+                        <div class="nav-item d-flex flex-column dropdown">
+                            <div @click="toggleAdmin" class="d-flex justify-content-center align-items-center h-100 w-100">
+                                <i class="fa-solid fa-user"></i>
+                            </div>
+                            <div class="dropdown-content">
+                                <div class="dropdown-item">
+                                    <h6>
+                                        <a v-if="active" class="text-decoration-none" href="http://127.0.0.1:8000/">
+                                            Sei un ristoratore?
+                                        </a>
+                                    </h6>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div id="buy-now" :class="{ 'd-none': show }">
-                        <img src="../images/Y_-so0KcYkEE0aHtBn1jRuOEik.png" alt="buy-now-cta-button" />
-                    </div>
-                </div> -->
+                        <div id="buy-now" :class="{ 'd-none': show }">
+                            <img src="../images/Y_-so0KcYkEE0aHtBn1jRuOEik.png" alt="buy-now-cta-button" />
+                        </div>
+                    </div> -->
             </div>
         </nav>
     </header>
@@ -65,7 +80,7 @@ export default {
                 {
                     label: "Contattaci",
                     name: "restaurants",
-                }, 
+                },
             ],
             show: false,
             active: false,
@@ -75,7 +90,7 @@ export default {
         toggleButton() {
             this.show = !this.show;
         },
-        
+
         // getActive() {
         //     return this.active;
         // },
@@ -87,7 +102,7 @@ export default {
 </script>
   
 <style lang="scss" scoped>
-@use "../styles/partials/variables" as *;
+@use '../assets/style/partials/variables.scss' as *;
 
 nav {
     background-color: $color-white;
@@ -135,11 +150,9 @@ nav {
 
     .nav-link {
         color: $color-tertiary;
-        border-bottom: 3px solid transparent;
 
         &:hover {
-            color: $color-tertiary;
-            border-color: $color-primary;
+            color: $color-tertiary-hover;
         }
     }
 
@@ -149,40 +162,38 @@ nav {
         }
     }
 
-    #buy-now:hover {
-        transform: scale(1.05);
-        transition: all 0.5s;
-        filter: brightness(1.1);
-        cursor: pointer;
+    .btn-admin {
+        background-color: $color-primary;
+        border-radius: 5px;
     }
 
-    .dropdown {
-        position: relative;
-        color: $color-tertiary;
-        height: 40px;
-        width: 40px;
-        border-radius: 50%;
-        background-color: $color-white;
+    // .dropdown {
+    //     position: relative;
+    //     color: $color-tertiary;
+    //     height: 40px;
+    //     width: 40px;
+    //     border-radius: 50%;
+    //     background-color: $color-white;
 
-        &:hover {
-            color: $color-white;
-            cursor: pointer;
-        }
-    }
+    //     &:hover {
+    //         color: $color-white;
+    //         cursor: pointer;
+    //     }
+    // }
 
-    .dropdown-content {
-        position: absolute;
-        right: 40px;
-        background-color: $color-white;
-        padding: 10px 20px;
+    // .dropdown-content {
+    //     position: absolute;
+    //     right: 40px;
+    //     background-color: $color-white;
+    //     padding: 10px 20px;
 
-        a {
-            color: $color-tertiary;
+    //     a {
+    //         color: $color-tertiary;
 
-            &:hover {
-                color: $color-white;
-            }
-        }
-    }
+    //         &:hover {
+    //             color: $color-white;
+    //         }
+    //     }
+    // }
 }
 </style>

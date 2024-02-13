@@ -14,7 +14,7 @@ export default {
 </script>
   
 <style lang="scss" scoped>
-@use "../styles/partials/variables" as *;
+@use '../assets/style/partials/variables.scss' as *;
 
 #hero {
     width: 100%;
@@ -25,4 +25,5 @@ export default {
         height: 100%;
     }
 }
+
 </style>
