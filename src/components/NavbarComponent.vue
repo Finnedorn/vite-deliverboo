@@ -1,5 +1,6 @@
 <template>
     <header>
+        <!-- navbar -->
         <nav class="navbar navbar-expand-lg p-0">
             <div class="container-fluid overflow-hidden">
                 <button id="navbar-toggler" @click="toggleButton()" :class="{ 'my-3': show }"
@@ -11,7 +12,7 @@
                 <div class="collapse navbar-collapse" :class="{ show: show }" id="navbarSupportedContent">
                     <div id="logo" class="py-2 mx-1 me-3" :class="{ 'd-none': show }">
                         <router-link :to="{ name: 'home' }">
-                            <img src="" alt="deliverboo-logo" />
+                            <img src="../assets/img/logo_food_red.png" alt="deliverboo-logo" />
                         </router-link>
                     </div>
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
@@ -23,6 +24,7 @@
                         </li>
                     </ul>
                 </div>
+
 
                 <!-- admin
                 <div class="d-flex align-items-center">
@@ -88,7 +90,7 @@ export default {
 @use "../styles/partials/variables" as *;
 
 nav {
-    background-color: $color-bg-dark;
+    background-color: $color-white;
     z-index: 1000;
 
     #navbar-toggler {
@@ -96,7 +98,7 @@ nav {
         color: $color-tertiary;
         border-radius: none !important;
         padding: none !important;
-        outline: 1px solid $color-tertiary;
+        outline: 1px solid $color-white;
         outline-offset: none !important;
 
         &:active {
@@ -104,10 +106,10 @@ nav {
         }
 
         &:hover {
-            background-color: $color-bg-dark;
+            background-color: $color-white;
             border-radius: none !important;
             outline-offset: none !important;
-            outline: 3px solid $color-secondary-blue;
+            outline: 3px solid $color-primary;
             transition: all 0.5s;
         }
 
@@ -136,8 +138,8 @@ nav {
         border-bottom: 3px solid transparent;
 
         &:hover {
-            color: $color-white;
-            border-color: $color-secondary-blue;
+            color: $color-tertiary;
+            border-color: $color-primary;
         }
     }
 
@@ -160,7 +162,7 @@ nav {
         height: 40px;
         width: 40px;
         border-radius: 50%;
-        background-color: $color-secondary;
+        background-color: $color-white;
 
         &:hover {
             color: $color-white;
@@ -171,7 +173,7 @@ nav {
     .dropdown-content {
         position: absolute;
         right: 40px;
-        background-color: $color-bg-dark;
+        background-color: $color-white;
         padding: 10px 20px;
 
         a {
