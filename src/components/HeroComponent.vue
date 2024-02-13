@@ -18,7 +18,7 @@ export default {
 
 #hero {
     width: 100%;
-    height: 1000px;
+    height: 700px;
     background-color: $color-bg-primary;
     .container {
         position: relative;
