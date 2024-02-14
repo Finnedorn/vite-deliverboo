@@ -2,7 +2,7 @@
     <!-- searchbar  -->
     <section id="search-section">
         <div class="container">
-            <div class="text-center py-5">
+            <div class="text-center mb-5">
                 <h2 class="mb-2 fw-bold fs-1">Di che cosa hai voglia stasera?</h2>
                 <h5 class="mb-3">Scopri tutte le nostre deliziose alternative</h5>
             </div>
@@ -13,16 +13,30 @@
                 <input type="search" id="searchbar" name="search" class="form-control" placeholder="Cerca una tipologia di piatto" v-model="searchedTypes" @keyup="$emit('TypeSearcher', searchedTypes)">
                 <button class="btn" type="button" @click="$emit('TypeSearcher', searchedTypes)">Cerca</button>
             </div>
+            <div class="row">
+                <div class="col-12 col-lg-4 col-xl-3 mb-3" v-for="(type) in store.types">
+                   <TypeCardComponent :el="type"/> 
+                </div>
+            </div>
                 
         </div>
     </section>
 </template>
   
 <script>
+import axios from "axios";
+import { store } from "../data/store.js";
+import typeCardComponent from "./typeCardComponent.vue";
+import TypeCardComponent from "./typeCardComponent.vue";
 export default {
     name: "SearchComponent",
+    components: {
+    typeCardComponent,
+    TypeCardComponent
+},
     data() {
         return {
+            store,
             searchedTypes: "",
         };
     },
@@ -33,8 +47,6 @@ export default {
 @use '../assets/style/partials/variables.scss' as *;
 
 #search-section {
-    width: 100%;
-    height: 300px;
     background-color: $color-primary;
     .input-group{
         span{

@@ -15,8 +15,15 @@ export default {
     };
   },
   methods: {
+    allTypes() {
+      axios.get(store.apiUrl + "/types").then((res) => {
+        console.log(res.data.results);
+        this.store.types = res.data.results;
+      });
+    },
   },
   mounted() {
+    this.allTypes();
   }
 }
 </script>
