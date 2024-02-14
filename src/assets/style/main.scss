@@ -18,3 +18,30 @@ body{
 img{
     width: 100%;
 }
+
+button{
+    a{
+      text-decoration: none;
+    //   color: $color-black;
+    }
+}
+
+a{
+text-decoration: none;
+}
+
+
+// ***** SCROLLBAR *******
+
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+background-color: $color-secondary;
+}
+
+::-webkit-scrollbar-thumb {
+background: $color-primary-hover; 
+border-radius: 5px;
+}
