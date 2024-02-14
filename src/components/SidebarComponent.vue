@@ -1,52 +1,39 @@
 <template>
-    <header>
-        <nav class="sidebar">
-            <nav class="navbar navbar-expand-lg p-0">
-                <div class="d-flex flex-column justify-content-between ">
-
-                    <!-- toggler -->
-                    <!-- <button id="navbar-toggler" @click="toggleButton()" :class="{ 'my-3': show }"
-                        class="navbar-toggler ms-1 my-2" type="button" data-bs-toggle="collapse"
-                        data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button> -->
-
-                    <!-- elementi navbar -->
-                    <div class="collapse navbar-collapse flex-column" :class="{ show: show }" id="navbarSupportedContent">
-                        <!-- logo -->
-                        <div id="logo" class="m-3 mb-5" :class="{ 'd-none': show }">
-                            <router-link :to="{ name: 'home' }">
-                                <img src="../assets/img/logo_food_red.png" alt="deliverboo-logo" />
-                            </router-link>
-                        </div>
-                        <!-- voci navbar -->
-                        <div class="navbar-nav d-flex flex-column">
-                            <div>
-
-                            </div>
-                            <div class="nav-item my-2" v-for="route in navroutes">
-                                <input type="checkbox" class="form-check-input check-type me-3" name="types">
-                                <label for="types" class="form-check-label">{{ route }}</label>
-                            </div>
-                        </div>
+    <nav class="sidebar">
+        <nav class="navbar navbar-expand-lg p-0 d-flex flex-column justify-content-between h-100">
+            <div class="d-flex flex-column align-items-center">
+                <!-- logo -->
+                <div id="logo" class="m-3 my-4" :class="{ 'd-none': show }">
+                    <router-link :to="{ name: 'home' }">
+                        <img src="../assets/img/logo_food_red.png" alt="deliverboo-logo" />
+                    </router-link>
+                </div>
+                <!-- voci navbar -->
+                <div class="navbar-nav d-flex flex-column ">
+                    <div class="nav-link fs-4 mb-1 fw-bold">
+                        Categorie
                     </div>
-
-                    <!-- admin -->
-                    <div class="d-flex flex-column align-items-center p-3">
-                        <div class="rest-link fs-5 mb-3 fw-bold">
-                            Sei un ristoratore?
+                    <div id="checkbox-container" class="overflow-y-auto">
+                        <div class="nav-item my-2 d-flex align-items-center" v-for="route in navroutes">
+                            <input type="checkbox" class="form-check-input check-type ms-1  me-2" name="types">
+                            <label for="types" class="form-check-label fs-5 ">{{ route }}</label>
                         </div>
-                        <button class="btn btn-admin">
-                            <a class="text-decoration-none text-light fs-5 fw-bold" href="http://127.0.0.1:8000/">
-                                Vai all'area riservata
-                            </a>
-                        </button>
                     </div>
                 </div>
-            </nav>
+            </div>
+            <!-- admin -->
+            <div class="d-flex flex-column align-items-center p-3 pb-4">
+                <div class="nav-link fs-4 mb-3 fw-bold">
+                    Sei un ristoratore?
+                </div>
+                <button class="btn btn-admin">
+                    <a class="text-decoration-none text-light fs-5 fw-bold" href="http://127.0.0.1:8000/">
+                        Vai all'area riservata
+                    </a>
+                </button>
+            </div>
         </nav>
-    </header>
+    </nav>
 </template>
   
 <script>
@@ -90,9 +77,7 @@ export default {
 
 .sidebar {
     background-color: $color-white;
-    height: 100vh;
-    position: fixed;
-    z-index: 100;
+    
 
     #navbar-toggler {
         border-color: none !important;
@@ -144,10 +129,6 @@ export default {
         }
     }
 
-    .rest-link {
-        color: $color-tertiary;
-    }
-
     .btn-admin {
         background-color: $color-primary;
         border-radius: 5px;
@@ -156,6 +137,10 @@ export default {
             transform: scale(1.05);
             transition: all 0.5s;
         }
+    }
+
+    #checkbox-container {
+        max-height: 700px;
     }
 }
 </style>
