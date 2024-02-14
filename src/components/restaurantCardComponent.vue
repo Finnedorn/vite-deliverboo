@@ -1,0 +1,37 @@
+<template>
+   <div class="card h-100 overflow-hidden">
+    <img :src="store.imagePath + el.image" :alt="el.name" class="card-img-top" />
+    <div class="card-body">
+      <h5>{{ el.name }}</h5>
+    </div>
+  </div>
+  </template>
+  
+  <script>
+  import { store } from "../data/store";
+  
+  export default {
+    name: "restaurantCardComponent",
+    props: ["el"],
+    data() {
+      return {
+        store,
+      };
+    },
+  };
+  </script>
+  
+  <style lang="scss" scoped>
+@use '../assets/style/partials/variables.scss' as *;
+  
+  .card {
+
+
+    &:hover {
+      transition: all 0.3s;
+      filter: brightness(110%);
+      transform: scale(1.02);
+      cursor: pointer;
+    }
+  }
+  </style>
