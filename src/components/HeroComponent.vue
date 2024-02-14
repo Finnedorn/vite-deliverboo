@@ -46,8 +46,8 @@ export default {
     .hero-img {
         width: 850px;
         position: absolute;
-        right: -10px;
-        top: 10px;
+        right: 0px;
+        top: 50px;
     }
 }
 

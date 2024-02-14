@@ -1,13 +1,16 @@
 <template>
+  <SidebarComponent />
   <router-view :key="$route.path"></router-view>
 </template>
 
 <script>
 import axios from "axios";
 import { store } from "./data/store.js";
+import SidebarComponent from "./components/SidebarComponent.vue";
 export default {
   name: 'App',
   components: {
+    SidebarComponent
   },
   data() {
     return {
