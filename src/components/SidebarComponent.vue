@@ -3,7 +3,7 @@
         <nav class="navbar navbar-expand-lg p-0 d-flex flex-column justify-content-between h-100">
             <div class="d-flex flex-column align-items-center">
                 <!-- logo -->
-                <div id="logo" class="m-3 my-4">
+                <div id="logo" class="m-3 my-1">
                     <router-link :to="{ name: 'home' }">
                         <img src="../assets/img/logo_food_red.png" alt="deliverboo-logo" />
                     </router-link>
@@ -14,10 +14,10 @@
                         Categorie
                     </div>
                     <div id="checkbox-container" class="overflow-y-auto">
-                        <div class="nav-item my-2 d-flex align-items-center" v-for="(route, index) in this.store.types">
-                            <input type="checkbox" class="form-check-input check-type ms-1  me-2" :id='route.id'
-                                v-model="checkedValue[index]" :key="index" :value="route" @change="checkType()">
-                            <label for="types" class="form-check-label fs-5 ">{{ route.name }}</label>
+                        <div class="nav-item my-2 d-flex align-items-center" v-for="(type, index) in this.store.types">
+                            <input type="checkbox" class="form-check-input check-type ms-1  me-2" :id='type.id'
+                                 :key="index" :value="type" @change="checkType(type.id)">
+                            <label for="types" class="form-check-label fs-5 ">{{ type.name }}</label>
                         </div>
                         <button class="btn btn-admin text-decoration-none text-light fs-5 fw-bold" @click="getcheckedRestaurants()"> Cerca </button>
                     </div>
@@ -48,22 +48,21 @@ export default {
     data() {
         return {
             store,
-            checkedValue: [],
+            checkedTypeList: [],
             types_id: []
         };
     },
     methods: {
+        checkType(id) {
+            console.log(id);
+            this.checkedTypeList.push(id);
+            console.log(this.checkedTypeList);
+        },
         getcheckedRestaurants() {
-            
-
-            axios.get(store.apiUrl + "/restaurants", { params: this.types_id }).then((res) => {
+            axios.get(store.apiUrl + "/restaurants", { params: this.checkedTypeList }).then((res) => {
                 console.log(res.data.results);
 
-                // this.store.checkedList = [];
-                // if (this.checkedValue.length > 0) {
-                //     this.store.checkedList.push(this.checkedValue);
-                // }
-                // console.log(this.store.checkedList);
+               
             });
         }
     },
