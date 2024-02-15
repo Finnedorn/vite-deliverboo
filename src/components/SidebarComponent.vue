@@ -3,7 +3,7 @@
         <nav class="navbar navbar-expand-lg p-0 d-flex flex-column justify-content-between h-100">
             <div class="d-flex flex-column align-items-center">
                 <!-- logo -->
-                <div id="logo" class="m-3 my-4" :class="{ 'd-none': show }">
+                <div id="logo" class="m-3 my-1">
                     <router-link :to="{ name: 'home' }">
                         <img src="../assets/img/logo_food_red.png" alt="deliverboo-logo" />
                     </router-link>
@@ -14,10 +14,12 @@
                         Categorie
                     </div>
                     <div id="checkbox-container" class="overflow-y-auto">
-                        <div class="nav-item my-2 d-flex align-items-center" v-for="route in navroutes">
-                            <input type="checkbox" class="form-check-input check-type ms-1  me-2" name="types">
-                            <label for="types" class="form-check-label fs-5 ">{{ route }}</label>
+                        <div class="nav-item my-2 d-flex align-items-center" v-for="(type, index) in this.store.types">
+                            <input type="checkbox" class="form-check-input check-type ms-1  me-2" :id='type.id'
+                                 :key="index" :value="type" @change="checkType(type.id)">
+                            <label for="types" class="form-check-label fs-5 ">{{ type.name }}</label>
                         </div>
+                        <button class="btn btn-admin text-decoration-none text-light fs-5 fw-bold" @click="getcheckedRestaurants()"> Cerca </button>
                     </div>
                 </div>
             </div>
@@ -37,38 +39,35 @@
 </template>
   
 <script>
+import axios from 'axios';
+import { store } from '../data/store.js';
+
 export default {
     name: "SidebarComponent",
     components: {},
     data() {
         return {
-            navroutes: [
-                'Pizza',
-                'Poke',
-                'Kebab',
-                'Hamburger',
-                'Panini',
-                'Messicana',
-                'Giapponese',
-                'Cinese',
-                'Italiana',
-                'Indiana',
-                'Spagnola',
-                'Thai',
-                'Greca',
-                'Argentina',
-                'Asiatica',
-                'Mediterranea',
-            ],
-            show: false,
-            active: false,
+            store,
+            checkedTypeList: [],
+            types_id: [],
+          
         };
     },
     methods: {
-        toggleButton() {
-            this.show = !this.show;
+        checkType(id) {          
+            this.checkedTypeList.push(id);           
+          
         },
+        getcheckedRestaurants() {
+            let typeList= JSON.parse(JSON.stringify(this.checkedTypeList));
+            axios.get(store.apiUrl + "/restaurants", { params: { types: typeList} }).then((res) => {
+                // console.log(res.data.results);
+               
+            });
+        }
     },
+    mounted() {
+    }
 };
 </script>
   
@@ -77,7 +76,7 @@ export default {
 
 .sidebar {
     background-color: $color-white;
-    
+
 
     #navbar-toggler {
         border-color: none !important;
