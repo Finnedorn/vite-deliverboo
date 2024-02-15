@@ -49,17 +49,23 @@ export default {
         return {
             store,
             checkedTypeList: [],
-            types_id: []
+            types_id: [],
+          
         };
     },
     methods: {
         checkType(id) {
-            console.log(id);
+            // console.log(id);
             this.checkedTypeList.push(id);
-            console.log(this.checkedTypeList);
+            // console.log(JSON.parse(JSON.stringify(this.checkedTypeList)))
+            // console.log(Array.from(this.checkedTypeList));
+            // this.store.restaurantParams=Array.from(this.checkedTypeList);
+            // console.log(this.store.restaurantParams);
+          
         },
         getcheckedRestaurants() {
-            axios.get(store.apiUrl + "/restaurants", { params: this.checkedTypeList }).then((res) => {
+            let typeList= JSON.parse(JSON.stringify(this.checkedTypeList));
+            axios.get(store.apiUrl + "/restaurants", { params: { types: typeList} }).then((res) => {
                 console.log(res.data.results);
 
                
