@@ -25,6 +25,12 @@
 @use '../assets/style/partials/variables.scss' as *;
   
   .card {
+    img {
+      aspect-ratio: 3/2;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
 
 
     &:hover {

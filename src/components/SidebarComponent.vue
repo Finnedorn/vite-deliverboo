@@ -13,13 +13,15 @@
                     <div class="nav-link fs-4 mb-1 fw-bold">
                         Categorie
                     </div>
+
                     <div id="checkbox-container" class="">
                         <div class="nav-item my-1 d-flex align-items-center" v-for="(type, index) in this.store.types">
                             <input type="checkbox" class="form-check-input check-type ms-1 me-2" :id='type.id'
-                                :key="index" :value="type" @change="checkType(type.id)">
+                                :key="index" :value="type.id" v-model="checkedTypeList">
                             <label for="types" class="form-check-label fs-5 ">{{ type.name }}</label>
                         </div>
                        
+
                     </div>
                   
                     
@@ -55,19 +57,22 @@ export default {
             store,
             checkedTypeList: [],
             types_id: [],
-          
+
         };
     },
     methods: {
-        checkType(id) {          
-            this.checkedTypeList.push(id);           
-          
-        },
         getcheckedRestaurants() {
-            let typeList= JSON.parse(JSON.stringify(this.checkedTypeList));
-            axios.get(store.apiUrl + "/restaurants", { params: { types: typeList} }).then((res) => {
-                // console.log(res.data.results);
-               
+            this.store.selectedRestaurants = [];
+            if (this.checkedTypeList.length == 0) {
+                return
+            }
+            console.log(this.checkedTypeList);
+            let typeList = JSON.parse(JSON.stringify(this.checkedTypeList));
+            axios.get(store.apiUrl + "/restaurants", { params: { types: typeList } }).then((res) => {
+                console.log(res.data.results);
+
+                this.store.selectedRestaurants = res.data.results;
+
             });
         }
     },
