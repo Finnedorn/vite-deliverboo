@@ -54,20 +54,14 @@ export default {
         };
     },
     methods: {
-        checkType(id) {
-            // console.log(id);
-            this.checkedTypeList.push(id);
-            // console.log(JSON.parse(JSON.stringify(this.checkedTypeList)))
-            // console.log(Array.from(this.checkedTypeList));
-            // this.store.restaurantParams=Array.from(this.checkedTypeList);
-            // console.log(this.store.restaurantParams);
+        checkType(id) {          
+            this.checkedTypeList.push(id);           
           
         },
         getcheckedRestaurants() {
             let typeList= JSON.parse(JSON.stringify(this.checkedTypeList));
             axios.get(store.apiUrl + "/restaurants", { params: { types: typeList} }).then((res) => {
-                console.log(res.data.results);
-
+                // console.log(res.data.results);
                
             });
         }
