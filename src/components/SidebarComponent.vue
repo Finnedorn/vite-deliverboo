@@ -3,7 +3,7 @@
         <nav class="navbar navbar-expand-lg p-0 d-flex flex-column justify-content-between h-100">
             <div class="d-flex flex-column align-items-center">
                 <!-- logo -->
-                <div id="logo" class="m-3 my-4" :class="{ 'd-none': show }">
+                <div id="logo" class="m-3 my-4">
                     <router-link :to="{ name: 'home' }">
                         <img src="../assets/img/logo_food_red.png" alt="deliverboo-logo" />
                     </router-link>
@@ -15,11 +15,11 @@
                     </div>
                     <div id="checkbox-container" class="overflow-y-auto">
                         <div class="nav-item my-2 d-flex align-items-center" v-for="(route, index) in this.store.types">
-                            <input type="checkbox" class="form-check-input check-type ms-1  me-2" :id='route'
-                                v-model="checkedValue" @change="getcheckedRestaurants(route.id)" :key="index"
-                                :value="route">
+                            <input type="checkbox" class="form-check-input check-type ms-1  me-2" :id='route.id'
+                                v-model="checkedValue[index]" :key="index" :value="route" @change="checkType()">
                             <label for="types" class="form-check-label fs-5 ">{{ route.name }}</label>
                         </div>
+                        <button class="btn btn-admin text-decoration-none text-light fs-5 fw-bold" @click="getcheckedRestaurants()"> Cerca </button>
                     </div>
                 </div>
             </div>
@@ -48,34 +48,17 @@ export default {
     data() {
         return {
             store,
-            navroutes: [
-                'Pizza',
-                'Poke',
-                'Kebab',
-                'Hamburger',
-                'Panini',
-                'Messicana',
-                'Giapponese',
-                'Cinese',
-                'Italiana',
-                'Indiana',
-                'Spagnola',
-                'Thai',
-                'Greca',
-                'Argentina',
-                'Asiatica',
-                'Mediterranea',
-            ],
-            show: false,
-            active: false,
             checkedValue: [],
+            types_id: []
         };
     },
     methods: {
-        getcheckedRestaurants(id) {
-            // console.log(id);
-            axios.get(store.apiUrl + "/restaurants", { params: { types: id } }).then((res) => {
+        getcheckedRestaurants() {
+            
+
+            axios.get(store.apiUrl + "/restaurants", { params: this.types_id }).then((res) => {
                 console.log(res.data.results);
+
                 // this.store.checkedList = [];
                 // if (this.checkedValue.length > 0) {
                 //     this.store.checkedList.push(this.checkedValue);
