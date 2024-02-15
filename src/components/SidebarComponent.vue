@@ -14,9 +14,11 @@
                         Categorie
                     </div>
                     <div id="checkbox-container" class="overflow-y-auto">
-                        <div class="nav-item my-2 d-flex align-items-center" v-for="route in navroutes">
-                            <input type="checkbox" class="form-check-input check-type ms-1  me-2" name="types">
-                            <label for="types" class="form-check-label fs-5 ">{{ route }}</label>
+                        <div class="nav-item my-2 d-flex align-items-center" v-for="(route, index) in this.store.types">
+                            <input type="checkbox" class="form-check-input check-type ms-1  me-2" :id='route'
+                                v-model="checkedValue" @change="getcheckedRestaurants(route.id)" :key="index"
+                                :value="route">
+                            <label for="types" class="form-check-label fs-5 ">{{ route.name }}</label>
                         </div>
                     </div>
                 </div>
@@ -37,11 +39,15 @@
 </template>
   
 <script>
+import axios from 'axios';
+import { store } from '../data/store.js';
+
 export default {
     name: "SidebarComponent",
     components: {},
     data() {
         return {
+            store,
             navroutes: [
                 'Pizza',
                 'Poke',
@@ -62,13 +68,24 @@ export default {
             ],
             show: false,
             active: false,
+            checkedValue: [],
         };
     },
     methods: {
-        toggleButton() {
-            this.show = !this.show;
-        },
+        getcheckedRestaurants(id) {
+            // console.log(id);
+            axios.get(store.apiUrl + "/restaurants", { params: { types: id } }).then((res) => {
+                console.log(res.data.results);
+                // this.store.checkedList = [];
+                // if (this.checkedValue.length > 0) {
+                //     this.store.checkedList.push(this.checkedValue);
+                // }
+                // console.log(this.store.checkedList);
+            });
+        }
     },
+    mounted() {
+    }
 };
 </script>
   
@@ -77,7 +94,7 @@ export default {
 
 .sidebar {
     background-color: $color-white;
-    
+
 
     #navbar-toggler {
         border-color: none !important;

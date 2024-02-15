@@ -60,9 +60,9 @@ export default {
     methods: {
         searchRestaurants() {
             this.store.selectedRestaurants = [];
-            if (!this.searchValue) {
-                return
-            }
+            // if (!this.searchValue) {
+            //     return
+            // }
             this.selectedType = "";
 
             axios.get(store.apiUrl + "/types", { params: { name: this.searchValue } }).then((res) => {
@@ -83,7 +83,11 @@ export default {
                 // console.log(res.data.results[0].restaurants);
                 this.store.selectedRestaurants = res.data.results[0].restaurants;
             });
-        }
+        },
+
+    },
+    mounted() {
+
     }
 };
 </script>
