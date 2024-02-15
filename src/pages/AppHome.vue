@@ -1,6 +1,6 @@
 <template>
     <div class="main-container d-flex">
-        <SidebarComponent class="sidebar-container vh-100 d-none d-lg-block"/>
+        <SidebarComponent class="sidebar-container h-100 flex-shrink-0 d-none d-lg-block"/>
         <div class="flex-grow-1 h-100 overflow-y-scroll">
             <HeroComponent />
             <SearchComponent @type-searcher ="getSearchedTypes"/>
