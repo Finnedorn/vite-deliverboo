@@ -26,6 +26,9 @@
             <p v-if="this.selectedType">Ci sono {{ this.store.selectedRestaurants.length }} risultati
                 per {{
                     this.selectedType }}</p>
+            <p v-else v-show="this.store.selectedRestaurants.length > 0 && !this.searchValue">Ci sono {{
+                this.store.selectedRestaurants.length }}
+                risultati</p>
 
             <div @v-if="this.store.selectedRestaurants" class="row mb-5">
                 <div class="col-12 col-lg-4 col-xl-3 mb-3" v-for="(restaurant) in this.store.selectedRestaurants">
@@ -60,9 +63,9 @@ export default {
     methods: {
         searchRestaurants() {
             this.store.selectedRestaurants = [];
-            // if (!this.searchValue) {
-            //     return
-            // }
+            if (!this.searchValue) {
+                return
+            }
             this.selectedType = "";
 
             axios.get(store.apiUrl + "/types", { params: { name: this.searchValue } }).then((res) => {
