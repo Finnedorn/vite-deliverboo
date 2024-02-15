@@ -2,7 +2,8 @@
    <div class="card h-100 overflow-hidden">
     <img :src="store.imagePath + el.image" :alt="el.name" class="card-img-top" />
     <div class="card-body">
-      <h5>{{ el.name }}</h5>
+      <h4 class="bold">{{ el.name }}</h4>
+      <h6>{{ el.address }}</h6>
     </div>
   </div>
   </template>
