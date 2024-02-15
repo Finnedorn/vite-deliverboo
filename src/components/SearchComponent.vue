@@ -20,14 +20,11 @@
                     <typeCardComponent :el="type" @click="selectRestaurants(type.name)" />
                 </div>
             </div>
-           <p v-if="this.store.selectedRestaurants.length > 0 && this.searchValue" class="mb-3">Questi sono i risultati trovati in base alla tua ricerca</p>
-         <!-- <p v-if="this.selectedType">Ci sono {{ this.store.selectedRestaurants.length }} risultati
-                per {{
-                    this.selectedType }}</p>
-            <p v-else v-show="this.store.selectedRestaurants.length > 0 && !this.searchValue">Ci sono {{
+           <p v-if="this.store.selectedRestaurants.length > 0 && this.selectedType" class="mb-3">Questi sono i risultati trovati in base alla tua ricerca</p> 
+         <p v-if="this.store.selectedRestaurants.length === 0 && this.selectedType">Non sono stati trovati risultati</p>
+            <!-- <p v-else v-show="this.store.selectedRestaurants.length > 0 && !this.searchValue">Ci sono {{
                 this.store.selectedRestaurants.length }}
-                risultati</p> --> 
-<!-- <p>Questi sono i risultati trovati in base alla tua ricerca</p> -->
+                risultati</p>  -->
             <div @v-if="this.store.selectedRestaurants" class="row mb-5">
                 <div class="col-12 col-lg-4 col-xl-3 mb-3" v-for="(restaurant) in this.store.selectedRestaurants">
                     <restaurantCardComponent :el="restaurant" />
