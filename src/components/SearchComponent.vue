@@ -16,12 +16,24 @@
             </div>
 
             <div class="row mb-5">
-                <div class="col-12 col-lg-4 col-xl-3 mb-3" v-for="(type, index) in store.types">
-                    <typeCardComponent :el="type" @click="selectRestaurants(type.name)" />
+                <div class="col-12 col-lg-4 col-xl-3 mb-3 card_type_container" v-for="(type, index) in store.types">
+                    <div>
+                        <typeCardComponent :el="type" @click="selectRestaurants(type, index)" />
+                    </div>
                 </div>
             </div>
-            <p v-if="this.store.selectedRestaurants.length > 0 && this.selectedType || this.store.selectedRestaurants.length > 0  && this.searchValue" class="mb-3 text-center fs-4 ">Abbiamo trovato <span class="fw-bold">{{ this.store.selectedRestaurants.length }}</span> risultati in base alla tua ricerca</p> 
-            <p class="mb-3 text-center fs-4 " v-if="this.store.selectedRestaurants.length === 0 && this.selectedType && !this.store.dataLoading">Non sono stati trovati risultati</p>
+            
+           <p v-if="this.store.selectedRestaurants.length > 0 && this.selectedType || this.store.selectedRestaurants.length > 0  && this.searchValue"
+                class="mb-3 text-center fs-4 ">
+                Abbiamo trovato 
+                <span class="fw-bold">{{ this.store.selectedRestaurants.length }}</span>
+                <span v-if="this.store.selectedRestaurants.length > 1"> risultati</span> 
+                <span v-else> risultato</span> 
+                in base alla tua ricerca
+            </p> 
+
+         <p  class="mb-3 text-center fs-4 " v-if="this.store.selectedRestaurants.length === 0 && this.selectedType && this.store.dataLoading">Non sono stati trovati risultati</p>
+
             <!-- <p v-else v-show="this.store.selectedRestaurants.length > 0 && !this.searchValue">Ci sono {{
                 this.store.selectedRestaurants.length }}
                 risultati</p>  -->
@@ -54,18 +66,26 @@ export default {
         return {
             store,
             searchValue: "",
-            selectedType: "",
+            selectedType: [],
+
 
         };
     },
     methods: {
         searchRestaurants() {
-            this.store.dataLoading = true;
+            // resettare i valori della multiselected
+            let typeEl = document.querySelectorAll('.card_type_container');
+            for (let i = 0; i < typeEl.length; i ++) {
+                typeEl[i].classList.remove('selected_type');
+            }
+            this.selectedType = [];
+
+            this.store.dataLoading = false;
             this.store.selectedRestaurants = [];
             if (!this.searchValue) {
                 return
             }
-            this.selectedType = "";
+            // this.selectedType = "";
 
             axios.get(store.apiUrl + "/types", { params: { name: this.searchValue } }).then((res) => {
                 // console.log(res.data.results);
@@ -76,19 +96,49 @@ export default {
                 }
             });
             console.log(this.store.selectedRestaurants);
-            this.store.dataLoading = false;
-        },
-        selectRestaurants(typeName) {
             this.store.dataLoading = true;
+        },
+        selectRestaurants(type, i) {
+            // resettare i valori della searchbar
+            this.searchValue = '';
 
-            this.store.selectedRestaurants = [];
-            this.searchValue = "";
-            this.selectedType = typeName;
-            axios.get(store.apiUrl + "/types", { params: { name: typeName } }).then((res) => {
-                // console.log(res.data.results[0].restaurants);
-                this.store.selectedRestaurants = res.data.results[0].restaurants;
-            });
-            this.store.dataLoading = false;
+            this.store.dataLoading = true;
+            let typeEl = document.querySelectorAll('.card_type_container')[i];
+            if (this.selectedType.includes(type.id)) {
+                this.selectedType.splice(this.selectedType.indexOf(type.id) , 1);
+                typeEl.classList.remove('selected_type');
+                
+            } else {
+                this.selectedType.push(type.id);
+                typeEl.classList.add('selected_type');
+
+            }
+
+            if (this.selectedType.length > 0) {
+                console.log(JSON.parse(JSON.stringify(this.selectedType)));
+                let typeList = JSON.parse(JSON.stringify(this.selectedType));
+                axios.get(store.apiUrl + "/restaurants", { params: { types: typeList } }).then((res) => {
+                    console.log(res.data.results);
+    
+                    this.store.selectedRestaurants = res.data.results;
+    
+                });
+            } else {
+                this.store.selectedRestaurants = '';
+                this.store.dataLoading = false;
+            }
+
+            
+            // this.store.dataLoading = true;
+
+            // this.store.selectedRestaurants = [];
+            // this.searchValue = "";
+            // this.selectedType = typeName;
+            // axios.get(store.apiUrl + "/types", { params: { name: typeName } }).then((res) => {
+            //     // console.log(res.data.results[0].restaurants);
+            //     this.store.selectedRestaurants = res.data.results[0].restaurants;
+            // });
+            // this.store.dataLoading = false;
 
         },
 
@@ -138,5 +188,23 @@ export default {
 
     }
 
+}
+.card_type_container div {
+    border-radius: 1rem;
+    overflow: hidden;
+    
+    &:hover {
+    transition: all 0.3s;
+    filter: brightness(110%);
+    transform: scale(1.02);
+    cursor: pointer;
+    }
+
+}
+
+.selected_type {
+    div {
+        box-shadow:  0 0 8px 3px white;
+    }
 }
 </style>
