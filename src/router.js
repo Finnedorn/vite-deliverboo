@@ -3,6 +3,7 @@ import AppHome from '../src/pages/AppHome.vue';
 import AppRestaurants from '../src/pages/AppRestaurants.vue';
 import RestaurantDetails from '../src/pages/RestaurantDetails.vue';
 import NotFound from '../src/pages/NotFound.vue';
+import AppCheckout from './pages/AppCheckout.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -21,6 +22,10 @@ const router = createRouter({
       path: '/restaurants/:slug',
       name: 'single-restaurant',
       component: RestaurantDetails
+    },  {
+      path: '/checkout',
+      name: 'checkout',
+      component: AppCheckout
     },
     {
       path: "/:pathMatch(.*)*",
