@@ -4,6 +4,13 @@
         <nav class="navbar navbar-expand-lg p-0">
             <div class="container-fluid overflow-hidden py-2 px-4">
 
+                <!-- logo -->
+                <div id="logo" class="py-2 mx-1 me-3" :class="{ 'd-none': show }">
+                    <router-link :to="{ name: 'home' }">
+                        <img src="../assets/img/logo_food_red.png" alt="deliverboo-logo" />
+                    </router-link>
+                </div>
+
                 <!-- toggler -->
                 <!-- <button id="navbar-toggler" @click="toggleButton()" :class="{ 'my-3': show }"
                     class="navbar-toggler ms-1 my-2" type="button" data-bs-toggle="collapse"
@@ -13,26 +20,25 @@
                 </button> -->
 
                 <!-- elementi navbar -->
-                <div class="collapse navbar-collapse" :class="{ show: show }" id="navbarSupportedContent">
-                    <!-- logo -->
+                <!-- <div class="collapse navbar-collapse" :class="{ show: show }" id="navbarSupportedContent">
                     <div id="logo" class="py-2 mx-1 me-3" :class="{ 'd-none': show }">
                         <router-link :to="{ name: 'home' }">
                             <img src="../assets/img/logo_food_red.png" alt="deliverboo-logo" />
                         </router-link>
                     </div>
-                    <!-- voci navbar -->
-                    <!-- <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item" v-for="route in navroutes">
                             <router-link class="nav-link fs-5 me-3 fw-bold" :class="{ 'hover-none': show }"
                                 :to="{ name: route.name }">
                                 {{ route.label }}
                             </router-link>
                         </li>
-                    </ul> -->
-                </div>
+                    </ul>
+                </div> -->
+
                 <!-- admin -->
                 <div class="d-flex align-items-center">
-                    <div class="rest-link fs-5 me-3 fw-bold">
+                    <div class="rest-link fs-5 me-3 fw-bold d-none d-md-block ">
                         Sei un ristoratore?
                     </div>
                     <button class="btn btn-admin">
@@ -41,6 +47,7 @@
                         </a>
                     </button>
                 </div>
+
             </div>
         </nav>
     </header>
