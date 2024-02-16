@@ -25,6 +25,7 @@
   .card {
     height: 150px;
     border: 0 !important;
+    border-radius: 0 !important;
     position: relative;
     background-color: $color-secondary;
     h5 {
@@ -39,11 +40,6 @@
         left: -100px;
         top: -50px;
     }
-    &:hover {
-      transition: all 0.3s;
-      filter: brightness(110%);
-      transform: scale(1.02);
-      cursor: pointer;
-    }
+
   }
   </style>
