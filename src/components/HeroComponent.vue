@@ -2,16 +2,18 @@
     <!-- hero  -->
     <div id="hero">
         <div class="container-fluid pb-5">
-            <div class="container py-5">
+            <div class="container py-5 mb-4">
                 <div class="row">
-                    <h1 class="py-5 col-12">I piatti dei ristoranti che ami, <br> a domicilio</h1>
-                    <p class="col-12 col-md-4">Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima illum, ea ullam reprehenderit nesciunt, ipsam.</p>
+                    <h1 class="py-5 col-12 ">I piatti dei ristoranti che ami, <br> a domicilio</h1>
+                    <p class="col-12 col-md-4">Trova le cucine più amate dai ristoranti nella tua zona e ordina online a domicilio, il tutto consegnato in pochissimo tempo.</p>
                 </div>
-            
             </div>
             <div class="hero-img">
                 <img src="../assets/img/sushi-hero.png" alt="sushi-hero">
             </div>
+        </div>
+        <div class=" yellow-wave-wrapper">
+            <img src="../assets/img/wave-yellow.png" alt="yellow-wave">
         </div>
     </div>
 </template>
@@ -44,10 +46,10 @@ export default {
         }
     }
     .hero-img {
-        width: 850px;
+        width: 950px;
         position: absolute;
         right: 0px;
-        top: 50px;
+        top: 130px;
     }
 }
 

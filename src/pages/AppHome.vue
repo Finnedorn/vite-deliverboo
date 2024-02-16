@@ -1,6 +1,7 @@
 <template>
     <NavbarComponent />
     <HeroComponent />
+    <PartnersComponent />
     <SearchComponent @type-searcher ="getSearchedTypes"/>
 </template>
   
@@ -9,12 +10,14 @@ import axios from "axios";
 import { store } from "../data/store.js";
 import NavbarComponent from "@/components/NavbarComponent.vue";
 import HeroComponent from "@/components/HeroComponent.vue";
+import PartnersComponent from "@/components/PartnersComponent.vue";
 import SearchComponent from "@/components/SearchComponent.vue";
 export default {
     name: 'AppHome',
     components: {
         NavbarComponent,
         HeroComponent,
+        PartnersComponent,
         SearchComponent,
     },
     data() {
