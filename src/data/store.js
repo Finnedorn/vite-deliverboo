@@ -7,4 +7,5 @@ export const store = reactive({
     selectedTypes: [],
     selectedRestaurants: [],
     restaurantParams :[],
+    dataLoading: false
 });
