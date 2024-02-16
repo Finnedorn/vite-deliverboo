@@ -3,13 +3,15 @@
         <!-- navbar -->
         <nav class="navbar navbar-expand-lg p-0">
             <div class="container-fluid overflow-hidden py-2 px-4">
+
                 <!-- toggler -->
-                <button id="navbar-toggler" @click="toggleButton()" :class="{ 'my-3': show }"
+                <!-- <button id="navbar-toggler" @click="toggleButton()" :class="{ 'my-3': show }"
                     class="navbar-toggler ms-1 my-2" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
                     aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
-                </button>
+                </button> -->
+
                 <!-- elementi navbar -->
                 <div class="collapse navbar-collapse" :class="{ show: show }" id="navbarSupportedContent">
                     <!-- logo -->
@@ -19,14 +21,14 @@
                         </router-link>
                     </div>
                     <!-- voci navbar -->
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <!-- <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item" v-for="route in navroutes">
                             <router-link class="nav-link fs-5 me-3 fw-bold" :class="{ 'hover-none': show }"
                                 :to="{ name: route.name }">
                                 {{ route.label }}
                             </router-link>
                         </li>
-                    </ul>
+                    </ul> -->
                 </div>
                 <!-- admin -->
                 <div class="d-flex align-items-center">
@@ -50,18 +52,19 @@ export default {
     components: {},
     data() {
         return {
-            navroutes: [
-                {
-                    label: "Categorie",
-                    name: "restaurants",
-                },
-                {
-                    label: "Contattaci",
-                    name: "restaurants",
-                },
-            ],
-            show: false,
-            active: false,
+            
+            // navroutes: [
+            //     {
+            //         label: "Categorie",
+            //         name: "restaurants",
+            //     },
+            //     {
+            //         label: "Contattaci",
+            //         name: "restaurants",
+            //     },
+            // ],
+            // show: false,
+            // active: false,
         };
     },
     methods: {
