@@ -20,8 +20,8 @@
                     <typeCardComponent :el="type" @click="selectRestaurants(type.name)" />
                 </div>
             </div>
-           <p v-if="this.store.selectedRestaurants.length > 0 && this.selectedType" class="mb-3">Questi sono i risultati trovati in base alla tua ricerca</p> 
-         <p v-if="this.store.selectedRestaurants.length === 0 && this.selectedType">Non sono stati trovati risultati</p>
+           <p v-if="this.store.selectedRestaurants.length > 0 && this.selectedType || this.store.selectedRestaurants.length > 0  && this.searchValue" class="mb-3 text-center fs-4 ">Abbiamo trovato <span class="fw-bold">{{ this.store.selectedRestaurants.length }}</span> risultati in base alla tua ricerca</p> 
+         <p  class="mb-3 text-center fs-4 " v-if="this.store.selectedRestaurants.length === 0 && this.selectedType && !this.store.dataLoading">Non sono stati trovati risultati</p>
             <!-- <p v-else v-show="this.store.selectedRestaurants.length > 0 && !this.searchValue">Ci sono {{
                 this.store.selectedRestaurants.length }}
                 risultati</p>  -->
@@ -57,6 +57,7 @@ export default {
     },
     methods: {
         searchRestaurants() {
+            this.store.dataLoading = true;
             this.store.selectedRestaurants = [];
             if (!this.searchValue) {
                 return
@@ -72,8 +73,11 @@ export default {
                 }
             });
             console.log(this.store.selectedRestaurants);
+            this.store.dataLoading = false;
         },
         selectRestaurants(typeName) {
+            this.store.dataLoading = true;
+
             this.store.selectedRestaurants = [];
             this.searchValue = "";
             this.selectedType = typeName;
@@ -81,6 +85,8 @@ export default {
                 // console.log(res.data.results[0].restaurants);
                 this.store.selectedRestaurants = res.data.results[0].restaurants;
             });
+            this.store.dataLoading = false;
+
         },
 
     },
