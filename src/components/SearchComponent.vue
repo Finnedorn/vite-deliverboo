@@ -24,9 +24,16 @@
             </div>
 
 
-           <p v-if="this.store.selectedRestaurants.length > 0 && this.selectedType || this.store.selectedRestaurants.length > 0  && this.searchValue" class="mb-3 text-center fs-4 ">Abbiamo trovato <span class="fw-bold">{{ this.store.selectedRestaurants.length }}</span> risultati in base alla tua ricerca</p> 
+           <p v-if="this.store.selectedRestaurants.length > 0 && this.selectedType || this.store.selectedRestaurants.length > 0  && this.searchValue"
+                class="mb-3 text-center fs-4 ">
+                Abbiamo trovato 
+                <span class="fw-bold">{{ this.store.selectedRestaurants.length }}</span>
+                <span v-if="this.store.selectedRestaurants.length > 1"> risultati</span> 
+                <span v-else> risultato</span> 
+                in base alla tua ricerca
+            </p> 
 
-         <p  class="mb-3 text-center fs-4 " v-if="this.store.selectedRestaurants.length === 0 && this.selectedType && !this.store.dataLoading">Non sono stati trovati risultati</p>
+         <p  class="mb-3 text-center fs-4 " v-if="this.store.selectedRestaurants.length === 0 && this.selectedType && this.store.dataLoading">Non sono stati trovati risultati</p>
             <!-- <p v-else v-show="this.store.selectedRestaurants.length > 0 && !this.searchValue">Ci sono {{
                 this.store.selectedRestaurants.length }}
                 risultati</p>  -->
@@ -63,7 +70,14 @@ export default {
     },
     methods: {
         searchRestaurants() {
-            this.store.dataLoading = true;
+            // resettare i valori della multiselected
+            let typeEl = document.querySelectorAll('.card_type_container');
+            for (let i = 0; i < typeEl.length; i ++) {
+                typeEl[i].classList.remove('selected_type');
+            }
+            this.selectedType = [];
+
+            this.store.dataLoading = false;
             this.store.selectedRestaurants = [];
             if (!this.searchValue) {
                 return
@@ -79,9 +93,13 @@ export default {
                 }
             });
             console.log(this.store.selectedRestaurants);
-            this.store.dataLoading = false;
+            this.store.dataLoading = true;
         },
         selectRestaurants(type, i) {
+            // resettare i valori della searchbar
+            this.searchValue = '';
+
+            this.store.dataLoading = true;
             let typeEl = document.querySelectorAll('.card_type_container')[i];
             if (this.selectedType.includes(type.id)) {
                 this.selectedType.splice(this.selectedType.indexOf(type.id) , 1);
@@ -94,7 +112,7 @@ export default {
             }
 
             if (this.selectedType.length > 0) {
-                console.log(this.selectedType);
+                console.log(JSON.parse(JSON.stringify(this.selectedType)));
                 let typeList = JSON.parse(JSON.stringify(this.selectedType));
                 axios.get(store.apiUrl + "/restaurants", { params: { types: typeList } }).then((res) => {
                     console.log(res.data.results);
@@ -104,6 +122,7 @@ export default {
                 });
             } else {
                 this.store.selectedRestaurants = '';
+                this.store.dataLoading = false;
             }
 
             
