@@ -1,9 +1,12 @@
 <template>
    <div class="card h-100 overflow-hidden">
     <img :src="store.imagePath + el.image" :alt="el.name" class="card-img-top" />
-    <div class="card-body">
+    <div class="card-body p-2">
       <h4 class="fw-bold">{{ el.name }}</h4>
-      <h6 class="restaurant-address">{{ el.address }}</h6>
+
+      <span v-for="(type) in el.types" class="badge bg-warning me-2 mb-2">{{ type.name }}</span>
+      <p class="restaurant-address">{{ el.address }}</p>
+
     </div>
   </div>
   </template>
@@ -46,4 +49,11 @@
   .restaurant-address{
     font-size: 0.9em;
   }
-  </style>
+
+
+
+.restaurant-address {
+  font-size: 0.8em;
+}
+</style>
+

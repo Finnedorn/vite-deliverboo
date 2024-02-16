@@ -27,7 +27,10 @@
                 risultati</p>  -->
             <div @v-if="this.store.selectedRestaurants" class="row mb-5">
                 <div class="col-12 col-lg-4 col-xl-3 mb-3" v-for="(restaurant) in this.store.selectedRestaurants">
-                    <restaurantCardComponent :el="restaurant" />
+                    <router-link :to="{ name:'single-restaurant', params: { slug: restaurant.slug } }">
+                        <restaurantCardComponent :el="restaurant" />
+                    </router-link>
+                    
                 </div>
 
             </div>
