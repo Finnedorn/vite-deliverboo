@@ -5,9 +5,9 @@
     </div>
     <div class="container-fluid about-us-wrapper py-5">
         <!-- part 1 -->
-        <div class="container pt-3 ">
+        <div class="container py-4 ">
             <div class="row">
-                <div class="col-12 col-md-6">
+                <div class="col-12 col-lg-6">
                     <div class="promo-wrapper overflow-hidden">
                         <img src="../assets/img/about-us-01.jpg" alt="about-us-promo-image">
                     </div>
@@ -26,21 +26,20 @@
             </div>
         </div>
         <!-- part 2 -->
-        <div class="container pt-5 ">
+        <div class="container py-4">
             <div class="row align-items-center ">
                 <div class="col-12 col-md-7">
-                    <h2 class="mb-3 fw-bold about-title text-light align-second">
+                    <h2 class="fw-bold about-title text-light align-second mb-3">
                         Puntualità e cortesia <br> al tuo servizio
                     </h2>
                     <p class="fs-3 pt-4 about-paragraph align-second pe-5">
                         Siamo veloci come un lampo! <br> Ordina qualsiasi cosa nella tua città e ricevila in pochi
-                        minuti, segui la tua consegna in tempo reale. Se sei interessato a far crescere il tuo
-                        business con noi, visita il nostro sito. <br> Siamo pronti per sfidare la fame e portare il cibo
-                        direttamente a casa tua!
+                        minuti, segui la tua consegna in tempo reale. <br> Se sei interessato a far crescere il tuo
+                        business con noi, visita il nostro sito.
                     </p>
                 </div>
-                <div class="col-12 col-md-4">
-                    <div class="promo-wrapper overflow-hidden">
+                <div class="col-12 col-md-5">
+                    <div class="promo-wrapper overflow-hidden ">
                         <img src="../assets/img/about-us-02.jpg" alt="about-us-promo-image">
                     </div>
                 </div>
