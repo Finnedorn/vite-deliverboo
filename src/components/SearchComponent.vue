@@ -29,9 +29,7 @@
                 <div class="col-12 col-lg-4 col-xl-3 mb-3" v-for="(restaurant) in this.store.selectedRestaurants">
                     <restaurantCardComponent :el="restaurant" />
                 </div>
-
             </div>
-
         </div>
     </section>
 </template>
@@ -82,11 +80,10 @@ export default {
             this.searchValue = "";
             this.selectedType = typeName;
             axios.get(store.apiUrl + "/types", { params: { name: typeName } }).then((res) => {
-                // console.log(res.data.results[0].restaurants);
+                console.log(res.data.results[0].restaurants);
                 this.store.selectedRestaurants = res.data.results[0].restaurants;
             });
             this.store.dataLoading = false;
-
         },
 
     },
