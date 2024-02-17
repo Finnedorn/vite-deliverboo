@@ -6,17 +6,17 @@
     <div class="container-fluid about-us-wrapper py-5">
         <!-- part 1 -->
         <div class="container py-4 ">
-            <div class="row">
-                <div class="col-12 col-lg-6">
+            <div class="row align-items-center">
+                <div class="col-12 col-md-5 mb-3">
                     <div class="promo-wrapper overflow-hidden">
                         <img src="../assets/img/about-us-01.jpg" alt="about-us-promo-image">
                     </div>
                 </div>
-                <div class="col-12 col-md-6">
+                <div class="col-12 col-md-7">
                     <h2 class="mb-3 fw-bold about-title text-light align-first">
                         Soddisfiamo le tue <br> aspettative
                     </h2>
-                    <p class="fs-3 pt-4 about-paragraph align-first">
+                    <p class="fs-4 about-paragraph align-first">
                         Sei a casa e hai voglia di un pasto delizioso? <br> Vuoi fare la spesa senza uscire di casa? <br>
                         Deliveboo è qui per te! <br> Scegli tra una vasta gamma di ristoranti nella tua città. Da McDonald’s
                         a Pokè House, troverai sicuramente il tuo piatto preferito o scoprirai nuovi ristoranti nelle
@@ -27,21 +27,22 @@
         </div>
         <!-- part 2 -->
         <div class="container py-4">
-            <div class="row align-items-center ">
+            <div class="row align-items-center flex-md-row-reverse">
+                
+                <div class="col-12 col-md-5 mb-3">
+                    <div class="promo-wrapper overflow-hidden ">
+                        <img src="../assets/img/about-us-02.jpg" alt="about-us-promo-image">
+                    </div>
+                </div>
                 <div class="col-12 col-md-7">
                     <h2 class="fw-bold about-title text-light align-second mb-3">
                         Puntualità e cortesia <br> al tuo servizio
                     </h2>
-                    <p class="fs-3 pt-4 about-paragraph align-second pe-5">
+                    <p class="fs-4 about-paragraph align-second pe-5">
                         Siamo veloci come un lampo! <br> Ordina qualsiasi cosa nella tua città e ricevila in pochi
                         minuti, segui la tua consegna in tempo reale. <br> Se sei interessato a far crescere il tuo
                         business con noi, visita il nostro sito.
                     </p>
-                </div>
-                <div class="col-12 col-md-5">
-                    <div class="promo-wrapper overflow-hidden ">
-                        <img src="../assets/img/about-us-02.jpg" alt="about-us-promo-image">
-                    </div>
                 </div>
             </div>
         </div>
@@ -65,7 +66,7 @@ export default {
     background-color: $color-tertiary;
 
     .promo-wrapper {
-        width: 500px;
+
         border-radius: 30px;
     }
 
@@ -74,7 +75,10 @@ export default {
     }
 
     .align-first {
-        text-align: right;
+        @media screen and (min-width: 768px) {
+            text-align: right;
+            
+        }
     }
 
     .align-second {
