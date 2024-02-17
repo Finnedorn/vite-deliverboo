@@ -8,5 +8,5 @@ export const store = reactive({
     selectedRestaurants: [],
     restaurantParams :[],
     dataLoading: false,
-    fullCart: [],
+    cart: [],
 });

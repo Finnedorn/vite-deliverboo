@@ -47,13 +47,13 @@
                         <th>quantità</th>
                         <th>prezzo</th>
                         <tbody>
-                            <div v-if="store.fullCart">
-                                <tr v-for="el in store.fullCart">
-                                    <td>{{ el.name }}</td>
-                                    <td>{{ el.quantity }}</td>
-                                    <td>{{ el.price }}</td>
-                                </tr>
-                            </div>
+                            <!-- <div v-if="store.fullCart"> -->
+                            <tr v-for="el in this.store.cart" :key="el.dish.id">
+                                <td>{{ el.dish.name }}</td>
+                                <td>{{ el.quantity }}</td>
+                                <td>{{ el.dish.price }}</td>
+                            </tr>
+                            <!-- </div> -->
                         </tbody>
                     </table>
                 </div>
@@ -74,7 +74,7 @@ export default {
         return {
             store,
             restaurant: null,
-            cart: [],
+
         };
     },
     methods: {
@@ -91,50 +91,28 @@ export default {
                 });
         },
         addToCart(dish) {
-            const newOrder = dish;
-            this.cart.push(newOrder);
-            console.log(this.cart)
-            // localStorage.setItem('storageCart', JSON.stringify(this.cart));
-            // if(this.cart.find(el.id === dish.id)){
-            //     dish.quantity++;
-            //     console.log('found')
-            // }
-            //    } else{
-            //     this.cart.push(dish)
-            //     console.log('0-0 è un pareggio')
-            //    }           
-            // console.log(this.cart)                
-            // localStorage.getItem('addToCart');
-            // console.log(localStorage.getItem('addToCart'))
-            // this.store.addToCart.push(dish)
+            const newOrder = this.store.cart.find(el => el.dish.id === dish.id);
+            if (newOrder) {
+                newOrder.quantity++;
+            } else {
+                this.store.cart.push({ dish, quantity: 1 });
+            }
+
+            localStorage.setItem('shoppingCart', JSON.stringify(this.store.cart));
+
         }
 
     },
 
     mounted() {
         this.getRestaurantData();
-        console.log(localStorage.cart)
-        if (localStorage.cart) {
-            this.store.fullCart = JSON.parse(localStorage.newOrder)
-            // console.log(this.store.fullCart)
-            // console.log(localStorage.cart)
-        }
-      
 
-    },
-    watch: {
-        cart:{
-           
-            handler(newOrder) {
-                console.log('pippo');
-                localStorage.cart = JSON.stringify(newOrder);
-                console.log(localStorage.cart)
-            },
-            deep: true,
-            
-           
+        const shoppingCart = localStorage.getItem('shoppingCart');
+        if (shoppingCart) {
+            this.store.cart = JSON.parse(shoppingCart)
         }
-    }
+    },
+
 }
 </script>
   
