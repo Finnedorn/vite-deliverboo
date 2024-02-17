@@ -27,7 +27,7 @@
     border: 0 !important;
     border-radius: 0 !important;
     position: relative;
-    background-color: $color-secondary;
+    background-color: $color-primary-hover;
     h5 {
         position: absolute;
         bottom: 5px;

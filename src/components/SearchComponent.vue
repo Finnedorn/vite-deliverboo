@@ -16,9 +16,9 @@
             </div>
 
             <div class="row mb-5">
-                <div class="col-12 col-lg-4 col-xl-3 mb-3 card_type_container" v-for="(type, index) in store.types">
-                    <div>
-                        <typeCardComponent :el="type" @click="selectRestaurants(type, index)" />
+                <div class="col-12 col-lg-4 col-xl-3 mb-3 " v-for="(type, index) in store.types">
+                    <div class="card_type_container">
+                        <typeCardComponent  :el="type" @click="selectRestaurants(type, index)" />
                     </div>
                 </div>
             </div>
@@ -39,9 +39,11 @@
                 risultati</p>  -->
             <div @v-if="this.store.selectedRestaurants" class="row mb-5">
                 <div class="col-12 col-lg-4 col-xl-3 mb-3" v-for="(restaurant) in this.store.selectedRestaurants">
-                    <router-link :to="{ name:'single-restaurant', params: { slug: restaurant.slug } }">
-                        <restaurantCardComponent :el="restaurant" />
-                    </router-link>
+                    <div class="selected">
+                        <router-link :to="{ name:'single-restaurant', params: { slug: restaurant.slug } }">
+                            <restaurantCardComponent :el="restaurant" />
+                        </router-link>
+                    </div>
                     
                 </div>
 
@@ -189,13 +191,13 @@ export default {
     }
 
 }
-.card_type_container div {
+.card_type_container {
     border-radius: 1rem;
     overflow: hidden;
     
     &:hover {
     transition: all 0.3s;
-    filter: brightness(110%);
+    filter: brightness(105%);
     transform: scale(1.02);
     cursor: pointer;
     }
@@ -203,8 +205,8 @@ export default {
 }
 
 .selected_type {
-    div {
-        box-shadow:  0 0 8px 3px white;
-    }
+    -webkit-box-shadow: 0px 0px 0px 4px $color-tertiary; 
+box-shadow: 0px 0px 0px 4px $color-tertiary;
+
 }
 </style>
