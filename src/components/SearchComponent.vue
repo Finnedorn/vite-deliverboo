@@ -11,8 +11,8 @@
                     <i class="fa-solid fa-magnifying-glass"></i>
                 </span>
                 <input v-model.trim="searchValue" type="text" id="searchbar" name="search" class="form-control"
-                    placeholder="Cerca una tipologia di piatto" @keyup.enter="searchRestaurants()">
-                <button class="btn" type="button" @click="searchRestaurants()">Cerca</button>
+                    placeholder="Cerca un ristorante per nome" @keyup.enter="searchNameRestaurant()">
+                <button class="btn" type="button" @click="searchNameRestaurant()">Cerca</button>
             </div>
 
             <div class="row mb-5">
@@ -32,7 +32,7 @@
                 in base alla tua ricerca
             </p> 
 
-         <p  class="mb-3 text-center fs-4 " v-if="this.store.selectedRestaurants.length === 0 && this.selectedType && this.store.dataLoading">Non sono stati trovati risultati</p>
+         <p  class="mb-3 text-center fs-4 " v-if="this.store.selectedRestaurants.length === 0 && this.selectedType && this.store.dataLoading || this.store.selectedRestaurants.length === 0 && this.searchValue">Non sono stati trovati risultati</p>
 
             <!-- <p v-else v-show="this.store.selectedRestaurants.length > 0 && !this.searchValue">Ci sono {{
                 this.store.selectedRestaurants.length }}
@@ -74,6 +74,20 @@ export default {
         };
     },
     methods: {
+        searchNameRestaurant() {
+             // resettare i valori della multiselected
+             let typeEl = document.querySelectorAll('.card_type_container');
+            for (let i = 0; i < typeEl.length; i ++) {
+                typeEl[i].classList.remove('selected_type');
+            }
+            this.selectedType = [];
+            this.store.selectedRestaurants = [];
+            let restaurantName = this.searchValue;
+            axios.get(store.apiUrl + "/restaurants", { params: { search: restaurantName } }).then((res) => {
+                // console.log(res.data.results);
+                this.store.selectedRestaurants = res.data.results;
+            });
+        },
         searchRestaurants() {
             // resettare i valori della multiselected
             let typeEl = document.querySelectorAll('.card_type_container');
