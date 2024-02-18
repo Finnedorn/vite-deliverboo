@@ -1,4 +1,5 @@
 <template>
+    <NavbarComponent />
     <div v-if="restaurant">
         <div id="restaurant-cover">
             <img :src="store.imagePath + restaurant.image" :alt="restaurant.name" />
@@ -64,12 +65,14 @@
 <script>
 import axios from "axios";
 import { store } from "../data/store.js";
+import NavbarComponent from "@/components/NavbarComponent.vue";
 import CartComponent from "@/components/CartComponent.vue";
 export default {
     name: 'RestaurantDetails',
     components: {
-        CartComponent,
-    },
+    NavbarComponent,
+    CartComponent,
+},
     data() {
         return {
             store,

@@ -37,7 +37,7 @@
                 </div> -->
 
                 <!-- admin -->
-                <div class="d-flex align-items-center">
+                <div class="d-flex align-items-center" :class="{ 'd-none': this.$route.name !== 'home'}">
                     <div class="rest-link fs-5 me-3 fw-bold d-none d-md-block ">
                         Sei un ristoratore?
                     </div>
@@ -85,6 +85,7 @@ export default {
         // toggleAdmin() {
         //     this.active = !this.active;
         // },
+
     },
 };
 </script>
