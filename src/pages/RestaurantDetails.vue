@@ -48,14 +48,19 @@
                         <th>prezzo</th>
                         <tbody>
                             <!-- <div v-if="store.fullCart"> -->
-                            <tr v-for="el in this.store.cart" :key="el.dish.id">
-                                <td>{{ el.dish.name }}</td>
-                                <td>{{ el.quantity }}</td>
-                                <td>{{ el.dish.price }}</td>
+                            <tr v-for="el in this.store.cart" :key="el.dish_id">
+                                <td>{{ el.name }}</td>
+                                <td>
+                                    <button @click="removeDishCart(el.dish_id)">-</button>
+                                    {{ el.quantity }}</td>
+                                    <button @click="addDishCart(el.dish_id)">+</button>                                    
+                                <td>{{ el.price * el.quantity }} €</td>
                             </tr>
                             <!-- </div> -->
                         </tbody>
                     </table>
+                    <div id="restaurantErrorMsg" class="d-none">Non puoi aggiungere un piatto di un altro ristorante</div>
+                    <button @click="emptyCart()">Svuota</button>
                 </div>
             </div>
         </div>
@@ -90,15 +95,83 @@ export default {
                     }
                 });
         },
+
         addToCart(dish) {
-            const newOrder = this.store.cart.find(el => el.dish.id === dish.id);
-            if (newOrder) {
-                newOrder.quantity++;
+            const cart = this.store.cart;
+            const newItem = cart.find(el => el.dish_id === dish.id);
+            let cart_restaurant = localStorage.cart_restaurant;
+
+            
+            if (cart_restaurant) {
+
             } else {
-                this.store.cart.push({ dish, quantity: 1 });
+                localStorage.setItem('cart_restaurant', dish.restaurant_id);
+                cart_restaurant = dish.restaurant_id;
+
+            }
+            // console.log(cart_restaurant);
+            // console.log(dish.restaurant_id);
+
+            
+            if (dish.restaurant_id != cart_restaurant) {
+                // console.log('ciao')
+                document.getElementById('restaurantErrorMsg').classList.remove('d-none');
+                return
             }
 
-            localStorage.setItem('shoppingCart', JSON.stringify(this.store.cart));
+            if (newItem) {
+                console.log(newItem)
+                newItem.quantity++;
+            } else {
+                let cartItem = {
+                    name: dish.name,
+                    price: dish.price,
+                    quantity: 1,
+                    dish_id: dish.id,
+                };
+
+                cart.push(cartItem);
+            }
+
+            localStorage.setItem('shoppingCart', JSON.stringify(cart));
+        },
+
+        addDishCart(id) {
+            const cart = this.store.cart;
+            const addItem = cart.find(el => el.dish_id === id);
+
+            addItem.quantity++;
+
+            localStorage.setItem('shoppingCart', JSON.stringify(cart));
+        },
+
+        removeDishCart(id) {
+            const cart = this.store.cart;
+            const removeItem = cart.find(el => el.dish_id === id);
+
+            if (removeItem.quantity == 1) {
+                const indexItem = cart.indexOf(removeItem);
+                cart.splice(indexItem, 1);
+            } else {
+                removeItem.quantity--;
+            }
+
+            if (!cart.length) {
+            localStorage.cart_restaurant = '';
+            localStorage.setItem('cart_restaurant', '');
+            }
+
+            localStorage.setItem('shoppingCart', JSON.stringify(cart));
+        },
+
+        emptyCart() {
+            this.store.cart = [];
+            localStorage.cart_restaurant = '';
+
+            localStorage.setItem('shoppingCart', []);
+            localStorage.setItem('cart_restaurant', '');
+
+            document.getElementById('restaurantErrorMsg').classList.add('d-none');
 
         }
 
@@ -109,7 +182,7 @@ export default {
 
         const shoppingCart = localStorage.getItem('shoppingCart');
         if (shoppingCart) {
-            this.store.cart = JSON.parse(shoppingCart)
+            this.store.cart = JSON.parse(shoppingCart);
         }
     },
 
