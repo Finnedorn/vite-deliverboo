@@ -34,20 +34,14 @@
 
                     </div>
                 </div>
-                <div id="cart">
-                    <!-- <div class="card">
-                        <div class="card-head">carrello</div>
-                        <div class="card-body">
-                            <h2>hello</h2>
-                        </div>
-                    </div> -->
+                <CartComponent />
+                <!-- <div id="cart">
                     <table>
                         <thead>carrello</thead>
                         <th>prodotti</th>
                         <th>quantità</th>
                         <th>prezzo</th>
                         <tbody>
-                            <!-- <div v-if="store.fullCart"> -->
                             <tr v-for="el in this.store.cart" :key="el.dish_id">
                                 <td>{{ el.name }}</td>
                                 <td>
@@ -56,12 +50,11 @@
                                     <button @click="addDishCart(el.dish_id)">+</button>                                    
                                 <td>{{ el.price * el.quantity }} €</td>
                             </tr>
-                            <!-- </div> -->
                         </tbody>
                     </table>
                     <div id="restaurantErrorMsg" class="d-none">Non puoi aggiungere un piatto di un altro ristorante</div>
                     <button @click="emptyCart()">Svuota</button>
-                </div>
+                </div> -->
             </div>
         </div>
 
@@ -71,15 +64,16 @@
 <script>
 import axios from "axios";
 import { store } from "../data/store.js";
+import CartComponent from "@/components/CartComponent.vue";
 export default {
     name: 'RestaurantDetails',
     components: {
+        CartComponent,
     },
     data() {
         return {
             store,
             restaurant: null,
-
         };
     },
     methods: {
@@ -101,7 +95,7 @@ export default {
             const newItem = cart.find(el => el.dish_id === dish.id);
             let cart_restaurant = localStorage.cart_restaurant;
 
-            
+
             if (cart_restaurant) {
 
             } else {
@@ -112,7 +106,7 @@ export default {
             // console.log(cart_restaurant);
             // console.log(dish.restaurant_id);
 
-            
+
             if (dish.restaurant_id != cart_restaurant) {
                 // console.log('ciao')
                 document.getElementById('restaurantErrorMsg').classList.remove('d-none');
@@ -136,54 +130,54 @@ export default {
             localStorage.setItem('shoppingCart', JSON.stringify(cart));
         },
 
-        addDishCart(id) {
-            const cart = this.store.cart;
-            const addItem = cart.find(el => el.dish_id === id);
+        //     addDishCart(id) {
+        //         const cart = this.store.cart;
+        //         const addItem = cart.find(el => el.dish_id === id);
 
-            addItem.quantity++;
+        //         addItem.quantity++;
 
-            localStorage.setItem('shoppingCart', JSON.stringify(cart));
-        },
+        //         localStorage.setItem('shoppingCart', JSON.stringify(cart));
+        //     },
 
-        removeDishCart(id) {
-            const cart = this.store.cart;
-            const removeItem = cart.find(el => el.dish_id === id);
+        //     removeDishCart(id) {
+        //         const cart = this.store.cart;
+        //         const removeItem = cart.find(el => el.dish_id === id);
 
-            if (removeItem.quantity == 1) {
-                const indexItem = cart.indexOf(removeItem);
-                cart.splice(indexItem, 1);
-            } else {
-                removeItem.quantity--;
-            }
+        //         if (removeItem.quantity == 1) {
+        //             const indexItem = cart.indexOf(removeItem);
+        //             cart.splice(indexItem, 1);
+        //         } else {
+        //             removeItem.quantity--;
+        //         }
 
-            if (!cart.length) {
-            localStorage.cart_restaurant = '';
-            localStorage.setItem('cart_restaurant', '');
-            }
+        //         if (!cart.length) {
+        //         localStorage.cart_restaurant = '';
+        //         localStorage.setItem('cart_restaurant', '');
+        //         }
 
-            localStorage.setItem('shoppingCart', JSON.stringify(cart));
-        },
+        //         localStorage.setItem('shoppingCart', JSON.stringify(cart));
+        //     },
 
-        emptyCart() {
-            this.store.cart = [];
-            localStorage.cart_restaurant = '';
+        //     emptyCart() {
+        //         this.store.cart = [];
+        //         localStorage.cart_restaurant = '';
 
-            localStorage.setItem('shoppingCart', []);
-            localStorage.setItem('cart_restaurant', '');
+        //         localStorage.setItem('shoppingCart', []);
+        //         localStorage.setItem('cart_restaurant', '');
 
-            document.getElementById('restaurantErrorMsg').classList.add('d-none');
+        //         document.getElementById('restaurantErrorMsg').classList.add('d-none');
 
-        }
+        //     }
 
     },
 
     mounted() {
         this.getRestaurantData();
 
-        const shoppingCart = localStorage.getItem('shoppingCart');
-        if (shoppingCart) {
-            this.store.cart = JSON.parse(shoppingCart);
-        }
+        // const shoppingCart = localStorage.getItem('shoppingCart');
+        // if (shoppingCart) {
+        //     this.store.cart = JSON.parse(shoppingCart);
+        // }
     },
 
 }
@@ -226,11 +220,5 @@ export default {
     height: 100px;
     border-radius: 10px;
     overflow: hidden;
-}
-
-#cart {
-    // width: 100px;
-    padding: 20px;
-
 }
 </style>
