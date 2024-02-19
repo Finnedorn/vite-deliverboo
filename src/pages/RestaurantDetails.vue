@@ -18,13 +18,20 @@
         </div>
         <div class="container my-5">
             <div class="row">
-                <div id="menu" class="col-12 col-lg-8">
+                <div id="menu" class="col-12 col-lg-8 pe-5">
                     <h3 class="fw-bold fs-2 mb-5">Menu</h3>
-                    <div class="card mb-2 p-2" v-for="(dish) in restaurant.dishes" @click="addToCart(dish)">
+                    <div class="card mb-2 p-2 mb-3" v-for="(dish) in restaurant.dishes">
+
+
                         <div class="d-flex justify-content-between">
                             <div class="card-left me-5">
-                                <h5 class="fw-bold fs-4">{{ dish.name }}</h5>
+                                <div class="d-flex align-content-center ">
+                                    <h5 class="fw-bold">{{ dish.name }}</h5>
+                                    <h5 class="ms-2">{{ dish.price }} €</h5>
+
+                                </div>
                                 <p class="">{{ dish.ingredients }}</p>
+                                <button class="btn btn-warning" @click="addToCart(dish)"> Aggiungi al carrello </button>
                             </div>
                             <div class="card-right">
                                 <div class="dish-img">
@@ -35,7 +42,7 @@
 
                     </div>
                 </div>
-                <CartComponent class="d-none d-lg-block col-lg-4"/>
+                <CartComponent class="d-none d-lg-block col-lg-4" />
                 <!-- <div id="cart">
                     <table>
                         <thead>carrello</thead>
@@ -58,7 +65,6 @@
                 </div> -->
             </div>
         </div>
-
     </div>
 </template>
   
@@ -70,9 +76,9 @@ import CartComponent from "@/components/CartComponent.vue";
 export default {
     name: 'RestaurantDetails',
     components: {
-    NavbarComponent,
-    CartComponent,
-},
+        NavbarComponent,
+        CartComponent,
+    },
     data() {
         return {
             store,
@@ -96,7 +102,7 @@ export default {
         addToCart(dish) {
             const newItem = this.store.cart.find(el => el.dish_id === dish.id);
             let cart_restaurant = localStorage.cart_restaurant;
-            
+
             if (!cart_restaurant) {
                 localStorage.setItem('cart_restaurant', dish.restaurant_id);
                 cart_restaurant = dish.restaurant_id;
@@ -106,7 +112,7 @@ export default {
                 document.getElementById('restaurantErrorMsg').classList.remove('d-none');
                 return
             }
-            
+
             if (newItem) {
                 console.log(newItem)
                 newItem.quantity++;
@@ -121,12 +127,12 @@ export default {
                     dish_id: dish.id,
                     image: dish.image
                 };
-                
+
                 this.store.cartTotalPrice = JSON.parse(localStorage.cart_total) + JSON.parse(cartItem.price);
 
                 this.store.cart.push(cartItem);
             }
-            
+
 
             localStorage.setItem('cart_total', JSON.stringify(this.store.cartTotalPrice));
             localStorage.setItem('shoppingCart', JSON.stringify(this.store.cart));
@@ -189,17 +195,17 @@ export default {
 @use "../assets/style/partials/variables" as *;
 
 #restaurant-cover {
-    height: 300px;
+    height: 400px;
     overflow: hidden;
     position: relative;
-
-    @media screen and (max-width: 768px) {
-        // height: 200px;
-    }
-
-    img {
+    img{
+        height: 100%;
         object-fit: cover;
         object-position: center;
+    }
+
+    @media screen and (max-width: 768px) {
+        height: 300px;
     }
 
     #restaurant-card {
@@ -222,5 +228,21 @@ export default {
     height: 100px;
     border-radius: 10px;
     overflow: hidden;
+
+    img {
+        object-fit: cover;
+        height: 100%;
+    }
+}
+
+#menu {
+    .card button {
+        &:hover {
+            cursor: pointer;
+            transform: scale(1.01);
+            transition: all 0.3s;
+
+        }
+    }
 }
 </style>
