@@ -2,7 +2,7 @@
     <header>
         <!-- navbar -->
         <nav class="navbar navbar-expand-lg p-0">
-            <div class="container-fluid overflow-hidden py-2 px-4">
+            <div class="d-flex justify-content-between align-items-center py-2 px-4 w-100">
 
                 <!-- logo -->
                 <div id="logo" class="py-2 mx-1 me-3">
@@ -11,41 +11,62 @@
                     </router-link>
                 </div>
 
-                <!-- toggler -->
-                <!-- <button id="navbar-toggler" @click="toggleButton()" :class="{ 'my-3': show }"
-                    class="navbar-toggler ms-1 my-2" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-                    aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button> -->
-
-                <!-- elementi navbar -->
-                <!-- <div class="collapse navbar-collapse" :class="{ show: show }" id="navbarSupportedContent">
-                    <div id="logo" class="py-2 mx-1 me-3" :class="{ 'd-none': show }">
-                        <router-link :to="{ name: 'home' }">
-                            <img src="../assets/img/logo_food_red.png" alt="deliverboo-logo" />
-                        </router-link>
-                    </div>
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li class="nav-item" v-for="route in navroutes">
-                            <router-link class="nav-link fs-5 me-3 fw-bold" :class="{ 'hover-none': show }"
-                                :to="{ name: route.name }">
-                                {{ route.label }}
+                <div class="d-flex align-items-center">
+                    <!-- toggler -->
+                    <!-- <button id="navbar-toggler" @click="toggleButton()" :class="{ 'my-3': show }"
+                        class="navbar-toggler ms-1 my-2" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                        aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button> -->
+                    <!-- elementi navbar -->
+                    <!-- <div class="collapse navbar-collapse" :class="{ show: show }" id="navbarSupportedContent">
+                        <div id="logo" class="py-2 mx-1 me-3" :class="{ 'd-none': show }">
+                            <router-link :to="{ name: 'home' }">
+                                <img src="../assets/img/logo_food_red.png" alt="deliverboo-logo" />
                             </router-link>
-                        </li>
-                    </ul>
-                </div> -->
+                        </div>
+                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                            <li class="nav-item" v-for="route in navroutes">
+                                <router-link class="nav-link fs-5 me-3 fw-bold" :class="{ 'hover-none': show }"
+                                    :to="{ name: route.name }">
+                                    {{ route.label }}
+                                </router-link>
+                            </li>
+                        </ul>
+                    </div> -->
 
-                <!-- admin -->
-                <div class="d-flex align-items-center" :class="{ 'd-none': this.$route.name !== 'home'}">
-                    <div class="rest-link fs-5 me-3 fw-bold d-none d-md-block ">
-                        Sei un ristoratore?
-                    </div>
-                    <button class="btn btn-admin">
-                        <a class="text-decoration-none text-light fs-5 fw-bold" href="http://127.0.0.1:8000/">
-                            Vai all'area riservata
+                    <!-- cart  -->
+                    <div v-if="this.$route.name !== 'checkout'" class="cart-box me-4" :class="{ 'd-lg-none': this.$route.name !== 'home' }">
+                        <a href="#" @click.prevent="store.cartShow = !store.cartShow" class="cart-icon">
+                            <i class="fa-solid fa-cart-shopping"></i>
                         </a>
-                    </button>
+                        <div v-if="store.cartShow" class="cart-dropdown">
+                            <div class="cart-wrapper">
+                                <button class="btn-close" @click="store.cartShow=false"></button>
+                                <CartComponent />
+
+                            </div>
+                          
+                        
+                        </div>
+                    </div>
+                    <!-- <div class="n-items d-flex align-items-center justify-content-center" v-if="store.cart.length > 0">
+                        {{ store.cart.length }}
+                    </div> -->
+
+
+                    <!-- admin -->
+                    <div class="d-flex flex-column align-items-center" :class="{ 'd-none': this.$route.name !== 'home' }">
+                        <div class="rest-link fw-bold d-none d-md-block ">
+                            Sei un ristoratore?
+                        </div>
+                        <button class="btn btn-admin">
+                            <a class="text-decoration-none text-light fw-bold" href="http://127.0.0.1:8000/">
+                                Vai all'area riservata
+                            </a>
+                        </button>
+                    </div>
                 </div>
 
             </div>
@@ -54,12 +75,18 @@
 </template>
   
 <script>
+import { store } from "../data/store.js";
+import CartComponent from "./CartComponent.vue";
 export default {
+
     name: "NavbarComponent",
-    components: {},
+    components: {
+    CartComponent,
+},
     data() {
         return {
-            
+            store,
+
             // navroutes: [
             //     {
             //         label: "Categorie",
@@ -158,9 +185,60 @@ nav {
     .btn-admin {
         background-color: $color-primary;
         border-radius: 5px;
+
         &:hover {
             transform: scale(1.05);
             transition: all 0.5s;
+        }
+    }
+
+    .cart-box {
+        position: relative;
+        a{
+            padding: 8px;
+            background-color: $color-primary;
+            color: $color-white;
+        
+            border-radius: 5px;
+
+            &:hover {
+            background-color: $color-primary-hover;
+            transition: all 0.5s;
+        }
+        }
+        
+
+        // .n-items {
+        //     position: absolute;
+        //     top: -10px;
+        //     right: -10px;
+        //     background-color: $color-primary;
+        //     width: 20px;
+        //     height: 20px;
+        //     border-radius: 50%;
+        //     color: $color-black;
+        //     font-weight: bold;
+        //     font-size: 0.9em;
+
+        // }
+
+        .cart-dropdown {
+            position: absolute;
+            top: 40px;
+            right: 0;
+            background-color: $color-white;
+            border-radius: 20px;
+            z-index: 6000;
+            .cart-wrapper{
+                position: relative;
+                .btn-close{
+                    position: absolute;
+                    top: 10px;
+                    right: 10px;
+                    z-index: 100;
+                   
+                }
+            }
         }
     }
 }
