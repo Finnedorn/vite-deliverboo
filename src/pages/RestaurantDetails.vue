@@ -65,7 +65,44 @@
                 </div> -->
             </div>
         </div>
+
+
+
+
+        <div>
+    <!-- Bottone per aprire la modale -->
+    <button type="button" class="btn btn-primary" @click="showModal = true">Open Modal</button>
+
+    <!-- Modale -->
+    <div class="modal d-block" tabindex="-1" role="dialog" v-if="showModal">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">title</h5>
+            <button type="button" class="close" @click="closeModal">
+            </button>
+          </div>
+          <div class="modal-body">
+            <!-- Contenuto della modale -->
+            <p>This is the content of my modal.</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" @click="closeModal">Close</button>
+            <button type="button" class="btn btn-primary" @click="confirmAction">Save changes</button>
+          </div>
+        </div>
+      </div>
     </div>
+    <div class="modal-backdrop fade show" v-if="showModal"></div>
+  </div>
+        
+        
+        
+        
+  </div>
+        
+        
+
 </template>
   
 <script>
@@ -83,9 +120,20 @@ export default {
         return {
             store,
             restaurant: null,
+            showModal: false,
         };
     },
     methods: {
+
+        closeModal() {
+      this.showModal = false;
+    },
+    confirmAction() {
+      // Aggiungi qui la logica per l'azione di conferma
+      console.log('Confirm action');
+      this.closeModal(); // Chiudi la modale dopo la conferma
+    },
+        
         getRestaurantData() {
             axios
                 .get(this.store.apiUrl + "/restaurants/" + this.$route.params.slug)
