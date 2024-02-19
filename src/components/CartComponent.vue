@@ -163,7 +163,7 @@ export default {
     .btn-empty {
         background-color: $color-secondary;
         border-radius: 5px;
-        padding: 2px 30px;
+        padding: 5px 30px;
 
         &:hover {
             transform: scale(1.05);
