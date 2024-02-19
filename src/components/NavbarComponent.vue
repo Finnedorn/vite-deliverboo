@@ -210,7 +210,6 @@ nav {
                 border-radius: 5px;
 
                 &:hover {
-                    background-color: $color-secondary;
                     transition: all 0.5s;
                 }
             }
