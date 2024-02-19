@@ -1,43 +1,53 @@
 <template>
-    <div class=" card d-flex flex-column justify-content-between rounded-4  p-4">
-        <div id="cart">
-            <h3 class="text-center fs-2 mb-4 fw-bold">
-                Il tuo Ordine
-            </h3>
-            <div v-for="el in this.store.cart" :key="el.dish_id" class="d-flex justify-content-between align-items-center">
-                <div class="d-flex align-items-center">
-                    <!-- <div :class="{ 'd-none': this.$route.name !== 'home'}"><img :src="el.image" :alt="el.name"></div> -->
-                    <button @click="removeDishCart(el.dish_id)" class="quantity-btn min me-1">
-                        -
-                    </button>
-                    <div class="me-1 quantity-wrap">
-                        {{ el.quantity }}
+    <div class="card d-flex flex-column justify-content-between rounded-4 p-4">
+        <div v-if="store.cart.length > 0">
+            <div id="cart">
+                <h3 class="text-center  mb-4 fw-bold">
+                    Il tuo Ordine
+                </h3>
+                <div v-for="el in this.store.cart" :key="el.dish_id"
+                    class="d-flex justify-content-between align-items-center">
+                    <div class="d-flex align-items-center">
+                        <!-- <div :class="{ 'd-none': this.$route.name !== 'home'}"><img :src="el.image" :alt="el.name"></div> -->
+                        <button @click="removeDishCart(el.dish_id)" class="quantity-btn min me-1">
+                            -
+                        </button>
+                        <div class="me-1 quantity-wrap">
+                            {{ el.quantity }}
+                        </div>
+                        <button @click="addDishCart(el.dish_id)" class="quantity-btn plus me-2">
+                            +
+                        </button>
+                        <div>{{ el.name }}</div>
                     </div>
-                    <button @click="addDishCart(el.dish_id)" class="quantity-btn plus me-2">
-                        +
-                    </button>
-                    <div>{{ el.name }}</div>
+                    <div>{{ el.price * el.quantity }} €</div>
                 </div>
-                <div>{{ el.price * el.quantity }} €</div>
             </div>
+            <div id="restaurantErrorMsg" class="d-none text-center py-2 fw-bold">Non puoi aggiungere un piatto <br> di un
+                altro
+                ristorante
+            </div>
+           
+
         </div>
-        <div id="restaurantErrorMsg" class="d-none text-center py-2 fw-bold">Non puoi aggiungere un piatto <br> di un altro
-            ristorante</div>
-        <div>
-            <div class="border-top border-2 pt-2 pb-4 d-flex justify-content-between fw-bold">
+        <div v-else id="empty-cart">
+            <h3 class="text-center mb-4 fw-bold">Il tuo carrello è vuoto</h3>
+            <img src="../assets/img/logo_food_pink.png" alt="logo">
+        </div>
+        <div class="border-top border-2 pt-2 pb-4 d-flex justify-content-between fw-bold">
                 Totale
                 <span>{{ this.store.cartTotalPrice.toFixed(2) }} €</span>
             </div>
-            <div v-if="this.$route.name !== 'checkout'" class="d-flex align-items-center justify-content-between my-2">
-                <button @click="emptyCart()" class="btn btn-empty text-light fw-bold me-3">
-                    Svuota <br> Carrello
+        <div v-if="this.$route.name !== 'checkout'" class="d-flex align-items-center justify-content-between my-2">
+            <button @click="emptyCart()" class="btn btn-empty text-light fw-bold me-3"
+                :class="(store.cart.length == 0) ? 'disabled' : ''">
+                Svuota <br> Carrello
+            </button>
+            <router-link :to="{ name: 'checkout' }">
+                <button class="btn btn-checkout text-light fw-bold " :class="(store.cart.length == 0) ? 'disabled' : ''">
+                    Vai al <br> Checkout
                 </button>
-                <router-link :to="{ name: 'checkout' }">
-                    <button class="btn btn-checkout text-light fw-bold ">
-                        Vai al <br> Checkout
-                    </button>
-                </router-link>
-            </div>
+            </router-link>
         </div>
     </div>
 </template>
@@ -65,7 +75,7 @@ export default {
 
         removeDishCart(id) {
             const removeItem = this.store.cart.find(el => el.dish_id === id);
-            
+
             this.store.cartTotalPrice = JSON.parse(localStorage.cart_total) - JSON.parse(removeItem.price);
 
             if (removeItem.quantity == 1) {
@@ -148,6 +158,9 @@ export default {
 
     }
 
+    #empty-cart {
+        min-height: 300px;
+    }
 
     .btn-checkout {
         background-color: $color-primary;
