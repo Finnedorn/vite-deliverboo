@@ -18,7 +18,7 @@
                     </button>
                     <div>{{ el.name }}</div>
                 </div>
-                <div>{{ el.price * el.quantity }} €</div>
+                <div>{{ (el.price * el.quantity).toFixed(2) }} €</div>
             </div>
         </div>
         <div id="restaurantErrorMsg" class="d-none text-center py-2 fw-bold">Non puoi aggiungere un piatto <br> di un altro
