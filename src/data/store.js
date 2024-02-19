@@ -9,4 +9,5 @@ export const store = reactive({
     restaurantParams :[],
     dataLoading: false,
     cart: [],
+    cartTotalPrice: 0,
 });

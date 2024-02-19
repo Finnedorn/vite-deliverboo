@@ -5,7 +5,7 @@
             <div class="container-fluid overflow-hidden py-2 px-4">
 
                 <!-- logo -->
-                <div id="logo" class="py-2 mx-1 me-3" :class="{ 'd-none': show }">
+                <div id="logo" class="py-2 mx-1 me-3">
                     <router-link :to="{ name: 'home' }">
                         <img src="../assets/img/logo_food_red.png" alt="deliverboo-logo" />
                     </router-link>
@@ -37,7 +37,7 @@
                 </div> -->
 
                 <!-- admin -->
-                <div class="d-flex align-items-center">
+                <div class="d-flex align-items-center" :class="{ 'd-none': this.$route.name !== 'home'}">
                     <div class="rest-link fs-5 me-3 fw-bold d-none d-md-block ">
                         Sei un ristoratore?
                     </div>
@@ -85,6 +85,7 @@ export default {
         // toggleAdmin() {
         //     this.active = !this.active;
         // },
+
     },
 };
 </script>

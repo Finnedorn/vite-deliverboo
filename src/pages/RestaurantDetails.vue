@@ -1,4 +1,5 @@
 <template>
+    <NavbarComponent />
     <div v-if="restaurant">
         <div id="restaurant-cover">
             <img :src="store.imagePath + restaurant.image" :alt="restaurant.name" />
@@ -34,29 +35,27 @@
 
                     </div>
                 </div>
-                <div id="cart">
-                    <!-- <div class="card">
-                        <div class="card-head">carrello</div>
-                        <div class="card-body">
-                            <h2>hello</h2>
-                        </div>
-                    </div> -->
+                <CartComponent />
+                <!-- <div id="cart">
                     <table>
                         <thead>carrello</thead>
                         <th>prodotti</th>
                         <th>quantità</th>
                         <th>prezzo</th>
                         <tbody>
-                            <!-- <div v-if="store.fullCart"> -->
-                            <tr v-for="el in this.store.cart" :key="el.dish.id">
-                                <td>{{ el.dish.name }}</td>
-                                <td>{{ el.quantity }}</td>
-                                <td>{{ el.dish.price }}</td>
+                            <tr v-for="el in this.store.cart" :key="el.dish_id">
+                                <td>{{ el.name }}</td>
+                                <td>
+                                    <button @click="removeDishCart(el.dish_id)">-</button>
+                                    {{ el.quantity }}</td>
+                                    <button @click="addDishCart(el.dish_id)">+</button>                                    
+                                <td>{{ el.price * el.quantity }} €</td>
                             </tr>
-                            <!-- </div> -->
                         </tbody>
                     </table>
-                </div>
+                    <div id="restaurantErrorMsg" class="d-none">Non puoi aggiungere un piatto di un altro ristorante</div>
+                    <button @click="emptyCart()">Svuota</button>
+                </div> -->
             </div>
         </div>
 
@@ -66,15 +65,18 @@
 <script>
 import axios from "axios";
 import { store } from "../data/store.js";
+import NavbarComponent from "@/components/NavbarComponent.vue";
+import CartComponent from "@/components/CartComponent.vue";
 export default {
     name: 'RestaurantDetails',
     components: {
-    },
+    NavbarComponent,
+    CartComponent,
+},
     data() {
         return {
             store,
             restaurant: null,
-
         };
     },
     methods: {
@@ -90,27 +92,94 @@ export default {
                     }
                 });
         },
+
         addToCart(dish) {
-            const newOrder = this.store.cart.find(el => el.dish.id === dish.id);
-            if (newOrder) {
-                newOrder.quantity++;
-            } else {
-                this.store.cart.push({ dish, quantity: 1 });
+            const newItem = this.store.cart.find(el => el.dish_id === dish.id);
+            let cart_restaurant = localStorage.cart_restaurant;
+            
+            if (!cart_restaurant) {
+                localStorage.setItem('cart_restaurant', dish.restaurant_id);
+                cart_restaurant = dish.restaurant_id;
             }
 
-            localStorage.setItem('shoppingCart', JSON.stringify(this.store.cart));
+            if (dish.restaurant_id != cart_restaurant) {
+                document.getElementById('restaurantErrorMsg').classList.remove('d-none');
+                return
+            }
+            
+            if (newItem) {
+                console.log(newItem)
+                newItem.quantity++;
 
-        }
+                this.store.cartTotalPrice = JSON.parse(localStorage.cart_total) + JSON.parse(newItem.price);
+            } else {
+                console.log(dish)
+                let cartItem = {
+                    name: dish.name,
+                    price: dish.price,
+                    quantity: 1,
+                    dish_id: dish.id,
+                    image: dish.image
+                };
+                
+                this.store.cartTotalPrice = JSON.parse(localStorage.cart_total) + JSON.parse(cartItem.price);
+
+                this.store.cart.push(cartItem);
+            }
+            
+
+            localStorage.setItem('cart_total', JSON.stringify(this.store.cartTotalPrice));
+            localStorage.setItem('shoppingCart', JSON.stringify(this.store.cart));
+        },
+
+        //     addDishCart(id) {
+        //         const cart = this.store.cart;
+        //         const addItem = cart.find(el => el.dish_id === id);
+
+        //         addItem.quantity++;
+
+        //         localStorage.setItem('shoppingCart', JSON.stringify(cart));
+        //     },
+
+        //     removeDishCart(id) {
+        //         const cart = this.store.cart;
+        //         const removeItem = cart.find(el => el.dish_id === id);
+
+        //         if (removeItem.quantity == 1) {
+        //             const indexItem = cart.indexOf(removeItem);
+        //             cart.splice(indexItem, 1);
+        //         } else {
+        //             removeItem.quantity--;
+        //         }
+
+        //         if (!cart.length) {
+        //         localStorage.cart_restaurant = '';
+        //         localStorage.setItem('cart_restaurant', '');
+        //         }
+
+        //         localStorage.setItem('shoppingCart', JSON.stringify(cart));
+        //     },
+
+        //     emptyCart() {
+        //         this.store.cart = [];
+        //         localStorage.cart_restaurant = '';
+
+        //         localStorage.setItem('shoppingCart', []);
+        //         localStorage.setItem('cart_restaurant', '');
+
+        //         document.getElementById('restaurantErrorMsg').classList.add('d-none');
+
+        //     }
 
     },
 
     mounted() {
         this.getRestaurantData();
 
-        const shoppingCart = localStorage.getItem('shoppingCart');
-        if (shoppingCart) {
-            this.store.cart = JSON.parse(shoppingCart)
-        }
+        // const shoppingCart = localStorage.getItem('shoppingCart');
+        // if (shoppingCart) {
+        //     this.store.cart = JSON.parse(shoppingCart);
+        // }
     },
 
 }
@@ -153,11 +222,5 @@ export default {
     height: 100px;
     border-radius: 10px;
     overflow: hidden;
-}
-
-#cart {
-    // width: 100px;
-    padding: 20px;
-
 }
 </style>
