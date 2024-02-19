@@ -6,7 +6,7 @@
             </h3>
             <div v-for="el in this.store.cart" :key="el.dish_id" class="d-flex justify-content-between align-items-center">
                 <div class="d-flex align-items-center">
-                    <div :class="{ 'd-none': this.$route.name !== 'home'}"><img :src="el.image" :alt="el.name"></div>
+                    <!-- <div :class="{ 'd-none': this.$route.name !== 'home'}"><img :src="el.image" :alt="el.name"></div> -->
                     <button @click="removeDishCart(el.dish_id)" class="quantity-btn min me-1">
                         -
                     </button>
@@ -28,7 +28,7 @@
                 Totale
                 <span>{{ this.store.cartTotalPrice.toFixed(2) }} €</span>
             </div>
-            <div class="d-flex align-items-center justify-content-between my-2">
+            <div v-if="this.$route.name !== 'checkout'" class="d-flex align-items-center justify-content-between my-2">
                 <button @click="emptyCart()" class="btn btn-empty text-light fw-bold me-3">
                     Svuota <br> Carrello
                 </button>

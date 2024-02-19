@@ -17,8 +17,8 @@
             </div>
         </div>
         <div class="container my-5">
-            <div class="d-flex justify-content-between ">
-                <div id="menu">
+            <div class="row">
+                <div id="menu" class="col-12 col-lg-8">
                     <h3 class="fw-bold fs-2 mb-5">Menu</h3>
                     <div class="card mb-2 p-2" v-for="(dish) in restaurant.dishes" @click="addToCart(dish)">
                         <div class="d-flex justify-content-between">
@@ -35,7 +35,7 @@
 
                     </div>
                 </div>
-                <CartComponent />
+                <CartComponent class="d-none d-lg-block col-lg-4"/>
                 <!-- <div id="cart">
                     <table>
                         <thead>carrello</thead>
