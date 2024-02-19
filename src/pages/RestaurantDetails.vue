@@ -20,7 +20,7 @@
             <div class="row">
                 <div id="menu" class="col-12 col-lg-8 pe-5">
                     <h3 class="fw-bold fs-2 mb-5">Menu</h3>
-                    <div class="card mb-2 p-2 mb-3" v-for="(dish) in restaurant.dishes">
+                    <div class="card mb-2 p-2 mb-3" v-for="(dish) in restaurant.dishes" @click="openDishModal(dish)">
 
 
                         <div class="d-flex justify-content-between">
@@ -31,7 +31,7 @@
 
                                 </div>
                                 <p class="">{{ dish.ingredients }}</p>
-                                <button class="btn btn-warning" @click="addToCart(dish)"> Aggiungi al carrello </button>
+                                
                             </div>
                             <div class="card-right">
                                 <div class="dish-img">
@@ -65,7 +65,51 @@
                 </div> -->
             </div>
         </div>
+
+
+
+
+        <div>
+
+    <!-- Modale -->
+    <div class="modal d-block" tabindex="-1" role="dialog" v-if="showModal">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close btn-close" @click="closeModal">
+            </button>
+          </div>
+          <div class="modal-img">
+            <img :src="store.imagePath + dishData.image" :alt="dishData.name">
+          </div>
+
+          <div class="modal-body text-center">
+
+
+            <h5 class="modal-title fw-bold mb-3">{{dishData.name}}</h5>
+
+            <h6 class="fw-bold">Ingredienti:</h6>
+            <p>{{dishData.ingredients}}</p>
+            <p>{{dishData.description}}</p>
+            <p class="fs-3">{{dishData.price}} €</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger text-white fw-bold" @click="closeModal">Chiudi</button>
+            <button class="btn btn-warning text-white fw-bold" @click="addToCart(dishData)"> Aggiungi al carrello </button>
+          </div>
+        </div>
+      </div>
     </div>
+    <div class="modal-backdrop fade show" v-if="showModal"></div>
+  </div>
+        
+        
+        
+        
+  </div>
+        
+        
+
 </template>
   
 <script>
@@ -83,9 +127,23 @@ export default {
         return {
             store,
             restaurant: null,
+            showModal: false,
+            dishData: null,
+
+
         };
     },
     methods: {
+
+        closeModal() {
+      this.showModal = false;
+    },
+    confirmAction() {
+      // Aggiungi qui la logica per l'azione di conferma
+      console.log('Confirm action');
+      this.closeModal(); // Chiudi la modale dopo la conferma
+    },
+        
         getRestaurantData() {
             axios
                 .get(this.store.apiUrl + "/restaurants/" + this.$route.params.slug)
@@ -141,6 +199,10 @@ export default {
             localStorage.setItem('cart_total', JSON.stringify(this.store.cartTotalPrice));
             localStorage.setItem('shoppingCart', JSON.stringify(this.store.cart));
         },
+        openDishModal(dish){
+            this.showModal = true;
+            this.dishData = dish;
+        }
 
         //     addDishCart(id) {
         //         const cart = this.store.cart;
@@ -240,13 +302,23 @@ export default {
 }
 
 #menu {
-    .card button {
+    .card {
         &:hover {
             cursor: pointer;
             transform: scale(1.01);
             transition: all 0.3s;
 
         }
+    }
+}
+.modal-img{
+height: 400px;
+overflow: hidden;
+
+    img{
+    height: 100%;    
+    object-fit: cover;
+    object-position: center;
     }
 }
 </style>
