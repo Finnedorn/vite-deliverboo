@@ -4,6 +4,7 @@
     <PartnersComponent />
     <SearchComponent @type-searcher ="getSearchedTypes"/>
     <AboutUsComponent />
+    <CardSliderComponent />
     <FooterComponent />
 </template>
   
@@ -15,6 +16,7 @@ import HeroComponent from "@/components/HeroComponent.vue";
 import PartnersComponent from "@/components/PartnersComponent.vue";
 import SearchComponent from "@/components/SearchComponent.vue";
 import AboutUsComponent from "@/components/AboutUsComponent.vue";
+import CardSliderComponent from "@/components/CardSliderComponent.vue";
 import FooterComponent from "@/components/FooterComponent.vue";
 export default {
     name: 'AppHome',
@@ -24,6 +26,7 @@ export default {
         PartnersComponent,
         SearchComponent,
         AboutUsComponent,
+        CardSliderComponent,
         FooterComponent
     },
     data() {
