@@ -8,7 +8,6 @@
                 <div v-for="el in this.store.cart" :key="el.dish_id"
                     class="d-flex justify-content-between align-items-center">
                     <div class="d-flex align-items-center">
-                        <!-- <div :class="{ 'd-none': this.$route.name !== 'home'}"><img :src="el.image" :alt="el.name"></div> -->
                         <button @click="removeDishCart(el.dish_id)" class="quantity-btn min me-1">
                             -
                         </button>
@@ -43,11 +42,13 @@
                 :class="(store.cart.length == 0) ? 'disabled' : ''">
                 Svuota <br> Carrello
             </button>
-            <router-link :to="{ name: 'checkout' }">
-                <button class="btn btn-checkout text-light fw-bold " :class="(store.cart.length == 0) ? 'disabled' : ''">
-                    Vai al <br> Checkout
-                </button>
-            </router-link>
+          
+            <button class="btn btn-checkout text-light fw-bold " :class="(store.cart.length == 0) ? 'disabled' : '' ">
+                <router-link :to="{ name: 'checkout' }" class="text-white">
+                Vai al <br> Checkout
+                </router-link>
+            </button>
+           
         </div>
     </div>
 </template>
