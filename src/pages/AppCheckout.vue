@@ -73,7 +73,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <button type="submit" class="btn btn-warning">Invia</button>
+                                    <button type="submit" class="btn btn-send fw-bold mt-3">Invia</button>
                                 </form>
                             </div>
                         </div>
@@ -127,5 +127,15 @@ main {
 
     .border-top-grey {
         border-top: rgba(0, 0, 0, 0.175);
+    }
+
+    .btn-send {
+        background-color: $color-primary;
+        border-radius: 5px;
+        color: $color-white;
+        &:hover {
+            transform: scale(1.05);
+            transition: all 0.5s;
+        }
     }
 }</style>

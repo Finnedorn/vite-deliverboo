@@ -33,7 +33,7 @@
                     Svuota <br> Carrello
                 </button>
                 <router-link :to="{ name: 'checkout' }">
-                    <button class="btn btn-checkout text-light fw-bold ">
+                    <button class="btn btn-checkout text-light fw-bold">
                         Vai al <br> Checkout
                     </button>
                 </router-link>
