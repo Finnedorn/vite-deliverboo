@@ -37,18 +37,18 @@
                     </div> -->
 
                     <!-- cart  -->
-                    <div v-if="this.$route.name !== 'checkout'" class="cart-box me-4" :class="{ 'd-lg-none': this.$route.name !== 'home' }">
-                        <a href="#" @click.prevent="store.cartShow = !store.cartShow" class="cart-icon">
-                            <i class="fa-solid fa-cart-shopping"></i>
-                        </a>
+                    <div v-if="this.$route.name !== 'checkout'" class="cart-box me-4"
+                        :class="{ 'd-lg-none': this.$route.name !== 'home' }">
+                        <div class="cart-icon-wrap">
+                            <a href="#" @click.prevent="store.cartShow = !store.cartShow" class="cart-icon">
+                                <i class="fa-solid fa-cart-shopping"></i>
+                            </a>
+                        </div>
                         <div v-if="store.cartShow" class="cart-dropdown">
                             <div class="cart-wrapper">
-                                <button class="btn-close" @click="store.cartShow=false"></button>
+                                <button class="btn-close" @click="store.cartShow = false"></button>
                                 <CartComponent />
-
                             </div>
-                          
-                        
                         </div>
                     </div>
                     <!-- <div class="n-items d-flex align-items-center justify-content-center" v-if="store.cart.length > 0">
@@ -81,8 +81,8 @@ export default {
 
     name: "NavbarComponent",
     components: {
-    CartComponent,
-},
+        CartComponent,
+    },
     data() {
         return {
             store,
@@ -194,19 +194,28 @@ nav {
 
     .cart-box {
         position: relative;
-        a{
-            padding: 8px;
-            background-color: $color-primary;
-            color: $color-white;
-        
-            border-radius: 5px;
 
+        .cart-icon-wrap {
+            
             &:hover {
-            background-color: $color-primary-hover;
-            transition: all 0.5s;
+                transform: scale(1.15);
+                transition: all 0.5s;
+            }
+
+            a {
+                padding: 8px;
+                background-color: $color-primary;
+                color: $color-white;
+                font-size: 1.8rem;
+                border-radius: 5px;
+
+                &:hover {
+                    background-color: $color-secondary;
+                    transition: all 0.5s;
+                }
+            }
+
         }
-        }
-        
 
         // .n-items {
         //     position: absolute;
@@ -229,14 +238,16 @@ nav {
             background-color: $color-white;
             border-radius: 20px;
             z-index: 6000;
-            .cart-wrapper{
+
+            .cart-wrapper {
                 position: relative;
-                .btn-close{
+
+                .btn-close {
                     position: absolute;
                     top: 10px;
                     right: 10px;
                     z-index: 100;
-                   
+
                 }
             }
         }
