@@ -6,6 +6,7 @@
             </h3>
             <div v-for="el in this.store.cart" :key="el.dish_id" class="d-flex justify-content-between align-items-center">
                 <div class="d-flex align-items-center">
+                    <div :class="{ 'd-none': this.$route.name !== 'home'}"><img :src="el.image" :alt="el.name"></div>
                     <button @click="removeDishCart(el.dish_id)" class="quantity-btn min me-1">
                         -
                     </button>
@@ -25,7 +26,7 @@
         <div>
             <div class="border-top border-2 pt-2 pb-4 d-flex justify-content-between fw-bold">
                 Totale
-                <span>{{ store.totalPrice }} €</span>
+                <span>{{ this.store.cartTotalPrice.toFixed(2) }} €</span>
             </div>
             <div class="d-flex align-items-center justify-content-between my-2">
                 <button @click="emptyCart()" class="btn btn-empty text-light fw-bold me-3">
@@ -53,44 +54,50 @@ export default {
     methods: {
 
         addDishCart(id) {
-            const cart = this.store.cart;
-            const addItem = cart.find(el => el.dish_id === id);
+            const addItem = this.store.cart.find(el => el.dish_id === id);
 
             addItem.quantity++;
+            this.store.cartTotalPrice = JSON.parse(localStorage.cart_total) + JSON.parse(addItem.price);
 
-            localStorage.setItem('shoppingCart', JSON.stringify(cart));
+            localStorage.setItem('cart_total', JSON.stringify(this.store.cartTotalPrice));
+            localStorage.setItem('shoppingCart', JSON.stringify(this.store.cart));
         },
 
         removeDishCart(id) {
-            const cart = this.store.cart;
-            const removeItem = cart.find(el => el.dish_id === id);
+            const removeItem = this.store.cart.find(el => el.dish_id === id);
+            
+            this.store.cartTotalPrice = JSON.parse(localStorage.cart_total) - JSON.parse(removeItem.price);
 
             if (removeItem.quantity == 1) {
-                const indexItem = cart.indexOf(removeItem);
-                cart.splice(indexItem, 1);
+                this.store.cart.splice(this.store.cart.indexOf(removeItem), 1);
             } else {
                 removeItem.quantity--;
             }
 
-            if (!cart.length) {
+            if (!this.store.cart.length) {
                 localStorage.cart_restaurant = '';
+                this.store.cartTotalPrice = 0;
                 localStorage.setItem('cart_restaurant', '');
+                localStorage.setItem('cart_total', 0);
             }
 
-            localStorage.setItem('shoppingCart', JSON.stringify(cart));
+            localStorage.setItem('cart_total', JSON.stringify(this.store.cartTotalPrice));
+            localStorage.setItem('shoppingCart', JSON.stringify(this.store.cart));
         },
 
         emptyCart() {
             this.store.cart = [];
             localStorage.cart_restaurant = '';
+            this.store.cartTotalPrice = 0;
 
             localStorage.setItem('shoppingCart', []);
             localStorage.setItem('cart_restaurant', '');
+            localStorage.setItem('cart_total', 0);
 
             document.getElementById('restaurantErrorMsg').classList.add('d-none');
-
         }
     },
+
     mounted() {
         const shoppingCart = localStorage.getItem('shoppingCart');
         if (shoppingCart) {
@@ -126,11 +133,17 @@ export default {
         }
 
         .plus {
-            padding: 1px 5.5px;
+            width: 20px;
+            aspect-ratio: 1;
+            display: flex;
+            justify-content: center;
         }
 
         .min {
-            padding: 1px 7px
+            width: 20px;
+            aspect-ratio: 1;
+            display: flex;
+            justify-content: center;
         }
 
     }

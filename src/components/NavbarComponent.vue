@@ -5,7 +5,7 @@
             <div class="container-fluid overflow-hidden py-2 px-4">
 
                 <!-- logo -->
-                <div id="logo" class="py-2 mx-1 me-3" :class="{ 'd-none': show }">
+                <div id="logo" class="py-2 mx-1 me-3">
                     <router-link :to="{ name: 'home' }">
                         <img src="../assets/img/logo_food_red.png" alt="deliverboo-logo" />
                     </router-link>

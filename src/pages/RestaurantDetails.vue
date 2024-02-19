@@ -94,43 +94,42 @@ export default {
         },
 
         addToCart(dish) {
-            const cart = this.store.cart;
-            const newItem = cart.find(el => el.dish_id === dish.id);
+            const newItem = this.store.cart.find(el => el.dish_id === dish.id);
             let cart_restaurant = localStorage.cart_restaurant;
-
-
-            if (cart_restaurant) {
-
-            } else {
+            
+            if (!cart_restaurant) {
                 localStorage.setItem('cart_restaurant', dish.restaurant_id);
                 cart_restaurant = dish.restaurant_id;
-
             }
-            // console.log(cart_restaurant);
-            // console.log(dish.restaurant_id);
-
 
             if (dish.restaurant_id != cart_restaurant) {
-                // console.log('ciao')
                 document.getElementById('restaurantErrorMsg').classList.remove('d-none');
                 return
             }
-
+            
             if (newItem) {
                 console.log(newItem)
                 newItem.quantity++;
+
+                this.store.cartTotalPrice = JSON.parse(localStorage.cart_total) + JSON.parse(newItem.price);
             } else {
+                console.log(dish)
                 let cartItem = {
                     name: dish.name,
                     price: dish.price,
                     quantity: 1,
                     dish_id: dish.id,
+                    image: dish.image
                 };
+                
+                this.store.cartTotalPrice = JSON.parse(localStorage.cart_total) + JSON.parse(cartItem.price);
 
-                cart.push(cartItem);
+                this.store.cart.push(cartItem);
             }
+            
 
-            localStorage.setItem('shoppingCart', JSON.stringify(cart));
+            localStorage.setItem('cart_total', JSON.stringify(this.store.cartTotalPrice));
+            localStorage.setItem('shoppingCart', JSON.stringify(this.store.cart));
         },
 
         //     addDishCart(id) {
