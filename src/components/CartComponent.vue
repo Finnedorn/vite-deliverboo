@@ -19,8 +19,8 @@
                         </button>
                         <div>{{ el.name }}</div>
                     </div>
-                    <div>{{ el.price * el.quantity }} €</div>
                 </div>
+                <div>{{ (el.price * el.quantity).toFixed(2) }} €</div>
             </div>
             <div id="restaurantErrorMsg" class="d-none text-center py-2 fw-bold">Non puoi aggiungere un piatto <br> di un
                 altro
@@ -37,6 +37,7 @@
                 Totale
                 <span>{{ this.store.cartTotalPrice.toFixed(2) }} €</span>
             </div>
+
         <div v-if="this.$route.name !== 'checkout'" class="d-flex align-items-center justify-content-between my-2">
             <button @click="emptyCart()" class="btn btn-empty text-light fw-bold me-3"
                 :class="(store.cart.length == 0) ? 'disabled' : ''">
@@ -177,7 +178,7 @@ export default {
     .btn-empty {
         background-color: $color-secondary;
         border-radius: 5px;
-        padding: 2px 30px;
+        padding: 5px 30px;
 
         &:hover {
             transform: scale(1.05);

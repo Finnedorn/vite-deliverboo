@@ -60,6 +60,9 @@ export default {
 
 .green-wave-wrapper {
     transform: scaleX(-1);
+    position: relative;
+    z-index: 1100;
+    bottom: -1px;
 }
 
 .about-us-wrapper {
