@@ -101,14 +101,18 @@ export default {
 
         addToCart(dish) {
             const newItem = this.store.cart.find(el => el.dish_id === dish.id);
-            let cart_restaurant = localStorage.cart_restaurant;
 
-            if (!cart_restaurant) {
+            if (!localStorage.cart_restaurant) {
                 localStorage.setItem('cart_restaurant', dish.restaurant_id);
-                cart_restaurant = dish.restaurant_id;
+                localStorage.setItem('cart_total', 0);
+                localStorage.setItem('shoppingCart', []);
+
+                this.store.cart = [];
+                this.store.cartTotalPrice = 0;
+                localStorage.cart_restaurant = dish.restaurant_id;
             }
 
-            if (dish.restaurant_id != cart_restaurant) {
+            if (dish.restaurant_id != localStorage.cart_restaurant) {
                 document.getElementById('restaurantErrorMsg').classList.remove('d-none');
                 return
             }
