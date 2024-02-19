@@ -25,6 +25,8 @@
                             <div class="card-left me-5">
                                 <h5 class="fw-bold fs-4">{{ dish.name }}</h5>
                                 <p class="">{{ dish.ingredients }}</p>
+                                <p>{{ dish.price }} €
+                                </p>
                             </div>
                             <div class="card-right">
                                 <div class="dish-img">
@@ -70,9 +72,9 @@ import CartComponent from "@/components/CartComponent.vue";
 export default {
     name: 'RestaurantDetails',
     components: {
-    NavbarComponent,
-    CartComponent,
-},
+        NavbarComponent,
+        CartComponent,
+    },
     data() {
         return {
             store,
@@ -96,7 +98,7 @@ export default {
         addToCart(dish) {
             const newItem = this.store.cart.find(el => el.dish_id === dish.id);
             let cart_restaurant = localStorage.cart_restaurant;
-            
+
             if (!cart_restaurant) {
                 localStorage.setItem('cart_restaurant', dish.restaurant_id);
                 cart_restaurant = dish.restaurant_id;
@@ -106,7 +108,7 @@ export default {
                 document.getElementById('restaurantErrorMsg').classList.remove('d-none');
                 return
             }
-            
+
             if (newItem) {
                 console.log(newItem)
                 newItem.quantity++;
@@ -121,12 +123,12 @@ export default {
                     dish_id: dish.id,
                     image: dish.image
                 };
-                
+
                 this.store.cartTotalPrice = JSON.parse(localStorage.cart_total) + JSON.parse(cartItem.price);
 
                 this.store.cart.push(cartItem);
             }
-            
+
 
             localStorage.setItem('cart_total', JSON.stringify(this.store.cartTotalPrice));
             localStorage.setItem('shoppingCart', JSON.stringify(this.store.cart));
