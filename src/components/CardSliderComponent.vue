@@ -3,53 +3,16 @@
         <div class="d-flex flex-nowrap justify-content-start py-5">
 
             <div v-for="food in foods" class="card-slider d-flex align-items-end">
-                <div class="row d-flex  flex-nowrap ">
-                    <div class="icon d-flex  justify-content-center  align-items-center ">{{ food.name }}</div>
+                <div class="row d-flex flex-nowrap ">
+                    <div class="fs-3 fw-bold icon d-flex justify-content-center  align-items-center ">{{ food.name }}</div>
                     <div class="description d-flex  justify-content-center  flex-column  overflow-hidden ">
-                        <h4>Fast Delivery</h4>
+                        <h3 class="fs-2 fw-bold ">Fast Delivery</h3>
                         <p>
                             Get your food at your door step with our fast delivery service.
                         </p>
                     </div>
                 </div>
             </div>
-
-            <!-- <input type="checkbox" name="slide" id="c2" >
-            <label for="c2" class="card-slider d-flex  align-items-end ">
-                <div class="row d-flex  flex-nowrap ">
-                    <div class="icon d-flex  justify-content-center  align-items-center ">2</div>
-                    <div class="description d-flex  justify-content-center  flex-column  overflow-hidden ">
-                        <h4>Fast Delivery</h4>
-                        <p>
-                            Get your food at your door step with our fast delivery service.
-                        </p>
-                    </div>
-                </div>
-            </label>
-            <input type="checkbox" name="slide" id="c3" >
-            <label for="c3" class="card-slider d-flex  align-items-end ">
-                <div class="row d-flex  flex-nowrap ">
-                    <div class="icon d-flex  justify-content-center  align-items-center ">3</div>
-                    <div class="description d-flex  justify-content-center  flex-column  overflow-hidden ">
-                        <h4>Fast Delivery</h4>
-                        <p>
-                            Get your food at your door step with our fast delivery service.
-                        </p>
-                    </div>
-                </div>
-            </label>
-            <input type="checkbox" name="slide" id="c4" >
-            <label for="c4" class="card-slider d-flex  align-items-end ">
-                <div class="row d-flex  flex-nowrap ">
-                    <div class="icon d-flex  justify-content-center  align-items-center ">4</div>
-                    <div class="description d-flex  justify-content-center  flex-column  overflow-hidden ">
-                        <h4>Fast Delivery</h4>
-                        <p>
-                            Get your food at your door step with our fast delivery service.
-                        </p>
-                    </div>
-                </div>
-            </label> -->
         </div>
     </div>
 </template>
@@ -118,6 +81,7 @@ export default {
 @use '../assets/style/partials/variables.scss' as *;
 
 .card-slider {
+    background-color: aqua;
     width: 60px;
     border-radius: 1rem;
     background-size: cover;
@@ -130,11 +94,10 @@ export default {
 }
 
 .card-slider>.row {
-    color: white;
+    color: rgb(131, 15, 15);
 }
 
 .card-slider>.row>.icon {
-    background: rebeccapurple;
     color: white;
     width: 50px;
     margin: 15px;

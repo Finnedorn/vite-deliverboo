@@ -1,6 +1,10 @@
 <template>
     <!-- searchbar  -->
+    <div class="yellow-wave-wrapper">
+        <img src="../assets/img/wave-yellow.png" alt="yellow-wave">
+    </div>
     <section id="search-section">
+        
         <div class="container">
             <div class="text-center mb-5">
                 <h2 class="mb-3 fw-bold search-title">Di che cosa hai voglia <br> stasera?</h2>
@@ -167,6 +171,10 @@ export default {
   
 <style lang="scss" scoped>
 @use '../assets/style/partials/variables.scss' as *;
+
+.yellow-wave-wrapper {
+    transform: rotate(180deg);
+}
 
 #search-section {
     background-color: $color-white;
