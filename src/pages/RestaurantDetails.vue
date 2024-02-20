@@ -198,6 +198,7 @@ export default {
 
             localStorage.setItem('cart_total', JSON.stringify(this.store.cartTotalPrice));
             localStorage.setItem('shoppingCart', JSON.stringify(this.store.cart));
+            this.showModal = false;
         },
         openDishModal(dish){
             this.showModal = true;
