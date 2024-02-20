@@ -1,37 +1,44 @@
 <template>
-    <div class="card d-flex flex-column justify-content-between rounded-4 p-4 ">
-        
-        <div v-if="store.cart.length > 0" class="position-relative">
+    <div class="card d-flex flex-column justify-content-between rounded-4 p-4 position-relative overflow-hidden ">
+        <div v-if="deleteCart" id="cartResetMsg" class=" text-center fw-bold">
+                <div class="d-flex flex-column justify-content-center align-items-center h-100 px-3">
+                    <div class="fs-3 mb-3">
+                        Sei sicuro di voler svuotare il tuo carrello?
+                    </div>
+                    <div class="d-flex">
+                        <button @click="deleteCart = false" class="btn btn-warning text-white me-3 fw-bold">
+                            Annulla
+                        </button>
+                        <button @click="emptyCart()" class="btn btn-danger fw-bold">
+                            Svuota
+                        </button>
+                    </div>
+                    
+                </div>
+            </div>
+        <div v-if="store.cart.length > 0">
             <div id="cart">
                 <h3 class="text-center  mb-4 fw-bold">
                     Il tuo Ordine
                 </h3>
                 <div v-for="el in this.store.cart" :key="el.dish_id"
-                    class="d-flex justify-content-between align-items-center">
-                    <div class="d-flex align-items-center">
-                        <button @click="removeDishCart(el.dish_id)" class="quantity-btn min me-1">
+                    class="row mb-2 align-items-center ">
+                    <div class="col-3 d-flex align-items-center">
+                        <button @click="removeDishCart(el.dish_id)" class="quantity-btn min me-2">
                             -
                         </button>
-                        <div class="me-1 quantity-wrap">
+                        <div class="me-2 quantity-wrap">
                             {{ el.quantity }}
                         </div>
-                        <button @click="addDishCart(el.dish_id)" class="quantity-btn plus me-2">
+                        <button @click="addDishCart(el.dish_id)" class="quantity-btn plus">
                             +
                         </button>
-                        <div>{{ el.name }}</div>
                     </div>
-                    <div>{{ (el.price * el.quantity).toFixed(2) }} €</div>
+                    <div class="col">{{ el.name }}</div>
+                    <div class="col-3">{{ (el.price * el.quantity).toFixed(2) }} €</div>
                 </div>
             </div>
-            <div id="restaurantErrorMsg" class="d-none text-center fw-bold">
-            <div class="d-flex flex-column justify-content-center align-items-center h-100 px-3">
-                <div class="fs-3">
-                    Non puoi aggiungere un piatto <br> di un altro ristorante!
-                </div>
-                <p class="">Se vuoi procedere con un nuovo ordine, svuota il tuo carrello.</p>
-                
-            </div>
-        </div>
+           
 
         </div>
        
@@ -45,7 +52,7 @@
         </div>
 
         <div v-if="this.$route.name !== 'checkout'" class="d-flex align-items-center justify-content-between my-2">
-            <button @click="emptyCart()" class="btn btn-empty text-light fw-bold me-3"
+            <button @click="deleteCart = true" class="btn btn-empty text-light fw-bold me-3"
                 :class="(store.cart.length == 0) ? 'disabled' : ''">
                 Svuota <br> Carrello
             </button>
@@ -67,6 +74,7 @@ export default {
     data() {
         return {
             store,
+            deleteCart: false,
         };
     },
     methods: {
@@ -111,8 +119,8 @@ export default {
             localStorage.setItem('shoppingCart', []);
             localStorage.setItem('cart_restaurant', '');
             localStorage.setItem('cart_total', 0);
-
-            document.getElementById('restaurantErrorMsg').classList.add('d-none');
+            this.deleteCart = false;
+            // document.getElementById('restaurantErrorMsg').classList.add('d-none');
         }
     },
 
@@ -191,13 +199,13 @@ export default {
             transition: all 0.5s;
         }
     }
-    #restaurantErrorMsg{
+    #cartResetMsg{
         position: absolute;
         top: 0;
         bottom: 0;
         right: 0;
         left: 0;
-        background-color: $color-bg-primary; 
+        background-color: $color-white; 
         height: 100%;
         width: 100%;
         .fs-3{
@@ -207,5 +215,6 @@ export default {
             color: $color-tertiary;
         }
     }
+    
 }
 </style>
