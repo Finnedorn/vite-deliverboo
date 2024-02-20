@@ -23,7 +23,7 @@
 
         <div id="restaurant-content" class="container mb-5">
             <div class="row">
-                <div id="menu" class="col-12 col-lg-8 pe-5">
+                <div id="menu" class="col-12 col-lg-8 pe-md-5">
                     <h3 class="fw-bold fs-2 mb-5">Menu</h3>
                     <div class="card mb-2 p-2 mb-3" v-for="(dish) in restaurant.dishes">
                     
@@ -32,16 +32,15 @@
 
                         <div class="d-flex justify-content-between">
                             <div class="card-left me-5">
-                                <div class="d-flex align-content-center ">
-                                    <h5 class="fw-bold">{{ dish.name }}</h5>
-                                    <h5 class="ms-2">{{ dish.price }} €</h5>
-                                    
+                                <div class="d-flex align-items-center mb-3">
+                                    <h5 class="fw-bold me-2">{{ dish.name }}</h5>
+                                    <h5 class="me-2">{{ dish.price }} €</h5>
+                                    <button class="btn btn-checkout text-white fw-bold" @click="addToCart(dish)"> 
+                                       <i class="fa-solid fa-plus"></i> 
+                                    </button>
                                 </div>
                                 <p class="">{{ dish.ingredients }}</p>
                                 
-                                <div class="d-flex">
-                                    <button class="btn btn-checkout text-white fw-bold" @click="addToCart(dish)"> Aggiungi </button>
-                                </div>
                             </div>
 
                             
@@ -78,37 +77,67 @@
             </div>
         </div>
 
-    <!-- Modale -->
-    <!-- <div class="modal d-block" tabindex="-1" role="dialog" v-if="showModal">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close btn-close" @click="closeModal">
-            </button>
-          </div>
-          <div class="modal-img">
-            <img :src="store.imagePath + dishData.image" :alt="dishData.name">
-          </div>
+        <!-- Modale aggiunta piatto al carrello -->
+        <!-- <div class="modal d-block" tabindex="-1" role="dialog" v-if="showModal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close btn-close" @click="closeModal">
+                </button>
+            </div>
+            <div class="modal-img">
+                <img :src="store.imagePath + dishData.image" :alt="dishData.name">
+            </div>
 
-          <div class="modal-body text-center">
+            <div class="modal-body text-center">
 
 
-            <h5 class="modal-title fw-bold mb-3">{{dishData.name}}</h5>
+                <h5 class="modal-title fw-bold mb-3">{{dishData.name}}</h5>
 
-            <h6 class="fw-bold">Ingredienti:</h6>
-            <p>{{dishData.ingredients}}</p>
-            <p>{{dishData.description}}</p>
-            <p class="fs-3">{{dishData.price}} €</p>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-danger text-white fw-bold" @click="closeModal">Chiudi</button>
-            <button class="btn btn-checkout text-white fw-bold" @click="addToCart(dishData)"> Aggiungi al carrello </button>
-          </div>
+                <h6 class="fw-bold">Ingredienti:</h6>
+                <p>{{dishData.ingredients}}</p>
+                <p>{{dishData.description}}</p>
+                <p class="fs-3">{{dishData.price}} €</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger text-white fw-bold" @click="closeModal">Chiudi</button>
+                <button class="btn btn-checkout text-white fw-bold" @click="addToCart(dishData)"> Aggiungi al carrello </button>
+            </div>
+            </div>
         </div>
-      </div>
-    </div> -->
-    <!-- <div class="modal-backdrop fade show" v-if="showModal"></div> -->
+        </div> -->
+        <!-- <div class="modal-backdrop fade show" v-if="showModal"></div> -->
     
+        <!-- Modale errore ordine da due rostoranti diversi -->
+       
+
+
+        <div class="modal d-block" tabindex="-1" role="dialog" v-if="showModal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content ">
+            <div class="modal-header ">
+                <h5 class="modal-title fw-bold mx-auto">Attenzione!</h5>
+                <!-- <button type="button" class="close btn-close" @click="showModal = false"> -->
+                <!-- </button> -->
+            </div>
+
+            <div class="modal-body text-center">
+                <p class="fs-5 px-4">Non è possibile ordinare piatti da due ristoranti diversi. <br>
+                    Se desideri ordinare da questo ristorante, svuota il tuo carrello.
+                </p>
+
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger text-white fw-bold" @click="showModal = false">Chiudi</button>
+                <!-- <button class="btn btn-checkout text-white fw-bold" @click=""> Aggiungi al carrello </button> -->
+            </div>
+            </div>
+        </div>
+        </div>
+        <div class="modal-backdrop fade show" v-if="showModal"></div>
+
+
     </div>
         
         
@@ -130,7 +159,7 @@ export default {
     return {
       store,
       restaurant: null,
-    //   showModal: false,
+      showModal: false,
     //   dishData: null,
     };
   },
@@ -164,8 +193,9 @@ export default {
 
       if (dish.restaurant_id != localStorage.cart_restaurant) {
         document
-          .getElementById("restaurantErrorMsg")
-          .classList.remove("d-none");
+        this.showModal = true;
+        //   .getElementById("restaurantErrorMsg")
+        //   .classList.remove("d-none");
         return;
       }
 
@@ -261,15 +291,6 @@ export default {
   margin-top: 8rem;
 }
 
-#menu {
-  .card {
-    &:hover {
-      cursor: pointer;
-      transform: scale(1.01);
-      transition: all 0.3s;
-    }
-  }
-}
 .modal-img {
   height: 400px;
   overflow: hidden;
@@ -288,10 +309,11 @@ export default {
 }
 .btn-checkout {
   background-color: $color-primary;
-  // &:hover{
-  // background-color: $color-primary-hover;
-
-  // }
+  &:hover {
+      cursor: pointer;
+      transform: scale(1.08);
+      transition: all 0.3s;
+    }
 }
 
 </style>
