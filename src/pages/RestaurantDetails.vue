@@ -163,6 +163,7 @@ export default {
 
         addToCart(dish) {
             const newItem = this.store.cart.find(el => el.dish_id === dish.id);
+            this.showModal = false;
 
             if (!localStorage.cart_restaurant) {
                 localStorage.setItem('cart_restaurant', dish.restaurant_id);
@@ -202,7 +203,6 @@ export default {
 
             localStorage.setItem('cart_total', JSON.stringify(this.store.cartTotalPrice));
             localStorage.setItem('shoppingCart', JSON.stringify(this.store.cart));
-            this.showModal = false;
         },
         openDishModal(dish){
             this.showModal = true;
