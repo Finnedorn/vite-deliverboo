@@ -21,13 +21,13 @@
             </div>
 
             <!-- card types -->
-            <div class="row mb-5 ">
+            <!-- <div class="row mb-5 ">
                 <div class="col-12 col-lg-4 col-xl-3 mb-3 " v-for="(type, index) in store.types">
                     <div class="card-type-container">
                         <typeCardComponent :el="type" @click="selectRestaurants(type, index)" />
                     </div>
                 </div>
-            </div>
+            </div> -->
 
             <!-- card slider -->
             <div class="d-flex justify-content-between py-5">
@@ -90,7 +90,7 @@ export default {
     methods: {
         searchNameRestaurant() {
             // resettare i valori della multiselected
-            let typeEl = document.querySelectorAll('.card-type-container');
+            let typeEl = document.querySelectorAll('.card-slider');
             for (let i = 0; i < typeEl.length; i++) {
                 typeEl[i].classList.remove('selected-type');
             }
@@ -104,7 +104,7 @@ export default {
         },
         searchRestaurants() {
             // resettare i valori della multiselected
-            let typeEl = document.querySelectorAll('.card-type-container');
+            let typeEl = document.querySelectorAll('.card-slider');
             for (let i = 0; i < typeEl.length; i++) {
                 typeEl[i].classList.remove('selected-type');
             }
@@ -133,7 +133,7 @@ export default {
             this.searchValue = '';
 
             this.store.dataLoading = true;
-            let typeEl = document.querySelectorAll('.card-type-container')[i];
+            let typeEl = document.querySelectorAll('.card-slider')[i];
             if (this.selectedType.includes(type.id)) {
                 this.selectedType.splice(this.selectedType.indexOf(type.id), 1);
                 typeEl.classList.remove('selected-type');
@@ -245,34 +245,10 @@ export default {
 
 .card-slider {
     background-color: $color-secondary;
-    &:nth-child(2) {
+    &:nth-child(3n) {
         background-color: $color-primary-hover;
     }
-    &:nth-child(3) {
-        background-color: $color-primary;
-    }
-    &:nth-child(5) {
-        background-color: $color-primary-hover;
-    }
-    &:nth-child(6) {
-        background-color: $color-primary;
-    }
-    &:nth-child(8) {
-        background-color: $color-primary-hover;
-    }
-    &:nth-child(9) {
-        background-color: $color-primary;
-    }
-    &:nth-child(11) {
-        background-color: $color-primary-hover;
-    }
-    &:nth-child(12) {
-        background-color: $color-primary;
-    }
-    &:nth-child(14) {
-        background-color: $color-primary-hover;
-    }
-    &:nth-child(15) {
+    &:nth-child(3n-1) {
         background-color: $color-primary;
     }
 }
