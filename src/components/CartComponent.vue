@@ -1,6 +1,7 @@
 <template>
-    <div class="card d-flex flex-column justify-content-between rounded-4 p-4">
-        <div v-if="store.cart.length > 0">
+    <div class="card d-flex flex-column justify-content-between rounded-4 p-4 ">
+        
+        <div v-if="store.cart.length > 0" class="position-relative">
             <div id="cart">
                 <h3 class="text-center  mb-4 fw-bold">
                     Il tuo Ordine
@@ -22,12 +23,18 @@
                     <div>{{ (el.price * el.quantity).toFixed(2) }} €</div>
                 </div>
             </div>
-            <div id="restaurantErrorMsg" class="d-none text-center py-2 fw-bold">Non puoi aggiungere un piatto <br> di un
-                altro
-                ristorante
+            <div id="restaurantErrorMsg" class="d-none text-center fw-bold">
+            <div class="d-flex flex-column justify-content-center align-items-center h-100 px-3">
+                <div class="fs-3">
+                    Non puoi aggiungere un piatto <br> di un altro ristorante!
+                </div>
+                <p class="">Se vuoi procedere con un nuovo ordine, svuota il tuo carrello.</p>
+                
             </div>
+        </div>
 
         </div>
+       
         <div v-else id="empty-cart">
             <h3 class="text-center mb-4 fw-bold">Il tuo carrello è vuoto</h3>
             <img src="../assets/img/logo_food_pink.png" alt="logo">
@@ -35,7 +42,7 @@
         <div class="border-top border-2 pt-2 pb-4 d-flex justify-content-between fw-bold">
                 Totale
                 <span>{{ this.store.cartTotalPrice.toFixed(2) }} €</span>
-            </div>
+        </div>
 
         <div v-if="this.$route.name !== 'checkout'" class="d-flex align-items-center justify-content-between my-2">
             <button @click="emptyCart()" class="btn btn-empty text-light fw-bold me-3"
@@ -164,7 +171,7 @@ export default {
     }
 
     .btn-checkout {
-        background-color: $color-primary;
+        background-color: $color-tertiary;
         border-radius: 5px;
         padding: 5px 30px;
 
@@ -184,6 +191,21 @@ export default {
             transition: all 0.5s;
         }
     }
-
+    #restaurantErrorMsg{
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        right: 0;
+        left: 0;
+        background-color: $color-bg-primary; 
+        height: 100%;
+        width: 100%;
+        .fs-3{
+            color: $color-secondary;
+        }
+        p{
+            color: $color-tertiary;
+        }
+    }
 }
 </style>
