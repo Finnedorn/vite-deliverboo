@@ -6,21 +6,23 @@
             <div id="restaurant-card" class="card text-center">
                 <div class="card-header bg-white">
                     <h2 class="fw-bold">{{ restaurant.name }}</h2>
-
+    
                 </div>
                 <div class="card-body p-1">
                     <p class="d-flex justify-content-center column-gap-2">
                         <div v-for="(type,index) in restaurant.types" class="rest-types d-flex align-items-center ">
                             <span class="color-tertiary fs-5 me-2">{{ type.name }}</span>
                             <i  v-if="index != restaurant.types.length - 1" class="fa-solid fa-circle" ></i>
-
+    
                         </div>
                     </p>
                     <p>{{ restaurant.address }}</p>
                 </div>
             </div>
         </div>
-        <div class="container my-5">
+
+
+        <div id="restaurant-content" class="container mb-5">
             <div class="row">
                 <div id="menu" class="col-12 col-lg-8 pe-5">
                     <h3 class="fw-bold fs-2 mb-5">Menu</h3>
@@ -204,6 +206,7 @@ export default {
             localStorage.setItem('cart_total', JSON.stringify(this.store.cartTotalPrice));
             localStorage.setItem('shoppingCart', JSON.stringify(this.store.cart));
         },
+
         openDishModal(dish){
             this.showModal = true;
             this.dishData = dish;
@@ -267,9 +270,9 @@ export default {
 
 #restaurant-cover {
     height: 400px;
-    overflow: hidden;
     position: relative;
     img{
+        overflow: hidden;
         height: 100%;
         object-fit: cover;
         object-position: center;
@@ -278,19 +281,20 @@ export default {
     @media screen and (max-width: 768px) {
         height: 300px;
     }
+}
 
-    #restaurant-card {
-        border: 3px solid $color-primary;
-        position: absolute;
-        left: 50%;
-        top: 40%;
-        transform: translate(-50%, 0);
-        width: 50%;
-        z-index: 100;
+#restaurant-card {
+    border: 3px solid $color-primary;
+    position: absolute;
+    left: 50%;
+    top: 400px;
+    transform: translate(-50%, -50%);
+    width: 50%;
+    z-index: 100;
 
-        @media screen and (max-width: 768px) {
-            width: 90%;
-        }
+    @media screen and (max-width: 768px) {
+        width: 90%;
+        top: 300px;
     }
 }
 
@@ -304,6 +308,10 @@ export default {
         object-fit: cover;
         height: 100%;
     }
+}
+
+#restaurant-content {
+    margin-top: 8rem;
 }
 
 #menu {
