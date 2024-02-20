@@ -97,6 +97,7 @@ main {
     left: 0;
     min-height: 100vh;
     background-image: url(../assets/img/checkout-bg.jpg);
+    background-size: cover;
     background-position: bottom;
     background-color: $color-primary;
 
