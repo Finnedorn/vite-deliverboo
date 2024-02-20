@@ -1,6 +1,9 @@
 <template>
-    <div class="container-fluid footer-wrapper">
-    </div>
+    <footer>
+        <div class="copyright pb-4">
+            <p class="text-center">Copyright © 2024 DeliveBoo</p>
+        </div>
+    </footer>
 </template>
   
 <script>
@@ -12,8 +15,15 @@ export default {
 <style lang="scss" scoped>
 @use '../assets/style/partials/variables.scss' as *;
 
-.footer-wrapper {
+footer {
+    .copyright{
     background-color: $color-bg-primary;
+
+        color: $color-secondary;
+        font-weight: bold;
+        font-size: 1.2rem;
+        padding-top: 35px;
+    }
 }
 
 
