@@ -35,9 +35,22 @@
                             </li>
                         </ul>
                     </div> -->
-
+                    
+                    
+                    <!-- admin -->
+                    <div class="d-flex flex-column align-items-center" :class="{ 'd-none': this.$route.name !== 'home' }">
+                        <div class="rest-link fw-bold d-none d-md-block ">
+                            Sei un ristoratore?
+                        </div>
+                        <button class="btn btn-admin">
+                            <a class="text-decoration-none text-light fw-bold" href="http://127.0.0.1:8000/">
+                                Vai all'area riservata
+                            </a>
+                        </button>
+                    </div>
+    
                     <!-- cart  -->
-                    <div v-if="this.$route.name !== 'checkout'" class="cart-box me-4"
+                    <div v-if="this.$route.name !== 'checkout'" class="cart-box ms-4"
                         :class="{ 'd-lg-none': this.$route.name !== 'home' }">
                         <div class="cart-icon-wrap">
                             <a href="#" @click.prevent="store.cartShow = !store.cartShow" class="cart-icon">
@@ -54,19 +67,6 @@
                     <!-- <div class="n-items d-flex align-items-center justify-content-center" v-if="store.cart.length > 0">
                         {{ store.cart.length }}
                     </div> -->
-
-
-                    <!-- admin -->
-                    <div class="d-flex flex-column align-items-center" :class="{ 'd-none': this.$route.name !== 'home' }">
-                        <div class="rest-link fw-bold d-none d-md-block ">
-                            Sei un ristoratore?
-                        </div>
-                        <button class="btn btn-admin">
-                            <a class="text-decoration-none text-light fw-bold" href="http://127.0.0.1:8000/">
-                                Vai all'area riservata
-                            </a>
-                        </button>
-                    </div>
                 </div>
 
             </div>
@@ -198,8 +198,8 @@ nav {
         .cart-icon-wrap {
             
             &:hover {
-                transform: scale(1.15);
-                transition: all 0.5s;
+                transform: scale(1.1);
+                transition: all 0.2s;
             }
 
             a {
@@ -232,7 +232,7 @@ nav {
 
         .cart-dropdown {
             position: absolute;
-            top: 40px;
+            top: 85px;
             right: 0;
             background-color: $color-white;
             border-radius: 20px;

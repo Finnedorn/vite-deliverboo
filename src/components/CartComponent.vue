@@ -171,7 +171,7 @@ export default {
     }
 
     .btn-checkout {
-        background-color: $color-tertiary;
+        background-color: $color-primary;
         border-radius: 5px;
         padding: 5px 30px;
 
