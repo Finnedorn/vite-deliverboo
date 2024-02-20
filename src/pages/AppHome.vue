@@ -3,8 +3,8 @@
     <HeroComponent />
     <PartnersComponent />
     <SearchComponent @type-searcher ="getSearchedTypes"/>
-    <AboutUsComponent />
     <CardSliderComponent />
+    <AboutUsComponent />
     <FooterComponent />
 </template>
   
