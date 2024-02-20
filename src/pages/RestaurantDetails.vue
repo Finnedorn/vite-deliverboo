@@ -9,8 +9,12 @@
 
                 </div>
                 <div class="card-body p-1">
-                    <p class="d-flex justify-content-center  column-gap-2">
-                        <span v-for="(type) in restaurant.types" class="color-tertiary fs-5">{{ type.name }}</span>
+                    <p class="d-flex justify-content-center column-gap-2">
+                        <div v-for="(type,index) in restaurant.types" class="rest-types d-flex align-items-center ">
+                            <span class="color-tertiary fs-5 me-2">{{ type.name }}</span>
+                            <i  v-if="index != restaurant.types.length - 1" class="fa-solid fa-circle" ></i>
+
+                        </div>
                     </p>
                     <p>{{ restaurant.address }}</p>
                 </div>
@@ -95,7 +99,7 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-danger text-white fw-bold" @click="closeModal">Chiudi</button>
-            <button class="btn btn-warning text-white fw-bold" @click="addToCart(dishData)"> Aggiungi al carrello </button>
+            <button class="btn btn-checkout text-white fw-bold" @click="addToCart(dishData)"> Aggiungi al carrello </button>
           </div>
         </div>
       </div>
@@ -320,6 +324,19 @@ overflow: hidden;
     height: 100%;    
     object-fit: cover;
     object-position: center;
+    }
+}
+.rest-types{
+    i{
+        font-size: 0.5em;
+        color: $color-primary-hover;
+    }
+}
+.btn-checkout{
+    background-color: $color-tertiary;
+    &:hover{
+    background-color: $color-tertiary-hover;
+
     }
 }
 </style>
