@@ -2,17 +2,11 @@
     <div class="card-slider d-flex align-items-end" @click="$emit('selectRestaurant')">
         <div class="row d-flex flex-nowrap">
             <div class="food-wrapper">
-                <img :src="store.imagePath + Image" :alt=title>
+                <img :src="store.imagePath + image" :alt=title>
             </div>
             <div class="fs-3 fw-bold icon d-flex justify-content-center  align-items-center ">{{ icon }}</div>
-            <div class="description pb-5  d-flex  justify-content-center  flex-column  overflow-hidden text-end">
-                <h3 class="fs-2 fw-bold text-light pb-3">{{ title }}</h3>
-                <p class="text-light w-50 text-end align-self-end">
-                    Lorem ipsum dolor sit amet.
-                </p>
-                <button class=" align-self-end  btn btn-primary fw-bold fs-5 text-light">
-                    Cerca
-                </button>
+            <div class="description">
+                <h2 class="fw-bold text-light">{{ title }}</h2>
             </div>
         </div>
     </div>
@@ -24,15 +18,14 @@ export default {
     props: {
         icon: String,
         title: String,
-        Image: String
+        image: String
     },
     name: "CardSliderComponent",
     data() {
         return {
             store,
         }
-    },
-
+    }
 };
 </script>
   
@@ -49,7 +42,6 @@ export default {
     border-radius: 2rem;
     margin: 0 10px;
     transition: .6s cubic-bezier(.28, -0.03, 0, .99);
-    box-shadow: 3px 1px 20px 0px rgba(0, 0, 0, 0.442);
 }
 
 .card-slider>.row {
@@ -69,12 +61,20 @@ export default {
 
 .card-slider>.row>.description {
     height: 300px;
-    width: 310px;
+    width: 300px;
     opacity: 0;
     transform: translateY(30px);
     transition-delay: 0.3s;
     transition: all 0.3s ease;
     z-index: 103;
+    position: relative;
+}
+
+.card-slider>.row>.description>h2 {
+    position: absolute;
+    font-size: 2.5rem;
+    bottom: 40px;
+    right: 100px;
 }
 
 .description p {
@@ -87,11 +87,10 @@ export default {
 }
 
 .food-wrapper {
-    width: 380px;
+    width: 350px;
     z-index: 100;
-    left: -150px;
-    top: -20px;
-
+    top: -100px;
+    left: -100px;
     position: absolute;
     display: none;
 }

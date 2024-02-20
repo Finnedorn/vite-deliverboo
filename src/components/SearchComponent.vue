@@ -4,12 +4,13 @@
         <img src="../assets/img/wave-yellow.png" alt="yellow-wave">
     </div>
     <section id="search-section">
-        
+
         <div class="container">
             <div class="text-center mb-5">
                 <h2 class="mb-3 fw-bold search-title">Di che cosa hai voglia <br> stasera?</h2>
                 <h5 class="mb-3 fs-2">Scopri tutte le nostre deliziose alternative</h5>
             </div>
+            <!-- searchbar -->
             <div class="input-group mb-5 p-5">
                 <span class="input-group-text">
                     <i class="fa-solid fa-magnifying-glass"></i>
@@ -19,40 +20,48 @@
                 <button class="btn" type="button" @click="searchNameRestaurant()">Cerca</button>
             </div>
 
-            <div class="row mb-5">
+            <!-- card types -->
+            <div class="row mb-5 ">
                 <div class="col-12 col-lg-4 col-xl-3 mb-3 " v-for="(type, index) in store.types">
-                    <div class="card_type_container">
-                        <typeCardComponent  :el="type" @click="selectRestaurants(type, index)" />
+                    <div class="card-type-container">
+                        <typeCardComponent :el="type" @click="selectRestaurants(type, index)" />
                     </div>
                 </div>
             </div>
-            
-           <p v-if="this.store.selectedRestaurants.length > 0 && this.selectedType || this.store.selectedRestaurants.length > 0  && this.searchValue"
-                class="mb-3 text-center fs-4 ">
-                Abbiamo trovato 
-                <span class="fw-bold">{{ this.store.selectedRestaurants.length }}</span>
-                <span v-if="this.store.selectedRestaurants.length > 1"> risultati</span> 
-                <span v-else> risultato</span> 
-                in base alla tua ricerca
-            </p> 
 
-         <p  class="mb-3 text-center fs-4 " v-if="this.store.selectedRestaurants.length === 0 && this.selectedType && this.store.dataLoading || this.store.selectedRestaurants.length === 0 && this.searchValue">Non sono stati trovati risultati</p>
+            <!-- card slider -->
+            <div class="d-flex justify-content-between py-5">
+                <CardSliderComponent class="card-slider" v-for="(type, index) in store.types" :icon="type.name" :title="type.name" :image="type.image" @selectRestaurant="selectRestaurants(type, index)" />
+            </div>
+
+            <!-- card results -->
+            <p v-if="this.store.selectedRestaurants.length > 0 && this.selectedType || this.store.selectedRestaurants.length > 0 && this.searchValue"
+                class="mb-3 text-center fs-4 pb-3">
+                Abbiamo trovato
+                <span class="fw-bold">{{ this.store.selectedRestaurants.length }}</span>
+                <span v-if="this.store.selectedRestaurants.length > 1"> risultati</span>
+                <span v-else> risultato</span>
+                in base alla tua ricerca
+            </p>
+
+            <p class="mb-3 text-center fs-4 "
+                v-if="this.store.selectedRestaurants.length === 0 && this.selectedType && this.store.dataLoading || this.store.selectedRestaurants.length === 0 && this.searchValue">
+                Non sono stati trovati risultati
+            </p>
 
             <!-- <p v-else v-show="this.store.selectedRestaurants.length > 0 && !this.searchValue">Ci sono {{
                 this.store.selectedRestaurants.length }}
-                risultati</p>  -->
+                risultati
+            </p>  -->
             <div @v-if="this.store.selectedRestaurants" class="row mb-5">
                 <div class="col-12 col-lg-4 col-xl-3 mb-3" v-for="(restaurant) in this.store.selectedRestaurants">
                     <div class="selected">
-                        <router-link :to="{ name:'single-restaurant', params: { slug: restaurant.slug } }">
+                        <router-link :to="{ name: 'single-restaurant', params: { slug: restaurant.slug } }">
                             <restaurantCardComponent :el="restaurant" />
                         </router-link>
                     </div>
-                    
                 </div>
-
             </div>
-
         </div>
     </section>
 </template>
@@ -62,27 +71,28 @@ import axios from "axios";
 import { store } from "../data/store.js";
 import typeCardComponent from "./typeCardComponent.vue";
 import restaurantCardComponent from "./restaurantCardComponent.vue";
+import CardSliderComponent from "./CardSliderComponent.vue";
 export default {
     name: "SearchComponent",
     components: {
-        typeCardComponent,
-        restaurantCardComponent
-    },
+    typeCardComponent,
+    restaurantCardComponent,
+    CardSliderComponent,
+    CardSliderComponent
+},
     data() {
         return {
             store,
             searchValue: "",
             selectedType: [],
-
-
         };
     },
     methods: {
         searchNameRestaurant() {
-             // resettare i valori della multiselected
-             let typeEl = document.querySelectorAll('.card_type_container');
-            for (let i = 0; i < typeEl.length; i ++) {
-                typeEl[i].classList.remove('selected_type');
+            // resettare i valori della multiselected
+            let typeEl = document.querySelectorAll('.card-type-container');
+            for (let i = 0; i < typeEl.length; i++) {
+                typeEl[i].classList.remove('selected-type');
             }
             this.selectedType = [];
             this.store.selectedRestaurants = [];
@@ -94,9 +104,9 @@ export default {
         },
         searchRestaurants() {
             // resettare i valori della multiselected
-            let typeEl = document.querySelectorAll('.card_type_container');
-            for (let i = 0; i < typeEl.length; i ++) {
-                typeEl[i].classList.remove('selected_type');
+            let typeEl = document.querySelectorAll('.card-type-container');
+            for (let i = 0; i < typeEl.length; i++) {
+                typeEl[i].classList.remove('selected-type');
             }
             this.selectedType = [];
 
@@ -123,14 +133,14 @@ export default {
             this.searchValue = '';
 
             this.store.dataLoading = true;
-            let typeEl = document.querySelectorAll('.card_type_container')[i];
+            let typeEl = document.querySelectorAll('.card-type-container')[i];
             if (this.selectedType.includes(type.id)) {
-                this.selectedType.splice(this.selectedType.indexOf(type.id) , 1);
-                typeEl.classList.remove('selected_type');
-                
+                this.selectedType.splice(this.selectedType.indexOf(type.id), 1);
+                typeEl.classList.remove('selected-type');
+
             } else {
                 this.selectedType.push(type.id);
-                typeEl.classList.add('selected_type');
+                typeEl.classList.add('selected-type');
 
             }
 
@@ -139,16 +149,16 @@ export default {
                 let typeList = JSON.parse(JSON.stringify(this.selectedType));
                 axios.get(store.apiUrl + "/restaurants", { params: { types: typeList } }).then((res) => {
                     console.log(res.data.results);
-    
+
                     this.store.selectedRestaurants = res.data.results;
-    
+
                 });
             } else {
                 this.store.selectedRestaurants = '';
                 this.store.dataLoading = false;
             }
 
-            
+
             // this.store.dataLoading = true;
 
             // this.store.selectedRestaurants = [];
@@ -213,22 +223,58 @@ export default {
     }
 
 }
-.card_type_container {
+
+.card-type-container {
     border-radius: 1rem;
     overflow: hidden;
-    
-    &:hover {
-    transition: all 0.3s;
-    filter: brightness(105%);
-    transform: scale(1.02);
-    cursor: pointer;
+
+    // &:hover {
+    //     transition: all 0.3s;
+    //     filter: brightness(105%);
+    //     transform: scale(1.02);
+    //     cursor: pointer;
+    // }
+
+}
+
+.selected-type {
+    -webkit-box-shadow: 0px 0px 0px 4px $color-tertiary;
+    box-shadow: 0px 0px 0px 4px $color-tertiary;
+
+}
+
+.card-slider {
+    background-color: $color-secondary;
+    &:nth-child(2) {
+        background-color: $color-primary-hover;
     }
-
+    &:nth-child(3) {
+        background-color: $color-primary;
+    }
+    &:nth-child(5) {
+        background-color: $color-primary-hover;
+    }
+    &:nth-child(6) {
+        background-color: $color-primary;
+    }
+    &:nth-child(8) {
+        background-color: $color-primary-hover;
+    }
+    &:nth-child(9) {
+        background-color: $color-primary;
+    }
+    &:nth-child(11) {
+        background-color: $color-primary-hover;
+    }
+    &:nth-child(12) {
+        background-color: $color-primary;
+    }
+    &:nth-child(14) {
+        background-color: $color-primary-hover;
+    }
+    &:nth-child(15) {
+        background-color: $color-primary;
+    }
 }
 
-.selected_type {
-    -webkit-box-shadow: 0px 0px 0px 4px $color-tertiary; 
-box-shadow: 0px 0px 0px 4px $color-tertiary;
-
-}
 </style>
