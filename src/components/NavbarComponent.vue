@@ -38,8 +38,8 @@
                     
                     
                     <!-- admin -->
-                    <div class="d-flex flex-column align-items-center" :class="{ 'd-none': this.$route.name !== 'home' }">
-                        <div class="rest-link fw-bold d-none d-md-block ">
+                    <div class="d-flex align-items-center" :class="{ 'd-none': this.$route.name !== 'home' }">
+                        <div class="rest-link fw-bold d-none d-md-block me-2">
                             Sei un ristoratore?
                         </div>
                         <button class="btn btn-admin">
@@ -206,7 +206,7 @@ nav {
                 padding: 8px;
                 background-color: $color-primary;
                 color: $color-white;
-                font-size: 1.8rem;
+                font-size: 1.1rem;
                 border-radius: 5px;
 
                 &:hover {
@@ -232,7 +232,7 @@ nav {
 
         .cart-dropdown {
             position: absolute;
-            top: 85px;
+            top: 60px;
             right: 0;
             background-color: $color-white;
             border-radius: 20px;

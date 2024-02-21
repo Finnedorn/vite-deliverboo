@@ -11,7 +11,7 @@
                 <h5 class="mb-3 fs-2">Scopri tutte le nostre deliziose alternative</h5>
             </div>
             <!-- searchbar -->
-            <div class="input-group mb-5 p-5">
+            <div class="input-group mb-4 p-3 p-lg-5 ">
                 <span class="input-group-text">
                     <i class="fa-solid fa-magnifying-glass"></i>
                 </span>
@@ -30,9 +30,18 @@
             </div> -->
 
             <!-- card slider -->
-            <div class="d-flex justify-content-between py-5">
-                <CardSliderComponent class="card-slider" v-for="(type, index) in store.types" :icon="type.name" :title="type.name" :image="type.image" @selectRestaurant="selectRestaurants(type, index)" />
+            <div class="d-none d-xl-block">
+                <div class="d-flex justify-content-between py-5">
+                    <CardSliderComponent class="card-slider" v-for="(type, index) in store.types" :icon="type.name" :title="type.name" :image="type.image" @selectRestaurant="selectRestaurants(type, index)" />
+                </div>
             </div>
+           
+            <div class="d-flex flex-wrap justify-content-center  d-xl-none pb-5">
+                <div class="m-1 p-2 type-badge" v-for="(type, index) in store.types" @click="selectRestaurants(type, index)">
+                    {{ type.name }}
+                </div>
+            </div>
+           
 
             <!-- card results -->
             <p v-if="this.store.selectedRestaurants.length > 0 && this.selectedType || this.store.selectedRestaurants.length > 0 && this.searchValue"
@@ -133,14 +142,17 @@ export default {
             this.searchValue = '';
 
             this.store.dataLoading = true;
+            let typeBadge = document.querySelectorAll('.type-badge')[i];
             let typeEl = document.querySelectorAll('.card-slider')[i];
             if (this.selectedType.includes(type.id)) {
                 this.selectedType.splice(this.selectedType.indexOf(type.id), 1);
                 typeEl.classList.remove('selected-type');
+                typeBadge.classList.remove('selected-type');
 
             } else {
                 this.selectedType.push(type.id);
                 typeEl.classList.add('selected-type');
+                typeBadge.classList.add('selected-type');
 
             }
 
@@ -245,6 +257,25 @@ export default {
 
 .card-slider {
     background-color: $color-secondary;
+    &:nth-child(3n) {
+        background-color: $color-primary-hover;
+    }
+    &:nth-child(3n-1) {
+        background-color: $color-primary;
+    }
+}
+.type-badge{
+    background-color: $color-secondary;
+    text-align: center;
+    border-radius: 10px;
+    color: $color-white;
+    font-weight: bold;
+     &:hover {
+        transition: all 0.3s;
+        filter: brightness(105%);
+        transform: scale(1.02);
+        cursor: pointer;
+    }
     &:nth-child(3n) {
         background-color: $color-primary-hover;
     }
