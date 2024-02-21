@@ -2,7 +2,7 @@
     <NavbarComponent />
     <HeroComponent />
     <PartnersComponent />
-    <SearchComponent @type-searcher ="getSearchedTypes"/>
+    <SearchComponent />
     <AboutUsComponent />
     <FooterComponent />
 </template>
@@ -32,11 +32,6 @@ export default {
         };
     },
     methods: {
-        // cerco per tipo e sotto ho i ristoranti di quel tipo
-        getSearchedTypes(types) {
-            console.log(types);
-            // axios.get(store.ApiUrl + "type/" + types)
-        }
     },
     mounted() {
     }
@@ -52,10 +47,6 @@ export default {
     .sidebar-container {
         width: 250px;
     }
-
-    // .main-content {
-    //     width: calc(100% - 250px);
-    // }
 }
 
 </style>

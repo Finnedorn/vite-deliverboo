@@ -30,7 +30,8 @@
             </div> -->
 
             <!-- card slider -->
-            <div class="d-none d-xl-block">
+
+             <div class="d-none d-xl-block">
                 <div class="d-flex justify-content-between py-5">
                     <CardSliderComponent class="card-slider" v-for="(type, index) in store.types" :icon="type.name" :title="type.name" :image="type.image" @selectRestaurant="selectRestaurants(type, index)" />
                 </div>
@@ -41,33 +42,44 @@
                     {{ type.name }}
                 </div>
             </div>
-           
+            
+            
+            
+            
+            <!-- loader -->
+            <div v-if="this.loader" class="py-5">
+                <div class="container-fluid loader d-flex justify-content-center align-items-center">
+                    <div class="loader-wrapper">
+                        <img src="../assets/img/logo_food_red.png" alt="deliverboo-logo-loader">
+                    </div>
+                </div>
+            </div>
+            <div v-else>
+                <!-- card results -->
+                <p v-if="this.store.selectedRestaurants.length > 0 && this.selectedType && !this.loader || this.store.selectedRestaurants.length > 0 && this.searchValue && !this.loader"
+                    class="mb-3 text-center fs-4 pb-3">
+                    Abbiamo trovato
+                    <span class="fw-bold">{{ this.store.selectedRestaurants.length }}</span>
+                    <span v-if="this.store.selectedRestaurants.length > 1"> risultati</span>
+                    <span v-else> risultato</span>
+                    in base alla tua ricerca
+                </p>
+                <p class="mb-3 text-center fs-4 "
+                    v-if="this.store.selectedRestaurants.length === 0 && this.selectedType && this.store.dataLoading && !this.loader || this.store.selectedRestaurants.length === 0 && this.searchValue && !this.loader">
+                    Non sono stati trovati risultati
+                </p>
+                <!-- <p v-else v-show="this.store.selectedRestaurants.length > 0 && !this.searchValue">Ci sono {{
+                            this.store.selectedRestaurants.length }}
+                            risultati
+                        </p>  -->
+                <div @v-if="this.store.selectedRestaurants" class="row mb-5">
+                    <div class="col-12 col-lg-4 col-xl-3 mb-3" v-for="(restaurant) in this.store.selectedRestaurants">
+                        <div class="selected">
+                            <router-link :to="{ name: 'single-restaurant', params: { slug: restaurant.slug } }">
+                                <restaurantCardComponent :el="restaurant" />
+                            </router-link>
+                        </div>
 
-            <!-- card results -->
-            <p v-if="this.store.selectedRestaurants.length > 0 && this.selectedType || this.store.selectedRestaurants.length > 0 && this.searchValue"
-                class="mb-3 text-center fs-4 pb-3">
-                Abbiamo trovato
-                <span class="fw-bold">{{ this.store.selectedRestaurants.length }}</span>
-                <span v-if="this.store.selectedRestaurants.length > 1"> risultati</span>
-                <span v-else> risultato</span>
-                in base alla tua ricerca
-            </p>
-
-            <p class="mb-3 text-center fs-4 "
-                v-if="this.store.selectedRestaurants.length === 0 && this.selectedType && this.store.dataLoading || this.store.selectedRestaurants.length === 0 && this.searchValue">
-                Non sono stati trovati risultati
-            </p>
-
-            <!-- <p v-else v-show="this.store.selectedRestaurants.length > 0 && !this.searchValue">Ci sono {{
-                this.store.selectedRestaurants.length }}
-                risultati
-            </p>  -->
-            <div @v-if="this.store.selectedRestaurants" class="row mb-5">
-                <div class="col-12 col-lg-4 col-xl-3 mb-3" v-for="(restaurant) in this.store.selectedRestaurants">
-                    <div class="selected">
-                        <router-link :to="{ name: 'single-restaurant', params: { slug: restaurant.slug } }">
-                            <restaurantCardComponent :el="restaurant" />
-                        </router-link>
                     </div>
                 </div>
             </div>
@@ -84,20 +96,21 @@ import CardSliderComponent from "./CardSliderComponent.vue";
 export default {
     name: "SearchComponent",
     components: {
-    typeCardComponent,
-    restaurantCardComponent,
-    CardSliderComponent,
-    CardSliderComponent
-},
+        typeCardComponent,
+        restaurantCardComponent,
+        CardSliderComponent,
+    },
     data() {
         return {
             store,
             searchValue: "",
             selectedType: [],
+            loader: false,
         };
     },
     methods: {
         searchNameRestaurant() {
+            this.loader = true;
             // resettare i valori della multiselected
             let typeEl = document.querySelectorAll('.card-slider');
             for (let i = 0; i < typeEl.length; i++) {
@@ -110,8 +123,10 @@ export default {
                 // console.log(res.data.results);
                 this.store.selectedRestaurants = res.data.results;
             });
+            this.loader = false;
         },
         searchRestaurants() {
+            this.loader = true;
             // resettare i valori della multiselected
             let typeEl = document.querySelectorAll('.card-slider');
             for (let i = 0; i < typeEl.length; i++) {
@@ -122,6 +137,7 @@ export default {
             this.store.dataLoading = false;
             this.store.selectedRestaurants = [];
             if (!this.searchValue) {
+                this.loader = false;
                 return
             }
             // this.selectedType = "";
@@ -134,10 +150,12 @@ export default {
                     }
                 }
             });
-            console.log(this.store.selectedRestaurants);
+            // console.log(this.store.selectedRestaurants);
             this.store.dataLoading = true;
+            this.loader = false;
         },
         selectRestaurants(type, i) {
+            this.loader = true;
             // resettare i valori della searchbar
             this.searchValue = '';
 
@@ -152,7 +170,12 @@ export default {
             } else {
                 this.selectedType.push(type.id);
                 typeEl.classList.add('selected-type');
-                typeBadge.classList.add('selected-type');
+                 typeBadge.classList.add('selected-type');
+
+                this.loader = false;
+
+                
+
 
             }
 
@@ -163,11 +186,12 @@ export default {
                     console.log(res.data.results);
 
                     this.store.selectedRestaurants = res.data.results;
-
+                    this.loader = false;
                 });
             } else {
                 this.store.selectedRestaurants = '';
                 this.store.dataLoading = false;
+                this.loader = false;
             }
 
 
@@ -257,9 +281,11 @@ export default {
 
 .card-slider {
     background-color: $color-secondary;
+
     &:nth-child(3n) {
         background-color: $color-primary-hover;
     }
+
     &:nth-child(3n-1) {
         background-color: $color-primary;
     }
@@ -284,4 +310,26 @@ export default {
     }
 }
 
+.loader-wrapper {
+    width: 200px;
+    img {
+        width: 100%;
+        animation: loader 2s linear infinite;
+        @keyframes loader {
+            0% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.5;
+                transform: scale(1.1);
+            }
+
+            100% {
+                opacity: 1;
+            }
+        }
+    }
+
+}
 </style>
