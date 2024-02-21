@@ -47,16 +47,23 @@
                                                 aria-describedby="address">
                                         </div>
 
-                                        <!-- pagamento  -->
+                                        pagamento 
                                         <div class="mb-3">
                                             <div class="card">
                                                 <div class="card-body">
-                                                    Pagamento
+                                                    <!-- Pagamento -->
+                                                    <div id="dropin-container"></div>
                                                 </div>
                                             </div>
                                         </div>
                                         <button type="submit" class="btn btn-send fw-bold mt-3">Invia</button>
                                     </form>
+                                    
+
+
+                                    
+                                    
+                                    
                                 </div>
                             </div>
                         </div>
@@ -73,11 +80,44 @@
 <script>
 import NavbarComponent from '@/components/NavbarComponent.vue';
 import CartComponent from '@/components/CartComponent.vue';
+import { store } from '@/data/store';
+import axios from 'axios';
+
 export default {
     name: 'AppCheckout',
     components: {
         CartComponent,
-        NavbarComponent
+        NavbarComponent,
+    },
+
+    data() {
+        return{
+            store,
+            tokenApi: '',
+        }
+    },
+
+    methods: {
+        getToken() {
+            axios.get(`${store.apiUrl}/generate`).then((res) => {
+                console.log(res.data.token);
+                this.tokenApi = res.data.token;
+
+                this.PaymentForm();
+            });
+        },
+
+        PaymentForm() {
+            braintree.dropin.create({
+                authorization: this.tokenApi,
+                container: '#dropin-container',
+                locale: 'it_IT'
+            })
+        }
+    },
+
+    mounted() {
+        this.getToken();
     }
 }
 </script>
