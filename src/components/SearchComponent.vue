@@ -30,22 +30,18 @@
             </div> -->
 
             <!-- card slider -->
-
-             <div class="d-none d-xl-block">
+            <div class="d-none d-xl-block">
                 <div class="d-flex justify-content-between py-5">
-                    <CardSliderComponent class="card-slider" v-for="(type, index) in store.types" :icon="type.name" :title="type.name" :image="type.image" @selectRestaurant="selectRestaurants(type, index)" />
+                    <CardSliderComponent class="card-slider" v-for="(type, index) in store.types" :icon="type.name"
+                        :title="type.name" :image="type.image" @selectRestaurant="selectRestaurants(type, index)" />
                 </div>
             </div>
-           
             <div class="d-flex flex-wrap justify-content-center  d-xl-none pb-5">
-                <div class="m-1 p-2 type-badge" v-for="(type, index) in store.types" @click="selectRestaurants(type, index)">
+                <div class="m-1 p-2 type-badge" v-for="(type, index) in store.types"
+                    @click="selectRestaurants(type, index)">
                     {{ type.name }}
                 </div>
             </div>
-            
-            
-            
-            
             <!-- loader -->
             <div v-if="this.loader" class="py-5">
                 <div class="container-fluid loader d-flex justify-content-center align-items-center">
@@ -79,7 +75,6 @@
                                 <restaurantCardComponent :el="restaurant" />
                             </router-link>
                         </div>
-
                     </div>
                 </div>
             </div>
@@ -170,11 +165,11 @@ export default {
             } else {
                 this.selectedType.push(type.id);
                 typeEl.classList.add('selected-type');
-                 typeBadge.classList.add('selected-type');
+                typeBadge.classList.add('selected-type');
 
                 this.loader = false;
 
-                
+
 
 
             }
@@ -290,21 +285,25 @@ export default {
         background-color: $color-primary;
     }
 }
-.type-badge{
+
+.type-badge {
     background-color: $color-secondary;
     text-align: center;
     border-radius: 10px;
     color: $color-white;
     font-weight: bold;
-     &:hover {
+
+    &:hover {
         transition: all 0.3s;
         filter: brightness(105%);
         transform: scale(1.02);
         cursor: pointer;
     }
+
     &:nth-child(3n) {
         background-color: $color-primary-hover;
     }
+
     &:nth-child(3n-1) {
         background-color: $color-primary;
     }
@@ -312,9 +311,11 @@ export default {
 
 .loader-wrapper {
     width: 200px;
+
     img {
         width: 100%;
         animation: loader 2s linear infinite;
+
         @keyframes loader {
             0% {
                 opacity: 1;
@@ -331,5 +332,4 @@ export default {
         }
     }
 
-}
-</style>
+}</style>

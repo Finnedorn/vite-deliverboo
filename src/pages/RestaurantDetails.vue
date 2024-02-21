@@ -1,5 +1,5 @@
 <template>
-  <LoaderComponent />
+  <!-- <LoaderComponent /> -->
   <NavbarComponent />
   <div v-if="restaurant">
     <div id="restaurant-cover">
