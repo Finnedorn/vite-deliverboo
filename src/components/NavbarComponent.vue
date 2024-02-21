@@ -38,11 +38,11 @@
                     
                     
                     <!-- admin -->
-                    <div class="d-flex align-items-center" :class="{ 'd-none': this.$route.name !== 'home' }">
+                    <div class="d-flex align-items-center">
                         <div class="rest-link fw-bold d-none d-md-block me-2">
                             Sei un ristoratore?
                         </div>
-                        <button class="btn btn-admin">
+                        <button class="btn btn-primary-color">
                             <a class="text-decoration-none text-light fw-bold" href="http://127.0.0.1:8000/">
                                 Vai all'area riservata
                             </a>
@@ -182,15 +182,7 @@ nav {
         color: $color-tertiary;
     }
 
-    .btn-admin {
-        background-color: $color-primary;
-        border-radius: 5px;
-
-        &:hover {
-            transform: scale(1.05);
-            transition: all 0.5s;
-        }
-    }
+  
 
     .cart-box {
         position: relative;

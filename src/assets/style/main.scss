@@ -50,3 +50,32 @@ background-color: $color-secondary;
 background: $color-primary-hover; 
 border-radius: 5px;
 }
+
+
+// ***** BOTTONI *******
+.btn-primary-color {
+    background-color: $color-primary;
+    border-radius: 5px;
+    color: $color-white;
+    font-weight: bold;
+
+    &:hover {
+    background-color: $color-primary;
+
+        transform: scale(1.05);
+        transition: all 0.5s;
+    }
+}
+.btn-tertiary-color {
+    background-color: $color-tertiary;
+    border-radius: 5px;
+    color: $color-white;
+    font-weight: bold;
+
+    &:hover {
+    background-color: $color-tertiary;
+
+        transform: scale(1.05);
+        transition: all 0.5s;
+    }
+}
