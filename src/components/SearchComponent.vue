@@ -1,8 +1,5 @@
 <template>
     <!-- searchbar  -->
-    <div class="yellow-wave-wrapper">
-        <img src="../assets/img/wave-yellow.png" alt="yellow-wave">
-    </div>
     <section id="search-section">
 
         <div class="container">
