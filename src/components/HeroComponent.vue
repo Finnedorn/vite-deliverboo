@@ -8,7 +8,7 @@
                     <p class="col-12 col-md-4">Trova le cucine più amate dai ristoranti nella tua zona e ordina online a domicilio, il tutto consegnato in pochissimo tempo.</p>
                 </div>
             </div>
-            <div class="hero-img">
+            <div class="hero-img d-none d-lg-block">
                 <img src="../assets/img/sushi-hero.png" alt="sushi-hero">
             </div>
         </div>
