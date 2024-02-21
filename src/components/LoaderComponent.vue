@@ -1,6 +1,6 @@
 <template>
     <div class="container-fluid">
-        <div class="loader-wrapper d-flex justify-content-center align-items-center">
+        <div class="loader-wrapper d-flex justify-content-center align-items-center m-auto">
             <img src="../assets/img/logo_food_red.png" alt="deliverboo-logo-loader">
         </div>
     </div>
@@ -16,18 +16,21 @@ export default {
 @use '../assets/style/partials/variables.scss' as *;
 
 .loader-wrapper {
-    width: 300px;
+    width: 150px;
 
     img {
         width: 100%;
-        animation: loading 3s linear infinite;
+        animation: loading 2s linear infinite;
         @keyframes loading {
             0% {
                 opacity: 1;
             }
-            100% {
+            50% {
                 opacity: 0.5;
-                transform: scale(2);
+                transform: scale(1.1);
+            }
+            100% {
+                opacity: 1;
             }
         }
     }
