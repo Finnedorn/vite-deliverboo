@@ -21,54 +21,27 @@
                   <div class="mb-3 row">
                     <div class="col-6">
                       <label for="name" class="form-label">Nome</label>
-                      <input
-                        type="text"
-                        class="form-control"
-                        id="name"
-                        aria-describedby="name"
-                      />
+                      <input type="text" class="form-control" id="name" aria-describedby="name" />
                     </div>
                     <div class="col-6">
                       <label for="surname" class="form-label">Cognome</label>
-                      <input
-                        type="text"
-                        class="form-control"
-                        id="surname"
-                        aria-describedby="surname"
-                      />
+                      <input type="text" class="form-control" id="surname" aria-describedby="surname" />
                     </div>
                   </div>
                   <div class="mb-3 row">
                     <div class="col-6">
                       <label for="email" class="form-label">Email</label>
-                      <input
-                        type="email"
-                        class="form-control"
-                        id="email"
-                        aria-describedby="email"
-                      />
+                      <input type="email" class="form-control" id="email" aria-describedby="email" />
                     </div>
                     <div class="col-6">
-                      <label for="phone" class="form-label"
-                        >Numero di telefono</label
-                      >
-                      <input
-                        type="text"
-                        class="form-control"
-                        id="phone"
-                        aria-describedby="phone"
-                      />
+                      <label for="phone" class="form-label">Numero di telefono</label>
+                      <input type="text" class="form-control" id="phone" aria-describedby="phone" />
                     </div>
                   </div>
 
                   <div class="mb-3">
                     <label for="address" class="form-label">Indirizzo</label>
-                    <input
-                      type="text"
-                      class="form-control"
-                      id="address"
-                      aria-describedby="address"
-                    />
+                    <input type="text" class="form-control" id="address" aria-describedby="address" />
                   </div>
 
                   pagamento
@@ -85,12 +58,12 @@
                 </form>
 
                 <div id="dropin-wrapper">
-  <div id="checkout-message"></div>
-                <div id="dropin-container"></div>
-                <button id="submit-button" @click="SubmitPayment()">
-                  Purchase
-                </button>
-            </div>
+                  <div id="checkout-message"></div>
+                  <div id="dropin-container"></div>
+                  <button id="submit-button" @click="SubmitPayment()">
+                    Purchase
+                  </button>
+                </div>
               </div>
             </div>
           </div>
@@ -167,12 +140,15 @@ export default {
 
         // Send payload.nonce to your server
         axios
-          .post('http://127.0.0.1:8000/api/payment', {nonce: payload.nonce})
+          .post(this.store.apiUrl + "/payment", {
+            paymentMethodNonce: payload.nonce,
+            amount: this.store.cartTotalPrice,
+          })
           .then((res) => {
             console.log(res);
           })
           .catch((err) => {
-            console.log("2");
+            console.log(err);
             // Handle errors in requesting payment method
           });
 
@@ -184,25 +160,25 @@ export default {
       //     console.error(err);
       //   });
 
-    //   instance.requestPaymentMethod(function (requestPaymentMethodErr, payload) {
-    //     // When the user clicks on the 'Submit payment' button this code will send the
-    //     // encrypted payment information in a variable called a payment method nonce
-    //     axios
-    //       .post(`http://127.0.0.1:8000/api/payment`, {
-    //       data: { paymentMethodNonce: payload.nonce },
-    //     }).done(function (result) {
-    //       // Tear down the Drop-in UI
-    //       instance.teardown(function (teardownErr) {
-    //         if (teardownErr) {
-    //           console.error("Could not tear down Drop-in UI!");
-    //         } else {
-    //           console.info("Drop-in UI has been torn down!");
-    //           // Remove the 'Submit payment' button
-    //           $("#submit-button").remove();
-    //         }
-    //       });
-    //     });
-    //   });
+      //   instance.requestPaymentMethod(function (requestPaymentMethodErr, payload) {
+      //     // When the user clicks on the 'Submit payment' button this code will send the
+      //     // encrypted payment information in a variable called a payment method nonce
+      //     axios
+      //       .post(`http://127.0.0.1:8000/api/payment`, {
+      //       data: { paymentMethodNonce: payload.nonce },
+      //     }).done(function (result) {
+      //       // Tear down the Drop-in UI
+      //       instance.teardown(function (teardownErr) {
+      //         if (teardownErr) {
+      //           console.error("Could not tear down Drop-in UI!");
+      //         } else {
+      //           console.info("Drop-in UI has been torn down!");
+      //           // Remove the 'Submit payment' button
+      //           $("#submit-button").remove();
+      //         }
+      //       });
+      //     });
+      //   });
 
 
     },
@@ -221,6 +197,7 @@ main {
   #checkout {
     margin-top: 50px;
   }
+
   position: absolute;
   top: 0;
   right: 0;
@@ -251,6 +228,7 @@ main {
     background-color: $color-primary;
     border-radius: 5px;
     color: $color-white;
+
     &:hover {
       transform: scale(1.05);
       transition: all 0.5s;

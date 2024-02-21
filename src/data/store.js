@@ -6,11 +6,11 @@ export const store = reactive({
     types: [],
     selectedTypes: [],
     selectedRestaurants: [],
-    restaurantParams :[],
+    restaurantParams: [],
     dataLoading: false,
     cart: [],
     cartTotalPrice: 0,
-    cartShow:false,
+    cartShow: false,
 });
 
 

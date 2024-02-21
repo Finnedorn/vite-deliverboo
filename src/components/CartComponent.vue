@@ -1,28 +1,27 @@
 <template>
     <div class="card d-flex flex-column justify-content-between rounded-4 p-4 position-relative overflow-hidden ">
         <div v-if="deleteCart" id="cartResetMsg" class=" text-center fw-bold">
-                <div class="d-flex flex-column justify-content-center align-items-center h-100 px-3">
-                    <div class="fs-3 mb-3">
-                        Sei sicuro di voler svuotare il tuo carrello?
-                    </div>
-                    <div class="d-flex">
-                        <button @click="deleteCart = false" class="btn btn-warning text-white me-3 fw-bold">
-                            Annulla
-                        </button>
-                        <button @click="emptyCart()" class="btn btn-danger fw-bold">
-                            Svuota
-                        </button>
-                    </div>
-                    
+            <div class="d-flex flex-column justify-content-center align-items-center h-100 px-3">
+                <div class="fs-3 mb-3">
+                    Sei sicuro di voler svuotare il tuo carrello?
                 </div>
+                <div class="d-flex">
+                    <button @click="deleteCart = false" class="btn btn-warning text-white me-3 fw-bold">
+                        Annulla
+                    </button>
+                    <button @click="emptyCart()" class="btn btn-danger fw-bold">
+                        Svuota
+                    </button>
+                </div>
+
             </div>
+        </div>
         <div v-if="store.cart.length > 0">
             <div id="cart">
                 <h3 class="text-center  mb-4 fw-bold">
                     Il tuo Ordine
                 </h3>
-                <div v-for="el in this.store.cart" :key="el.dish_id"
-                    class="row mb-2 align-items-center ">
+                <div v-for="el in this.store.cart" :key="el.dish_id" class="row mb-2 align-items-center ">
                     <div class="col-3 d-flex align-items-center">
                         <button @click="removeDishCart(el.dish_id)" class="quantity-btn min me-2">
                             -
@@ -38,17 +37,17 @@
                     <div class="col-3">{{ (el.price * el.quantity).toFixed(2) }} €</div>
                 </div>
             </div>
-           
+
 
         </div>
-       
+
         <div v-else id="empty-cart">
             <h3 class="text-center mb-4 fw-bold">Il tuo carrello è vuoto</h3>
             <img src="../assets/img/logo_food_pink.png" alt="logo">
         </div>
         <div class="border-top border-2 pt-2 pb-4 d-flex justify-content-between fw-bold">
-                Totale
-                <span>{{ this.store.cartTotalPrice.toFixed(2) }} €</span>
+            Totale
+            <span>{{ this.store.cartTotalPrice.toFixed(2) }} €</span>
         </div>
 
         <div v-if="this.$route.name !== 'checkout'" class="d-flex align-items-center justify-content-between my-2">
@@ -56,13 +55,13 @@
                 :class="(store.cart.length == 0) ? 'disabled' : ''">
                 Svuota <br> Carrello
             </button>
-          
-            <button class="btn btn-checkout text-light fw-bold " :class="(store.cart.length == 0) ? 'disabled' : '' ">
+
+            <button class="btn btn-checkout text-light fw-bold " :class="(store.cart.length == 0) ? 'disabled' : ''">
                 <router-link :to="{ name: 'checkout' }" class="text-white">
-                Vai al <br> Checkout
+                    Vai al <br> Checkout
                 </router-link>
             </button>
-           
+
         </div>
     </div>
 </template>
@@ -128,6 +127,10 @@ export default {
         const shoppingCart = localStorage.getItem('shoppingCart');
         if (shoppingCart) {
             this.store.cart = JSON.parse(shoppingCart);
+        }
+        const cartTotal = localStorage.getItem('cart_total');
+        if (cartTotal) {
+            this.store.cartTotalPrice = JSON.parse(cartTotal);
         }
     },
 };
@@ -199,22 +202,25 @@ export default {
             transition: all 0.5s;
         }
     }
-    #cartResetMsg{
+
+    #cartResetMsg {
         position: absolute;
         top: 0;
         bottom: 0;
         right: 0;
         left: 0;
-        background-color: $color-white; 
+        background-color: $color-white;
         height: 100%;
         width: 100%;
-        .fs-3{
+
+        .fs-3 {
             color: $color-secondary;
         }
-        p{
+
+        p {
             color: $color-tertiary;
         }
     }
-    
+
 }
 </style>
