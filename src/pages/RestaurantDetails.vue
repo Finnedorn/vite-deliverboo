@@ -34,7 +34,7 @@
                 <div class="d-flex align-items-center mb-3">
                   <h5 class="fw-bold me-2">{{ dish.name }}</h5>
                   <h5 class="me-2">{{ dish.price }} €</h5>
-                  <button class="btn btn-checkout text-white fw-bold" @click="addToCart(dish)">
+                  <button class="btn btn-checkout text-white fw-bold" @click="addMsg(dish)">
                     <i class="fa-solid fa-plus"></i>
                   </button>
                 </div>
@@ -51,54 +51,25 @@
           </div>
         </div>
         <CartComponent class="d-none d-lg-block col-lg-4" />
-        <!-- <div id="cart">
-                      <table>
-                          <thead>carrello</thead>
-                          <th>prodotti</th>
-                          <th>quantità</th>
-                          <th>prezzo</th>
-                          <tbody>
-                              <tr v-for="el in this.store.cart" :key="el.dish_id">
-                                  <td>{{ el.name }}</td>
-                                  <td>
-                                      <button @click="removeDishCart(el.dish_id)">-</button>
-                                      {{ el.quantity }}</td>
-                                      <button @click="addDishCart(el.dish_id)">+</button>
-                                  <td>{{ el.price * el.quantity }} €</td>
-                              </tr>
-                          </tbody>
-                      </table>
-                      <div id="restaurantErrorMsg" class="d-none">Non puoi aggiungere un piatto di un altro ristorante</div>
-                      <button @click="emptyCart()">Svuota</button>
-                  </div> -->
       </div>
     </div>
+
     <!-- Modale aggiunta piatto al carrello -->
-    <!-- <div class="modal d-block" tabindex="-1" role="dialog" v-if="showModal">
+    <div id="popup" class="modal d-block" tabindex="-1" role="dialog" v-if="popupMsg">
           <div class="modal-dialog" role="document">
               <div class="modal-content">
-              <div class="modal-header">
-                  <button type="button" class="close btn-close" @click="closeModal">
-                  </button>
-              </div>
-              <div class="modal-img">
-                  <img :src="store.imagePath + dishData.image" :alt="dishData.name">
-              </div>
               <div class="modal-body text-center">
-                  <h5 class="modal-title fw-bold mb-3">{{dishData.name}}</h5>
-                  <h6 class="fw-bold">Ingredienti:</h6>
-                  <p>{{dishData.ingredients}}</p>
-                  <p>{{dishData.description}}</p>
-                  <p class="fs-3">{{dishData.price}} €</p>
-              </div>
-              <div class="modal-footer">
-                  <button type="button" class="btn btn-danger text-white fw-bold" @click="closeModal">Chiudi</button>
-                  <button class="btn btn-checkout text-white fw-bold" @click="addToCart(dishData)"> Aggiungi al carrello </button>
+                  <h5 class="modal-title fw-bold mb-3">
+                    Il piatto
+                    <div class="fst-italic"> "{{ dishName }}"</div>
+                    è stato aggiunto al tuo carrello.
+                  </h5>
               </div>
               </div>
           </div>
-          </div> -->
-    <!-- <div class="modal-backdrop fade show" v-if="showModal"></div> -->
+    </div>
+    <div class="modal-backdrop fade show" v-if="popupMsg"></div>
+
 
     <!-- Modale errore ordine da due rostoranti diversi -->
 
@@ -124,6 +95,7 @@
     </div>
     <div class="modal-backdrop fade show" v-if="showModal"></div>
   </div>
+<FooterComponent />
 </template>
   
 <script>
@@ -132,18 +104,22 @@ import { store } from "../data/store.js";
 import NavbarComponent from "@/components/NavbarComponent.vue";
 import CartComponent from "@/components/CartComponent.vue";
 import LoaderComponent from "@/components/LoaderComponent.vue";
+import FooterComponent from "@/components/FooterComponent.vue";
 export default {
   name: "RestaurantDetails",
   components: {
     NavbarComponent,
     CartComponent,
-    LoaderComponent
-  },
+    LoaderComponent,
+    FooterComponent,
+},
   data() {
     return {
       store,
       restaurant: null,
       showModal: false,
+      popupMsg: false,
+      dishName:'',
       //   dishData: null,
       // notReady: false,
     };
@@ -161,7 +137,15 @@ export default {
           }
         });
     },
-
+    addMsg(dish) {
+      this.dishName = dish.name;
+      this.popupMsg = true;
+      setTimeout(() => {
+        this.popupMsg = false;
+      }, 1000);
+      this.addToCart(dish);
+      
+    },
     addToCart(dish) {
       const newItem = this.store.cart.find((el) => el.dish_id === dish.id);
       this.showModal = false;
@@ -315,5 +299,11 @@ export default {
     transform: scale(1.08);
     transition: all 0.3s;
   }
+}
+#popup{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 </style>
