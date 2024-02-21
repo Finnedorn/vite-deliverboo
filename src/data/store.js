@@ -10,7 +10,8 @@ export const store = reactive({
     dataLoading: false,
     cart: [],
     cartTotalPrice: 0,
-    cartShow: false,
+    cartShow:false,
+    notReady: false,
 });
 
 

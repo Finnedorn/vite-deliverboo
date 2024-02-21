@@ -4,7 +4,7 @@
             <div class="food-wrapper">
                 <img :src="store.imagePath + image" :alt=title>
             </div>
-            <div class="fs-3 fw-bold icon d-flex justify-content-center  align-items-center ">{{ icon }}</div>
+            <div class="fs-3 fw-bold icon d-flex justify-content-center align-items-center m-xxl-2">{{ icon }}</div>
             <div class="description">
                 <h4 class="fw-bold text-light">{{ title }}</h4>
             </div>
@@ -53,8 +53,8 @@ export default {
         .food-wrapper {
             width: 350px;
             z-index: 100;
-            top: -100px;
-            left: -100px;
+            top: -120px;
+            left: 40px;
             position: absolute;
             display: none;
         }
@@ -62,10 +62,11 @@ export default {
         .icon {
             color: $color-white;
             width: 50px;
-            margin: 8px;
+            // margin: 8px;
             writing-mode: vertical-rl;
             text-orientation: mixed;
             z-index: 103;
+
         }
 
         .description {
@@ -80,9 +81,9 @@ export default {
 
             h4 {
                 position: absolute;
-                font-size: 2.5rem;
+                font-size: 2rem;
                 bottom: 20px;
-                right: 90px;
+                left:-30px;
             }
 
             p {
