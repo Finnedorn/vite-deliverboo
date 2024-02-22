@@ -201,7 +201,7 @@ export default {
           this.address = '';
           this.phone = '';
           this.store.cartTotalPrice = 0;
-          this.store.cart = '';
+          this.store.cart = [];
       }).catch((err)=>{
           console.log('error', err);
       })
