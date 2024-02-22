@@ -215,6 +215,7 @@ export default {
 }
 
 #search-section {
+    padding-top: 10px;
     background-color: $color-white;
 
     .search-title {
