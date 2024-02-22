@@ -104,4 +104,35 @@ export default {
         z-index: 100;
     }
 }
+
+@media screen and (max-width: 1199px) {
+
+    #hero {
+        .hero-img-alt {
+            right: 40px;
+        }
+    }
+}
+
+@media screen and (max-width: 991px) {
+
+    #hero {
+        .hero-img-alt {
+            width: 1000px;
+            right: -500px;
+            bottom: -180px;
+        }
+    }
+}
+
+@media screen and (max-width: 767px) {
+
+#hero {
+    .hero-img-alt {
+        width: 1000px;
+        right: -500px;
+        bottom: -180px;
+    }
+}
+}
 </style>
