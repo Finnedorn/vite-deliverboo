@@ -44,8 +44,15 @@
                     <input type="text" class="form-control" id="address" aria-describedby="address" />
                   </div>
 
-                
+
                 </form>
+
+                <div v-if="errorMessage" class="alert alert-danger mt-3">
+                  <div class="d-flex justify-content-between">
+                    <span>Pagamento non riuscito</span>
+                    <a href=""><i class="fa-solid fa-rotate-left text-dark"></i></a>
+                  </div>
+                </div>
 
                 <div id="dropin-wrapper">
                   <div id="checkout-message"></div>
@@ -85,6 +92,7 @@ export default {
       store,
       tokenApi: "",
       dropinInstance: null,
+      errorMessage: ''
     };
   },
 
@@ -136,10 +144,11 @@ export default {
           })
           .then((res) => {
             console.log(res);
+            this.$router.push({ name: "payment-success" });
           })
           .catch((err) => {
             console.log(err);
-            // Handle errors in requesting payment method
+            this.errorMessage = err.message;
           });
 
         console.log(payload);
