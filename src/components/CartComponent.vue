@@ -55,13 +55,11 @@
                 :class="(store.cart.length == 0) ? 'disabled' : ''">
                 Svuota <br> Carrello
             </button>
-
-            <button class="btn btn-checkout text-light fw-bold " :class="(store.cart.length == 0) ? 'disabled' : ''">
-                <router-link :to="{ name: 'checkout' }" class="text-black">
+            <router-link :to="{ name: 'checkout' }" class="text-black">
+                <button class="btn btn-checkout text-light fw-bold " :class="(store.cart.length == 0) ? 'disabled' : ''">
                     Vai al <br> Checkout
-                </router-link>
-            </button>
-
+                </button>
+            </router-link>
         </div>
     </div>
 </template>
