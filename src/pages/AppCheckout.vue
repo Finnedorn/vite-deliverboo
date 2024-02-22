@@ -192,7 +192,7 @@ export default {
           this.email= '';
           this.address = '';
           this.phone = '';
-          this.store.cartTotalPrice = '';
+          this.store.cartTotalPrice = 0;
           this.store.cart = '';
       }).catch((err)=>{
           console.log('error', err);
