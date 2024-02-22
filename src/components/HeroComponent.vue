@@ -59,7 +59,7 @@ export default {
         width: 1300px;
         height: 800px;
         position: absolute;
-        right: -250px;
+        right: -300px;
         top: 200px;
         z-index: 1;
         rotate: 90deg;
