@@ -184,11 +184,16 @@ export default {
       
       axios.post(this.store.apiUrl + '/orders', formData).then((res)=>{
         console.log(res.data);
+          localStorage.setItem('cart_total', 0);
+          localStorage.setItem('shoppingCart', []);
+          localStorage.setItem('cart_restaurant', '');
           this.name = '';
           this.surname = '';
           this.email= '';
           this.address = '';
           this.phone = '';
+          this.store.cartTotalPrice = '';
+          this.store.cart = '';
       }).catch((err)=>{
           console.log('error', err);
       })
