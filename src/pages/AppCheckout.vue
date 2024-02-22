@@ -20,31 +20,35 @@
 
 
                 <form @submit.prevent="SubmitPayment()" novalidate>
-
                   <div class="mb-3 row">
                     <div class="col-6">
-                      <label for="name" class="form-label">Nome</label>
+                      <label for="name" class="form-label">Nome *</label>
                       <input v-model="name" type="text" class="form-control" id="name" aria-describedby="name" required/>
+                      <div class="invalid-feedback">Questo campo è obbligatoio</div>
                     </div>
                     <div class="col-6">
-                      <label for="surname" class="form-label">Cognome</label>
+                      <label for="surname" class="form-label">Cognome *</label>
                       <input v-model="surname" type="text" class="form-control" id="surname" aria-describedby="surname" required/>
+                      <div class="invalid-feedback invalid-email">Questo campo è obbligatoio</div>
                     </div>
                   </div>
                   <div class="mb-3 row">
                     <div class="col-6">
-                      <label for="email" class="form-label">Email</label>
+                      <label for="email" class="form-label">Email *</label>
                       <input v-model="email" type="email" class="form-control" id="email" aria-describedby="email" required/>
+                      <div class="invalid-feedback">Email non valida</div>
                     </div>
                     <div class="col-6">
-                      <label for="phone" class="form-label">Numero di telefono</label>
-                      <input v-model="phone" type="text" class="form-control" id="phone" aria-describedby="phone" required/>
+                      <label for="phone" class="form-label">Numero di telefono *</label>
+                      <input v-model="phone" type="number" class="form-control" id="phone" aria-describedby="phone" required/>
+                      <div class="invalid-feedback">Questo campo è obbligatoio</div>
                     </div>
                   </div>
 
                   <div class="mb-3">
-                    <label for="address" class="form-label">Indirizzo</label>
+                    <label for="address" class="form-label">Indirizzo *</label>
                     <input v-model="address" type="text" class="form-control" id="address" aria-describedby="address" required/>
+                      <div class="invalid-feedback">Questo campo è obbligatoio</div>
                   </div>
 
                   <div v-if="errorMessage" class="alert alert-danger mt-3">
@@ -53,6 +57,10 @@
                       <a href=""><i class="fa-solid fa-rotate-left text-dark"></i></a>
                     </div>
                   </div>
+
+                  <small >
+                      i campi obbligatori sono contrassegnati con *
+                  </small>
   
                   <div id="dropin-wrapper">
                     <div id="checkout-message"></div>
@@ -253,5 +261,10 @@ main {
       transition: all 0.5s;
     }
   }
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+-webkit-appearance: none;
 }
 </style>
