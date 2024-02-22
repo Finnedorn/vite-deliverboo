@@ -2,7 +2,7 @@
     <!-- Partners carousel  -->
     <div class="container-fluid">
         <!-- first -->
-        <Carousel class="py-3" :autoplay="1" :wrap-around="true" :itemsToShow="8" :transition="5000">
+        <Carousel class="py-3 d-none d-xl-block " :autoplay="1" :wrap-around="true" :itemsToShow="8" :transition="5000">
             <slide v-for="(food, index) in partnersFoodAlt" :key="index">
                 <div class="img-wrapper overflow-hidden rounded-3">
                     <img :src=food.url :alt=food.name />
@@ -10,7 +10,7 @@
             </slide>
         </Carousel>
         <!-- second -->
-        <Carousel class="py-2 m-0 " :autoplay="1" :wrap-around="true" :itemsToShow="15" :transition="5000">
+        <Carousel class="py-2 m-0 d-none d-sm-block" :autoplay="1" :wrap-around="true" :itemsToShow="15" :transition="5000">
             <slide v-for="(food, index) in partnersBrand" :key="index">
                 <div class="img-wrapper overflow-hidden rounded-3">
                     <img :src=food.url :alt=food.name />
@@ -175,8 +175,11 @@ export default {
 
 .container-fluid {
     padding: 0;
+    width: 2300px;
+
     .img-wrapper {
         margin-left: 20px;
+
         img {
             width: 100%;
         }
