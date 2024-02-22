@@ -178,6 +178,7 @@ export default {
         address: this.address,
         phone: this.phone,
         total_price: this.store.cartTotalPrice,
+        dishes: this.store.cart,
       };
       console.log(formData);
       
