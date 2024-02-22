@@ -6,7 +6,7 @@
             <h5 class="mb-3 fs-2">Entra a far parte della nostra famiglia</h5>
         </div>
     </div>
-    <PartnersCarouselComponent />
+    <!-- <PartnersCarouselComponent /> -->
 </template>
   
 <script>
