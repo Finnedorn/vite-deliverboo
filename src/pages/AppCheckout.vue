@@ -6,12 +6,12 @@
         <h1 class="text-center my-5 fw-bold">Checkout</h1>
         <div class="row row-gap-3">
           <!-- card carrello  -->
-          <div class="col-12 col-md-4">
+          <div class="col-12 col-lg-5 col-xl-4">
             <CartComponent class="w-100" />
           </div>
 
           <!-- card dati -->
-          <div class="col-12 col-md-8">
+          <div class="col-12 col-lg-7 col-xl-8">
             <div class="card rounded-4 p-4">
               <div class="card-header bg-white">
                 <h3 class="text-center fw-bold">I tuoi dati</h3>
@@ -44,24 +44,14 @@
                     <input type="text" class="form-control" id="address" aria-describedby="address" />
                   </div>
 
-                  pagamento
-                  <div class="mb-3">
-                    <div class="card">
-                      <div class="card-body">
-                        <!-- Pagamento -->
-                      </div>
-                    </div>
-                  </div>
-                  <button type="submit" class="btn btn-send fw-bold mt-3">
-                    Invia
-                  </button>
+                
                 </form>
 
                 <div id="dropin-wrapper">
                   <div id="checkout-message"></div>
                   <div id="dropin-container"></div>
-                  <button id="submit-button" @click="SubmitPayment()">
-                    Purchase
+                  <button id="submit-button" class="btn btn-send fw-bold" @click="SubmitPayment()">
+                    Paga
                   </button>
                 </div>
               </div>

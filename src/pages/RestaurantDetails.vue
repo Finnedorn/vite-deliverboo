@@ -300,10 +300,4 @@ export default {
     transition: all 0.3s;
   }
 }
-#popup{
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
 </style>
