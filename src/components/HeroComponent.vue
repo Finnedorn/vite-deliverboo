@@ -13,7 +13,7 @@
         <div class=" yellow-wave-wrapper">
             <img src="../assets/img/wave-yellow.png" alt="yellow-wave">
         </div>
-        <div class="hero-img d-none d-lg-block">
+        <div class="hero-img d-none d-xxl-block">
             <!-- <img src="../assets/img/sushi-hero.png" alt="sushi-hero"> -->
             <HeroCarouselComponent />
         </div>
