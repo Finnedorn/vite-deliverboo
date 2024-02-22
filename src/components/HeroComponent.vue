@@ -2,7 +2,7 @@
     <!-- hero  -->
     <div id="hero" class="overflow-hidden">
         <div class="container-fluid pb-5">
-            <div class="container py-5 mb-4">
+            <div class="text-wrapper container py-5 mb-4">
                 <div class="row">
                     <h1 class="py-5 col-12 ">I piatti dei ristoranti che ami, <br> a domicilio</h1>
                     <p class="col-12 col-md-4">Trova le cucine più amate dai ristoranti nella tua zona e ordina online a
@@ -127,12 +127,48 @@ export default {
 
 @media screen and (max-width: 767px) {
 
-#hero {
-    .hero-img-alt {
-        width: 1000px;
-        right: -500px;
-        bottom: -180px;
+    #hero {
+        .text-wrapper {
+            padding: 0;
+            text-align: center;
+
+            h1 {
+                padding-bottom: 20px !important;
+            }
+
+            p {
+                padding-bottom: 80px !important;
+            }
+        }
+
+        .hero-img-alt {
+            width: 500px;
+            right: 70px;
+            bottom: -270px;
+        }
     }
 }
-}
-</style>
+
+@media screen and (max-width: 575px) {
+
+    #hero {
+        .text-wrapper {
+            padding: 0;
+            text-align: center;
+
+            h1 {
+                padding-bottom: 20px !important;
+            }
+
+            p {
+                padding-bottom: 80px !important;
+            }
+        }
+
+        .hero-img-alt {
+            width: 500px;
+            right: 10px;
+            bottom: -270px;
+        }
+    }
+}</style>
