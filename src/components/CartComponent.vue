@@ -51,13 +51,13 @@
         </div>
 
         <div v-if="this.$route.name !== 'checkout'" class="d-flex align-items-center justify-content-between my-2">
-            <button @click="deleteCart = true" class="btn btn-empty text-light fw-bold me-3"
+            <button @click="deleteCart = true" class="btn btn-empty fw-bold me-3"
                 :class="(store.cart.length == 0) ? 'disabled' : ''">
                 Svuota <br> Carrello
             </button>
 
             <button class="btn btn-checkout text-light fw-bold " :class="(store.cart.length == 0) ? 'disabled' : ''">
-                <router-link :to="{ name: 'checkout' }" class="text-white">
+                <router-link :to="{ name: 'checkout' }" class="text-black">
                     Vai al <br> Checkout
                 </router-link>
             </button>
@@ -154,21 +154,14 @@ export default {
 
         .quantity-btn {
             color: $color-white;
-            background-color: $color-secondary;
+            background-color: $color-tertiary;
             border: none;
             border-radius: 100px;
             font-weight: bold;
             font-size: 0.7rem;
         }
 
-        .plus {
-            width: 20px;
-            aspect-ratio: 1;
-            display: flex;
-            justify-content: center;
-        }
-
-        .min {
+        .plus, .min {
             width: 20px;
             aspect-ratio: 1;
             display: flex;
@@ -193,9 +186,14 @@ export default {
     }
 
     .btn-empty {
-        background-color: $color-secondary;
+        background-color: $color-white;
+        border: 2px solid $color-primary;
+        
         border-radius: 5px;
         padding: 5px 30px;
+        a{
+            color: $color-black;
+        }
 
         &:hover {
             transform: scale(1.05);

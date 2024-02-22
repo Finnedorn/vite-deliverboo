@@ -26,6 +26,9 @@
         <div id="menu" class="col-12 col-lg-8 pe-md-5">
           <h3 class="fw-bold fs-2 mb-5">Menu</h3>
           <div class="card mb-2 p-2 mb-3" v-for="(dish) in restaurant.dishes">
+            <div v-if="!dish.visible" class="not-visible">
+              <div>Esaurito</div>
+            </div>
 
             <!-- menu con funzione per aprire modale al click -->
             <!-- <div class="card mb-2 p-2 mb-3" v-for="(dish) in restaurant.dishes" @click="openDishModal(dish)"> -->
@@ -299,5 +302,29 @@ export default {
     transform: scale(1.08);
     transition: all 0.3s;
   }
+}
+.not-visible{
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  background-color: rgba($color: #ffffff, $alpha: 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  div{
+    position: absolute;
+    top: 30%;
+    right: -10px;
+    background-color: $color-secondary;
+    text-transform: uppercase;
+    font-weight: bold;
+    color: $color-white;
+    padding: 10px 40px;
+    // width: 100%;
+    text-align: center;
+  }
+
 }
 </style>
