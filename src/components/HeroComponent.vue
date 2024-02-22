@@ -123,6 +123,7 @@ export default {
             bottom: -180px;
         }
     }
+    
 }
 
 @media screen and (max-width: 767px) {
