@@ -7,12 +7,12 @@
         <!-- part 1 -->
         <div class="container py-4 ">
             <div class="row align-items-center">
-                <div class="col-12 col-md-5 mb-3">
+                <div class="col-12 col-lg-5 mb-3">
                     <div class="promo-wrapper overflow-hidden">
                         <img src="../assets/img/about-us-01.jpg" alt="about-us-promo-image">
                     </div>
                 </div>
-                <div class="col-12 col-md-7">
+                <div class="col-12 col-lg-7">
                     <h2 class="mb-3 fw-bold about-title text-light align-first">
                         Soddisfiamo le tue <br> aspettative
                     </h2>
@@ -29,16 +29,16 @@
         <div class="container py-4">
             <div class="row align-items-center flex-md-row-reverse">
                 
-                <div class="col-12 col-md-5 mb-3">
+                <div class="col-12 col-lg-5 mb-3">
                     <div class="promo-wrapper overflow-hidden ">
                         <img src="../assets/img/about-us-02.jpg" alt="about-us-promo-image">
                     </div>
                 </div>
-                <div class="col-12 col-md-7">
+                <div class="col-12 col-lg-7">
                     <h2 class="fw-bold about-title text-light align-second mb-3">
                         Puntualità e cortesia <br> al tuo servizio
                     </h2>
-                    <p class="fs-4 about-paragraph align-second pe-5">
+                    <p id="second-paragraph" class="fs-4 about-paragraph align-second pe-5">
                         Siamo veloci come un lampo! <br> Ordina qualsiasi cosa nella tua città e ricevila in pochi
                         minuti, segui la tua consegna in tempo reale. <br> Se sei interessato a far crescere il tuo
                         business con noi, visita il nostro sito.
@@ -62,7 +62,7 @@ export default {
     transform: scaleX(-1);
     position: relative;
     z-index: 1100;
-    bottom: -1px;
+    bottom: -3px;
 }
 
 .about-us-wrapper {
@@ -88,4 +88,29 @@ export default {
         text-align: left;
     }
 
-}</style>
+}
+
+@media screen and (max-width: 991px) {
+
+    .about-us-wrapper {
+        padding-top: 60px !important;
+
+        .about-title {
+            padding-top: 10px;
+            font-size: 3.5rem !important;
+            text-align: center;
+        }
+
+        .about-paragraph {
+            font-size: 1.5rem !important;
+            text-align: center;
+        }
+
+        #second-paragraph {
+            position: relative;
+            right: -20px;
+        }
+        
+    }
+}
+</style>

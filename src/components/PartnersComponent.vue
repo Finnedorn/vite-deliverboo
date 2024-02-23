@@ -57,4 +57,23 @@ export default {
     }
 
 }
+
+// Iphone 13 Pro
+
+@media screen and (max-width: 430px) {
+
+    .text-wrapper {
+        h2 {
+            padding-top: 10px;
+            font-size: 4rem !important;
+        }
+        p {
+            font-size: 1.5rem !important;
+        }
+    }
+    .carousel-wrapper {
+        top: -60px;
+    }
+
+}
 </style>
