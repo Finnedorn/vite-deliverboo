@@ -1,5 +1,5 @@
 <template>
-  <!-- <LoaderComponent /> -->
+  <LoaderComponent v-if="this.notReady"/>
   <NavbarComponent />
   <div v-if="restaurant">
     <div id="restaurant-cover">
@@ -124,7 +124,7 @@ export default {
       popupMsg: false,
       dishName:'',
       //   dishData: null,
-      // notReady: false,
+      notReady: true,
     };
   },
   methods: {
@@ -199,35 +199,21 @@ export default {
       );
       localStorage.setItem("shoppingCart", JSON.stringify(this.store.cart));
     },
-
-    // logica modale dish
-    // openDishModal(dish) {
-    //   this.showModal = true;
-    //   this.dishData = dish;
-    // },
+    loading() {
+      setTimeout(() => (this.notReady = false),1000);
+    }
 
   },
   mounted() {
-    // document.onreadystatechange = () => {
-    //   if (document.readyState === "complete") {
-    //     this.notReady = true;
-    //   }
-    // }
+    this.loading();
     this.getRestaurantData();
+    console.log(this.notReady);
   }
 };
 </script>
   
 <style lang="scss" scoped>
 @use "../assets/style/partials/variables" as *;
-
-// .restaurant-loader {
-//   width: 400px;
-//   position: absolute;
-//   left: 50%;
-//   top: 50%;
-//   transform: translate(-50%, -50%);
-// }
 
 #restaurant-cover {
   height: 400px;
@@ -322,7 +308,6 @@ export default {
     font-weight: bold;
     color: $color-white;
     padding: 10px 40px;
-    // width: 100%;
     text-align: center;
   }
 
