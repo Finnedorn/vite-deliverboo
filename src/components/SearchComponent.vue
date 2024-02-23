@@ -40,7 +40,7 @@
                 </div>
             </div>
             <!-- loader -->
-            <div v-if="this.loader" class="py-5">
+            <div v-if="this.notReady" class="py-5">
                 <div class="container-fluid loader d-flex justify-content-center align-items-center">
                     <div class="loader-wrapper">
                         <img src="../assets/img/logo_food_red.png" alt="deliverboo-logo-loader">
@@ -49,7 +49,7 @@
             </div>
             <div v-else>
                 <!-- card results -->
-                <p v-if="this.store.selectedRestaurants.length > 0 && this.selectedType && !this.loader || this.store.selectedRestaurants.length > 0 && this.searchValue && !this.loader"
+                <p v-if="this.store.selectedRestaurants.length > 0 && this.selectedType || this.store.selectedRestaurants.length > 0 && this.searchValue"
                     class="mb-3 text-center fs-4 pb-3">
                     Abbiamo trovato
                     <span class="fw-bold">{{ this.store.selectedRestaurants.length }}</span>
@@ -58,13 +58,13 @@
                     in base alla tua ricerca
                 </p>
                 <p class="mb-3 text-center fs-4 "
-                    v-if="this.store.selectedRestaurants.length === 0 && this.selectedType && this.store.dataLoading && !this.loader || this.store.selectedRestaurants.length === 0 && this.searchValue && !this.loader">
+                    v-if="this.store.selectedRestaurants.length === 0 && this.selectedType && this.store.dataLoading || this.store.selectedRestaurants.length === 0 && this.searchValue">
                     Non sono stati trovati risultati
                 </p>
                 <!-- <p v-else v-show="this.store.selectedRestaurants.length > 0 && !this.searchValue">Ci sono {{
-                            this.store.selectedRestaurants.length }}
-                            risultati
-                        </p>  -->
+                    this.store.selectedRestaurants.length }}
+                    risultati
+                </p>  -->
                 <div @v-if="this.store.selectedRestaurants" class="row mb-5">
                     <div class="col-12 col-lg-4 col-xl-3 mb-3" v-for="(restaurant) in this.store.selectedRestaurants">
                         <div class="selected">
@@ -97,12 +97,16 @@ export default {
             store,
             searchValue: "",
             selectedType: [],
-            loader: false,
+            notReady: false,
         };
     },
     methods: {
         searchNameRestaurant() {
-            this.loader = true;
+            this.notReady = true;
+            setTimeout(() => {
+                this.notReady = false;
+            },1000);
+
             // resettare i valori della multiselected
             let typeEl = document.querySelectorAll('.card-slider');
             for (let i = 0; i < typeEl.length; i++) {
@@ -115,10 +119,12 @@ export default {
                 // console.log(res.data.results);
                 this.store.selectedRestaurants = res.data.results;
             });
-            this.loader = false;
         },
         searchRestaurants() {
-            this.loader = true;
+            this.notReady = true;
+            setTimeout(() => {
+                this.notReady = false;
+            },1000);
             // resettare i valori della multiselected
             let typeEl = document.querySelectorAll('.card-slider');
             for (let i = 0; i < typeEl.length; i++) {
@@ -129,7 +135,6 @@ export default {
             this.store.dataLoading = false;
             this.store.selectedRestaurants = [];
             if (!this.searchValue) {
-                this.loader = false;
                 return
             }
             // this.selectedType = "";
@@ -144,10 +149,12 @@ export default {
             });
             // console.log(this.store.selectedRestaurants);
             this.store.dataLoading = true;
-            this.loader = false;
         },
         selectRestaurants(type, i) {
-            this.loader = true;
+            this.notReady = true;
+            setTimeout(() => {
+                this.notReady = false;
+            },1000);
             // resettare i valori della searchbar
             this.searchValue = '';
 
@@ -163,12 +170,6 @@ export default {
                 this.selectedType.push(type.id);
                 typeEl.classList.add('selected-type');
                 typeBadge.classList.add('selected-type');
-
-                this.loader = false;
-
-
-
-
             }
 
             if (this.selectedType.length > 0) {
@@ -178,12 +179,10 @@ export default {
                     console.log(res.data.results);
 
                     this.store.selectedRestaurants = res.data.results;
-                    this.loader = false;
                 });
             } else {
                 this.store.selectedRestaurants = '';
                 this.store.dataLoading = false;
-                this.loader = false;
             }
 
 
@@ -199,10 +198,6 @@ export default {
             // this.store.dataLoading = false;
 
         },
-
-    },
-    mounted() {
-
     }
 };
 </script>
@@ -256,20 +251,11 @@ export default {
 .card-type-container {
     border-radius: 1rem;
     overflow: hidden;
-
-    // &:hover {
-    //     transition: all 0.3s;
-    //     filter: brightness(105%);
-    //     transform: scale(1.02);
-    //     cursor: pointer;
-    // }
-
 }
 
 .selected-type {
     -webkit-box-shadow: 0px 0px 0px 4px $color-tertiary;
     box-shadow: 0px 0px 0px 4px $color-tertiary;
-
 }
 
 .card-slider {
@@ -309,11 +295,9 @@ export default {
 
 .loader-wrapper {
     width: 200px;
-
     img {
         width: 100%;
         animation: loader 2s linear infinite;
-
         @keyframes loader {
             0% {
                 opacity: 1;
@@ -329,5 +313,5 @@ export default {
             }
         }
     }
-
-}</style>
+}
+</style>

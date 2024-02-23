@@ -1,5 +1,5 @@
 <template>
-    <div class="container-fluid loader d-flex justify-content-center align-items-center" v-if="!this.notReady">
+    <div class="container-fluid loader d-flex justify-content-center align-items-center">
         <div class="loader-wrapper d-flex justify-content-center align-items-center m-auto">
             <img src="../assets/img/logo_food_red.png" alt="deliverboo-logo-loader">
         </div>
@@ -7,22 +7,12 @@
 </template>
   
 <script>
-import { store } from "../data/store.js";
 export default {
     name: "LoaderComponent",
     data() {
         return {
-            store,
-            notReady: false
         }
     },
-    mounted() {
-        document.onreadystatechange = () => {
-            if (document.readyState === "complete") {
-                this.notReady = true;
-            }
-        }
-    }
 };
 </script>
   
@@ -38,9 +28,6 @@ export default {
     right: 0;
     top: 0;
     bottom: 0;
-    // left: 50%;
-    // top: 50%;
-    // transform: translate(-50%, -50%);
     z-index: 1500;
 
     .loader-wrapper {
