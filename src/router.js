@@ -25,7 +25,7 @@ const router = createRouter({
       component: AppCheckout
     },
     {
-      path: '/checkout/paymentsuccess',
+      path: '/checkout/payment-success',
       name: 'payment-success',
       component: PaymentSuccess
     },
