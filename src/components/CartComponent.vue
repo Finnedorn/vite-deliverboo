@@ -18,23 +18,26 @@
         </div>
         <div v-if="store.cart.length > 0">
             <div id="cart">
-                <h3 class="text-center  mb-4 fw-bold">
+                <h3 class="text-center mb-4 fw-bold">
                     Il tuo Ordine
                 </h3>
-                <div v-for="el in this.store.cart" :key="el.dish_id" class="row mb-2 align-items-center ">
-                    <div class="col-3 d-flex align-items-center justify-content-between">
-                        <button @click="removeDishCart(el.dish_id)" class="quantity-btn min me-2">
+                <div v-for="el in this.store.cart" :key="el.dish_id" class="row px-2 mb-2 align-items-center ">
+                    <div class="col-3 px-1">
+                        <div class="d-flex align-items-center justify-content-between">
+                            <button @click="removeDishCart(el.dish_id)" class="quantity-btn min">
                             -
-                        </button>
-                        <div class="me-2 quantity-wrap">
-                            {{ el.quantity }}
+                            </button>
+                            <div class="">
+                                {{ el.quantity }}
+                            </div>
+                            <button @click="addDishCart(el.dish_id)" class="quantity-btn plus">
+                                +
+                            </button>
                         </div>
-                        <button @click="addDishCart(el.dish_id)" class="quantity-btn plus">
-                            +
-                        </button>
+                       
                     </div>
-                    <div class="col">{{ el.name }}</div>
-                    <div class="col-3">{{ (el.price * el.quantity).toFixed(2) }} €</div>
+                    <div class="col px-1">{{ el.name }}</div>
+                    <div class="col-3 px-1 text-end">{{ (el.price * el.quantity).toFixed(2) }} €</div>
                 </div>
             </div>
 
@@ -46,8 +49,9 @@
             <img src="../assets/img/logo_food_pink.png" alt="logo">
         </div>
         <div class="border-top border-2 pt-2 pb-4 d-flex justify-content-between fw-bold">
-            Totale
-            <span>{{ this.store.cartTotalPrice.toFixed(2) }} €</span>
+            <span>Totale</span>
+            
+            <span class="text-end">{{ this.store.cartTotalPrice.toFixed(2) }} €</span>
         </div>
 
         <div v-if="this.$route.name !== 'checkout'" class="d-flex align-items-center justify-content-between my-2">
@@ -138,17 +142,14 @@ export default {
 @use '../assets/style/partials/variables.scss' as *;
 
 .card {
-    width: 350px;
+    width: 370px;
     box-shadow: -5px 3px 8px 3px rgba(0, 0, 0, 0.171);
     border: 0 !important;
-
+    .cart-items{
+        font-size: 0.9em;
+    }
     #cart {
         min-height: 300px;
-
-        .quantity-wrap {
-            text-align: center;
-            width: 20px;
-        }
 
         .quantity-btn {
             color: $color-white;
