@@ -3,7 +3,7 @@
     <section id="search-section">
 
         <div class="container">
-            <div class="text-center mb-5">
+            <div class="text-center mb-5 text-wrapper">
                 <h2 class="mb-3 fw-bold search-title">Di che cosa hai voglia <br> stasera?</h2>
                 <h5 class="mb-3 fs-2">Scopri tutte le nostre deliziose alternative</h5>
             </div>
@@ -33,6 +33,7 @@
                         :title="type.name" :image="type.image" @selectRestaurant="selectRestaurants(type, index)" />
                 </div>
             </div>
+            <!-- badges -->
             <div class="d-flex flex-wrap justify-content-center  d-xl-none pb-5">
                 <div class="m-1 p-2 type-badge" v-for="(type, index) in store.types"
                     @click="selectRestaurants(type, index)">
@@ -105,7 +106,7 @@ export default {
             this.notReady = true;
             setTimeout(() => {
                 this.notReady = false;
-            },1000);
+            }, 1000);
 
             // resettare i valori della multiselected
             let typeEl = document.querySelectorAll('.card-slider');
@@ -124,7 +125,7 @@ export default {
             this.notReady = true;
             setTimeout(() => {
                 this.notReady = false;
-            },1000);
+            }, 1000);
             // resettare i valori della multiselected
             let typeEl = document.querySelectorAll('.card-slider');
             for (let i = 0; i < typeEl.length; i++) {
@@ -154,7 +155,7 @@ export default {
             this.notReady = true;
             setTimeout(() => {
                 this.notReady = false;
-            },1000);
+            }, 1000);
             // resettare i valori della searchbar
             this.searchValue = '';
 
@@ -295,9 +296,11 @@ export default {
 
 .loader-wrapper {
     width: 200px;
+
     img {
         width: 100%;
         animation: loader 2s linear infinite;
+
         @keyframes loader {
             0% {
                 opacity: 1;
@@ -310,6 +313,23 @@ export default {
 
             100% {
                 opacity: 1;
+            }
+        }
+    }
+}
+
+// Iphone 13 Pro
+
+@media screen and (max-width: 390px) {
+
+    #search-section {
+        position: relative;
+        top: -10px;
+        padding-bottom: 0 !important;
+        .text-wrapper {
+            h2 {
+                font-size: 4rem !important;
+
             }
         }
     }

@@ -38,7 +38,7 @@
                     <h2 class="fw-bold about-title text-light align-second mb-3">
                         Puntualità e cortesia <br> al tuo servizio
                     </h2>
-                    <p class="fs-4 about-paragraph align-second pe-5">
+                    <p id="second-paragraph" class="fs-4 about-paragraph align-second pe-5">
                         Siamo veloci come un lampo! <br> Ordina qualsiasi cosa nella tua città e ricevila in pochi
                         minuti, segui la tua consegna in tempo reale. <br> Se sei interessato a far crescere il tuo
                         business con noi, visita il nostro sito.
@@ -88,4 +88,31 @@ export default {
         text-align: left;
     }
 
-}</style>
+}
+
+// Iphone 13 Pro
+
+@media screen and (max-width: 390px) {
+
+    .about-us-wrapper {
+        padding-top: 60px !important;
+
+        .about-title {
+            padding-top: 10px;
+            font-size: 3.5rem !important;
+            text-align: center;
+        }
+
+        .about-paragraph {
+            font-size: 1.5rem !important;
+            text-align: center;
+        }
+
+        #second-paragraph {
+            position: relative;
+            right: -20px;
+        }
+        
+    }
+}
+</style>

@@ -172,4 +172,38 @@ export default {
             bottom: -270px;
         }
     }
-}</style>
+}
+
+// Iphone 13 Pro
+
+@media screen and (max-width: 390px) {
+
+#hero {
+    .text-wrapper {
+        padding: 0;
+        text-align: center;
+
+        h1 {
+            font-size: 4rem !important;
+            padding-top: 10px !important;
+            padding-bottom: 20px !important;
+        }
+
+        p {
+            font-size: 1.5rem !important;
+            padding-bottom: 100px !important;
+        }
+    }
+
+    .yellow-wave-wrapper {
+        bottom: -5px;
+    }
+
+    .hero-img-alt {
+        width: 500px;
+        right: -50px;
+        bottom: -270px;
+    }
+}
+}
+</style>
