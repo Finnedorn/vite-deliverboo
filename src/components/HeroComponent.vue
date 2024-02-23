@@ -3,7 +3,7 @@
     <div id="hero" class="overflow-hidden">
         <div class="container-fluid pb-5">
             <div class="text-wrapper container py-5 mb-4">
-                <div class="row">
+                <div class="row py-2">
                     <h1 class="py-5 col-12 ">I piatti dei ristoranti che ami, <br> a domicilio</h1>
                     <p class="col-12 col-md-4">Trova le cucine più amate dai ristoranti nella tua zona e ordina online a
                         domicilio, il tutto consegnato in pochissimo tempo.</p>
@@ -100,7 +100,7 @@ export default {
 
     .yellow-wave-wrapper {
         position: relative;
-        bottom: -2px;
+        bottom: -4px;
         z-index: 100;
     }
 }
@@ -121,6 +121,9 @@ export default {
             width: 1000px;
             right: -500px;
             bottom: -180px;
+        }
+        .yellow-wave-wrapper {
+            bottom: -5px;
         }
     }
     
@@ -176,7 +179,7 @@ export default {
 
 // Iphone 13 Pro
 
-@media screen and (max-width: 390px) {
+@media screen and (max-width: 430px) {
 
 #hero {
     .text-wrapper {

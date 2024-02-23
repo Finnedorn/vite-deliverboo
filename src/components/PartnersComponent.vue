@@ -60,7 +60,7 @@ export default {
 
 // Iphone 13 Pro
 
-@media screen and (max-width: 390px) {
+@media screen and (max-width: 430px) {
 
     .text-wrapper {
         h2 {

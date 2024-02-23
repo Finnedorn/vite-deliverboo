@@ -62,7 +62,7 @@ export default {
     transform: scaleX(-1);
     position: relative;
     z-index: 1100;
-    bottom: -1px;
+    bottom: -3px;
 }
 
 .about-us-wrapper {
@@ -92,7 +92,7 @@ export default {
 
 // Iphone 13 Pro
 
-@media screen and (max-width: 390px) {
+@media screen and (max-width: 430px) {
 
     .about-us-wrapper {
         padding-top: 60px !important;
