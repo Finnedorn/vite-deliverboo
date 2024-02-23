@@ -33,7 +33,7 @@
         </div>
 
 
-        <div id="menu" class="col-12 col-lg-8 pe-md-5 position-relative ">
+        <div id="menu" class="col-12 col-lg-7 col-xl-8 position-relative pe-lg-5">
           <h3 class="fw-bold fs-2 mb-5">Menu</h3>
 
           <!-- <div id="popup" class="d-flex" v-if="popupMsg">
@@ -55,7 +55,7 @@
                 <div class="d-flex align-items-center mb-3">
                   <h5 class="fw-bold me-2">{{ dish.name }}</h5>
                   <h5 class="me-2">{{ dish.price }} €</h5>
-                  <button class="btn btn-checkout text-white fw-bold" @click="addMsg(dish)" v-if="dish.visible">
+                  <button class="btn btn-checkout text-white fw-bold" @click="addToCart(dish)" v-if="dish.visible">
                     <i class="fa-solid fa-plus"></i>
                   </button>
                 </div>
@@ -73,7 +73,7 @@
           </div>
         </div>
 
-        <div class="col-lg-4 d-none d-lg-block" id="fixedCart">
+        <div class="col-lg-5 col-xl-4 d-none d-lg-block" id="fixedCart">
           <CartComponent id="fixedChildCart"/>
         </div>
 
@@ -163,9 +163,7 @@ export default {
         });
     },
 
-    addMsg(dish) {
-      this.dishName = dish.name;
-      // this.popupMsg = true;
+    addMsg() {
       
       let badge = document.getElementById('fixedBadge');
       let childBadge = document.getElementById('badgeContent');
@@ -175,7 +173,6 @@ export default {
       setTimeout(() => {
         childBadge.classList.add('d-none');
       }, 1000);
-      this.addToCart(dish);
 
       childBadge.classList.remove('d-none');
       if (rectBadge <= 40) {
@@ -206,6 +203,7 @@ export default {
         //   .classList.remove("d-none");
         return;
       }
+      this.addMsg();
 
       if (newItem) {
         // console.log(newItem);
