@@ -22,7 +22,7 @@
                     Il tuo Ordine
                 </h3>
                 <div v-for="el in this.store.cart" :key="el.dish_id" class="row mb-2 align-items-center ">
-                    <div class="col-3 d-flex align-items-center">
+                    <div class="col-3 d-flex align-items-center justify-content-between">
                         <button @click="removeDishCart(el.dish_id)" class="quantity-btn min me-2">
                             -
                         </button>
@@ -154,13 +154,13 @@ export default {
             color: $color-white;
             background-color: $color-tertiary;
             border: none;
-            border-radius: 100px;
+            border-radius: 50%;
             font-weight: bold;
             font-size: 0.7rem;
         }
 
         .plus, .min {
-            width: 20px;
+            height: 20px;
             aspect-ratio: 1;
             display: flex;
             justify-content: center;

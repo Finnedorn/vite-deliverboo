@@ -22,9 +22,27 @@
       </div>
     </div>
     <div id="restaurant-content" class="container mb-5">
-      <div class="row">
-        <div id="menu" class="col-12 col-lg-8 pe-md-5">
+      <div class="row position-relative ">
+
+        <!-- Modale aggiunta piatto al carrello -->
+        <div id="fixedBadge">
+          <div class="mx-auto rounded-5 w-full d-flex align-items-center d-none" id="badgeContent">
+            <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 60"><circle class="circle" cx="30" cy="30" r="30" fill="none"/><path class="check" fill="none" d="m12.5 28l10.0 13 24-22.2"/></svg>
+            <span class="text-white fw-bold  px-3">Il piatto selezionato <br> è stato aggiunto</span>
+          </div>
+        </div>
+
+
+        <div id="menu" class="col-12 col-lg-8 pe-md-5 position-relative ">
           <h3 class="fw-bold fs-2 mb-5">Menu</h3>
+
+          <!-- <div id="popup" class="d-flex" v-if="popupMsg">
+            <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 60"><circle class="circle" cx="30" cy="30" r="30" fill="none"/><path class="check" fill="none" d="m12.5 28l10.0 13 24-22.2"/></svg>
+
+            <h4 class=" ">gfsdgfsffdsfd</h4>
+          </div>   -->
+          
+          
           <div class="card mb-2 p-2 mb-3" v-for="(dish) in restaurant.dishes">
             <div v-if="!dish.visible" class="not-visible">
               <div>Esaurito</div>
@@ -37,7 +55,7 @@
                 <div class="d-flex align-items-center mb-3">
                   <h5 class="fw-bold me-2">{{ dish.name }}</h5>
                   <h5 class="me-2">{{ dish.price }} €</h5>
-                  <button class="btn btn-checkout text-white fw-bold" @click="addMsg(dish)">
+                  <button class="btn btn-checkout text-white fw-bold" @click="addMsg(dish)" v-if="dish.visible">
                     <i class="fa-solid fa-plus"></i>
                   </button>
                 </div>
@@ -50,15 +68,20 @@
                   <img :src="store.imagePath + dish.image" :alt="dish.name">
                 </div>
               </div>
+
             </div>
           </div>
         </div>
-        <CartComponent class="d-none d-lg-block col-lg-4" />
+
+        <div class="col-lg-4 d-none d-lg-block" id="fixedCart">
+          <CartComponent id="fixedChildCart"/>
+        </div>
+
       </div>
     </div>
 
     <!-- Modale aggiunta piatto al carrello -->
-    <div id="popup" class="modal d-block" tabindex="-1" role="dialog" v-if="popupMsg">
+    <!-- <div id="popup" class="modal d-block" tabindex="-1" role="dialog" v-if="popupMsg">
           <div class="modal-dialog" role="document">
               <div class="modal-content">
               <div class="modal-body text-center">
@@ -71,7 +94,7 @@
               </div>
           </div>
     </div>
-    <div class="modal-backdrop fade show" v-if="popupMsg"></div>
+    <div class="modal-backdrop fade show" v-if="popupMsg"></div> -->
 
 
     <!-- Modale errore ordine da due rostoranti diversi -->
@@ -121,9 +144,8 @@ export default {
       store,
       restaurant: null,
       showModal: false,
-      popupMsg: false,
+      // popupMsg: false,
       dishName:'',
-      //   dishData: null,
       notReady: true,
     };
   },
@@ -140,13 +162,27 @@ export default {
           }
         });
     },
+
     addMsg(dish) {
       this.dishName = dish.name;
-      this.popupMsg = true;
+      // this.popupMsg = true;
+      
+      let badge = document.getElementById('fixedBadge');
+      let childBadge = document.getElementById('badgeContent');
+      let rectBadge = badge.getBoundingClientRect().top;
+      console.log(rectBadge)
+      
       setTimeout(() => {
-        this.popupMsg = false;
+        childBadge.classList.add('d-none');
       }, 1000);
       this.addToCart(dish);
+
+      childBadge.classList.remove('d-none');
+      if (rectBadge <= 40) {
+        childBadge.classList.add('fixed-badge');
+      } else {
+        childBadge.classList.remove('fixed-badge');
+      }
       
     },
     addToCart(dish) {
@@ -172,13 +208,13 @@ export default {
       }
 
       if (newItem) {
-        console.log(newItem);
+        // console.log(newItem);
         newItem.quantity++;
 
         this.store.cartTotalPrice =
           JSON.parse(localStorage.cart_total) + JSON.parse(newItem.price);
       } else {
-        console.log(dish);
+        // console.log(dish);
         let cartItem = {
           name: dish.name,
           price: dish.price,
@@ -207,7 +243,31 @@ export default {
   mounted() {
     this.loading();
     this.getRestaurantData();
-    console.log(this.notReady);
+    // console.log(this.notReady);
+
+    window.addEventListener('scroll', function() {
+      let cart = document.getElementById('fixedCart');
+      let childCart = document.getElementById('fixedChildCart');
+      let rectCart = cart.getBoundingClientRect();
+
+      let badge = document.getElementById('fixedBadge');
+      let childBadge = document.getElementById('badgeContent');
+      this.rectBadge = badge.getBoundingClientRect().top;
+      
+      if (rectCart.top <= 40) {
+        childCart.classList.add('fixed-cart');
+      } else {
+        childCart.classList.remove('fixed-cart');
+      }
+
+      if (this.rectBadge <= 40) {
+        childBadge.classList.add('fixed-badge');
+      } else {
+        childBadge.classList.remove('fixed-badge');
+      }
+      
+    });
+
   }
 };
 </script>
@@ -310,6 +370,101 @@ export default {
     padding: 10px 40px;
     text-align: center;
   }
-
 }
+
+// badge add to cart
+#popup {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: translate(100%);
+}
+
+#badgeContent{
+  padding: 5px;
+  max-width: fit-content;
+  background-color: #FAC532;
+}
+
+.icon {
+  width: 40px;
+  height: 40px;
+  display: block;
+  border-radius: 50%;
+  stroke: $color-tertiary;
+  // margin: 50px auto;
+  -webkit-animation: bounceIcon 0.17s ease-in-out;
+  animation: bounceIcon 0.17s ease-in-out;
+  -webkit-animation-delay: 0.25s;
+  animation-delay: 0.25s;
+}
+
+.circle {
+  stroke-dasharray: 190;
+  stroke-dashoffset: 190;
+  stroke-width: 9;
+  stroke: $color-tertiary;
+  fill: none;
+  -webkit-animation: drawCircle 0.2s linear;
+  animation: drawCircle 0.2s linear;
+  -webkit-animation-fill-mode: forwards;
+  animation-fill-mode: forwards;
+}
+
+.check {
+  stroke-width: 7;
+  stroke-dasharray: 120;
+  stroke-dashoffset: 120;
+  -webkit-animation: drawCheckmark 0.2s cubic-bezier(0.89, 0.09, 0.91, 0.67);
+  animation: drawCheckmark 0.2s cubic-bezier(0.89, 0.09, 0.91, 0.67) forwards;
+  -webkit-animation-delay: 0.2s;
+  animation-delay: 0.2s;
+}
+
+@keyframes drawCircle {
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes drawCheckmark {
+  100% {
+    opacity: 1;
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes bounceIcon {
+  0% {
+    transform: none;
+  }
+  50% {
+    transform: scale3D(0.9, 0.9, 1);
+  }
+  100% {
+    transform: none;
+  }
+}
+
+#fixedBadge {
+  position: absolute;
+  // left: 50%;
+  // transform: translate(-50%, -20%);
+  z-index: 100;
+}
+
+.fixed-cart {
+  position: fixed !important;
+  top: 40px;
+  padding: 10px;
+}
+
+.fixed-badge {
+  position: fixed !important;
+  top: 40px;
+  left: 50%;
+  transform: translate(-50%);
+  padding: 10px;
+}
+
 </style>
