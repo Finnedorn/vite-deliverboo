@@ -31,9 +31,13 @@ export default {
             store
         };
     },
+
     methods: {
     },
+    
     mounted() {
+        this.store.cartShow = false;
+        this.store.selectedRestaurants = [];
     }
 }
 </script>

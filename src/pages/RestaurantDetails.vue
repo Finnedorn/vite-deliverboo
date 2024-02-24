@@ -243,25 +243,33 @@ export default {
     this.getRestaurantData();
     // console.log(this.notReady);
 
-    window.addEventListener('scroll', function() {
-      let cart = document.getElementById('fixedCart');
-      let childCart = document.getElementById('fixedChildCart');
-      let rectCart = cart.getBoundingClientRect();
 
-      let badge = document.getElementById('fixedBadge');
-      let childBadge = document.getElementById('badgeContent');
-      this.rectBadge = badge.getBoundingClientRect().top;
-      
-      if (rectCart.top <= 40) {
-        childCart.classList.add('fixed-cart');
-      } else {
-        childCart.classList.remove('fixed-cart');
+    window.addEventListener('scroll', function() {
+
+      let cart = document.getElementById('fixedCart');
+
+      if (cart) {
+        let childCart = document.getElementById('fixedChildCart');
+        let rectCart = cart.getBoundingClientRect();
+        
+        if (rectCart.top <= 40) {
+          childCart.classList.add('fixed-cart');
+        } else {
+          childCart.classList.remove('fixed-cart');
+        }
       }
 
-      if (this.rectBadge <= 40) {
-        childBadge.classList.add('fixed-badge');
-      } else {
-        childBadge.classList.remove('fixed-badge');
+      let badge = document.getElementById('fixedBadge');
+
+      if (badge) {
+        let childBadge = document.getElementById('badgeContent');
+        this.rectBadge = badge.getBoundingClientRect().top;
+  
+        if (this.rectBadge <= 40) {
+          childBadge.classList.add('fixed-badge');
+        } else {
+          childBadge.classList.remove('fixed-badge');
+        }
       }
       
     });
