@@ -5,9 +5,12 @@
             <div class="d-flex justify-content-between align-items-center py-2 px-4 w-100">
 
                 <!-- logo -->
-                <div id="logo" class="py-2 mx-1 me-3">
+                <div class="py-2 mx-1 me-3">
                     <router-link :to="{ name: 'home' }">
-                        <img src="../assets/img/logo_food_red.png" alt="deliverboo-logo" />
+                        <div id="logo" class="d-flex align-items-center">
+                            <img src="../assets/img/logo_food_red.png" alt="deliverboo-logo" />
+                            <span class="d-none d-sm-block fs-2 fw-bold">eliveboo</span>
+                        </div>
                     </router-link>
                 </div>
 
@@ -161,6 +164,9 @@ nav {
             transform: scale(1.15);
             transition: all 0.5s;
         }
+        span{
+            color: $color-secondary;
+        }
 
     }
 
@@ -242,6 +248,7 @@ nav {
                 }
             }
         }
+
     }
 }
 </style>
