@@ -57,7 +57,7 @@
                 </button>
                 <div class="d-flex flex-wrap align-items-center mb-1">
                   <h5 class="fw-bold me-2">{{ dish.name }}</h5>
-                  <h5 class="me-2">{{ dish.price }} €</h5>
+                  <h5 class="me-2">{{ dish.price.replace('.',',') }} €</h5>
                   <!-- <button class="btn btn-checkout text-white fw-bold" @click="addToCart(dish)" v-if="dish.visible">
                     <i class="fa-solid fa-plus"></i>
                   </button> -->
