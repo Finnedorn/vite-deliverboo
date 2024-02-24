@@ -204,7 +204,7 @@ export default {
 
     .hero-img-alt {
         width: 500px;
-        right: -50px;
+        right: -37px;
         bottom: -270px;
     }
 }

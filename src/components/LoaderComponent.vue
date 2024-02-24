@@ -29,6 +29,7 @@ export default {
     top: 0;
     bottom: 0;
     z-index: 1500;
+    
 
     .loader-wrapper {
 
