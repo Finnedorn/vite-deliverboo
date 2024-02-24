@@ -40,8 +40,8 @@
                     </div>
                     <div class="col-6">
                       <label for="phone" class="form-label">Numero di telefono *</label>
-                      <input v-model="phone" type="number" class="form-control" id="phone" aria-describedby="phone" required/>
-                      <div class="invalid-feedback">Questo campo è obbligatorio</div>
+                      <input v-model="phone" type="text" class="form-control" id="phone" aria-describedby="phone" pattern="[0-9]{10}" maxlength="10" required/>
+                      <div class="invalid-feedback">Numero non valido</div>
                     </div>
                   </div>
 
