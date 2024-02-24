@@ -37,7 +37,7 @@
                        
                     </div>
                     <div class="col px-1">{{ el.name }}</div>
-                    <div class="col-3 px-1 text-end">{{ (el.price * el.quantity).toFixed(2) }} €</div>
+                    <div class="col-3 px-1 text-end">{{ (el.price * el.quantity).toFixed(2).replace('.',',') }} €</div>
                 </div>
             </div>
 
@@ -51,7 +51,7 @@
         <div class="border-top border-2 pt-2 pb-4 d-flex justify-content-between fw-bold">
             <span>Totale</span>
             
-            <span class="text-end">{{ this.store.cartTotalPrice.toFixed(2) }} €</span>
+            <span class="text-end">{{ this.store.cartTotalPrice.toFixed(2).replace('.',',') }} €</span>
         </div>
 
         <div v-if="this.$route.name !== 'checkout'" class="d-flex align-items-center justify-content-between my-2">
