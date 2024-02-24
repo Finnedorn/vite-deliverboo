@@ -26,7 +26,7 @@
 
         <!-- Modale aggiunta piatto al carrello -->
         <div id="fixedBadge">
-          <div class="mx-auto rounded-5 w-full d-flex align-items-center d-none" id="badgeContent">
+          <div class="mx-auto rounded-5 d-flex align-items-center d-none" id="badgeContent">
             <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 60"><circle class="circle" cx="30" cy="30" r="30" fill="none"/><path class="check" fill="none" d="m12.5 28l10.0 13 24-22.2"/></svg>
             <span class="text-white fw-bold  px-3">Il piatto selezionato <br> è stato aggiunto</span>
           </div>
@@ -42,7 +42,7 @@
             <h4 class=" ">gfsdgfsffdsfd</h4>
           </div>   -->
           
-          
+          <!-- dish card -->
           <div class="card mb-2 p-2 mb-3" v-for="(dish) in restaurant.dishes">
             <div v-if="!dish.visible" class="not-visible">
               <div>Esaurito</div>
@@ -50,23 +50,31 @@
 
             <!-- menu con funzione per aprire modale al click -->
             <!-- <div class="card mb-2 p-2 mb-3" v-for="(dish) in restaurant.dishes" @click="openDishModal(dish)"> -->
-            <div class="d-flex justify-content-between">
-              <div class="card-left me-5">
-                <div class="d-flex align-items-center mb-3">
+            <div class="d-flex justify-content-between align-items-center">
+              <div class="card-left me-5 d-flex align-items-center">
+                <button class="d-none d-md-block btn btn-checkout text-white fw-bold text-center me-3 " @click="addToCart(dish)" v-if="dish.visible">
+                  <i class="fa-solid fa-plus"></i>
+                </button>
+                <div class="d-flex flex-wrap align-items-center mb-1">
                   <h5 class="fw-bold me-2">{{ dish.name }}</h5>
                   <h5 class="me-2">{{ dish.price }} €</h5>
-                  <button class="btn btn-checkout text-white fw-bold" @click="addToCart(dish)" v-if="dish.visible">
+                  <!-- <button class="btn btn-checkout text-white fw-bold" @click="addToCart(dish)" v-if="dish.visible">
                     <i class="fa-solid fa-plus"></i>
-                  </button>
+                  </button> -->
+                  <p class="w-100 card-dish-p">{{ dish.ingredients }}</p>
                 </div>
-                <p class="">{{ dish.ingredients }}</p>
 
               </div>
 
-              <div class="card-right">
-                <div class="dish-img">
-                  <img :src="store.imagePath + dish.image" :alt="dish.name">
+              <div class="d-flex justify-content-sm-between flex-column flex-sm-row align-items-center">
+                <div class="card-right">
+                  <div class="dish-img">
+                    <img :src="store.imagePath + dish.image" :alt="dish.name">
+                  </div>
                 </div>
+                <button class="d-md-none btn btn-checkout text-white fw-bold ms-sm-2 mt-2 mt-sm-0" @click="addToCart(dish)" v-if="dish.visible">
+                  <i class="fa-solid fa-plus"></i>
+                </button>
               </div>
 
             </div>
@@ -324,6 +332,10 @@ export default {
   }
 }
 
+.card-dish-p {
+  font-size: 0.9rem;
+}
+
 #restaurant-content {
   margin-top: 8rem;
 }
@@ -348,11 +360,18 @@ export default {
 
 .btn-checkout {
   background-color: $color-primary;
+  width: 40px;
+  height: 100px;
+  border-radius: 10px;
 
   &:hover {
     cursor: pointer;
     transform: scale(1.08);
     transition: all 0.3s;
+  }
+
+  @media screen and (max-width: 575px) {
+    width: 100px;
   }
 }
 .not-visible{
@@ -468,8 +487,11 @@ export default {
 .fixed-badge {
   position: fixed !important;
   top: 40px;
-  left: 50%;
-  transform: translate(-50%);
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  // transform: translate(-50%);
+  // left: 50%;
   padding: 10px;
 }
 
