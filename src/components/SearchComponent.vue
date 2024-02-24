@@ -59,7 +59,7 @@
                     in base alla tua ricerca
                 </p>
                 <p class="mb-3 text-center fs-4 "
-                    v-if="this.store.selectedRestaurants.length === 0 && this.selectedType && this.store.dataLoading || this.store.selectedRestaurants.length === 0 && this.searchValue">
+                    v-if="this.store.selectedRestaurants.length === 0 && this.selectedType.length && this.store.dataLoading || this.store.selectedRestaurants.length === 0 && this.searchValue">
                     Non sono stati trovati risultati
                 </p>
                 <!-- <p v-else v-show="this.store.selectedRestaurants.length > 0 && !this.searchValue">Ci sono {{
@@ -101,6 +101,7 @@ export default {
             notReady: false,
         };
     },
+
     methods: {
         searchNameRestaurant() {
             this.notReady = true;
